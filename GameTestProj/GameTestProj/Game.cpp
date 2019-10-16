@@ -6,7 +6,6 @@ Game::Game()
 	_isRunning = false;
 	_dir = 0;
 	_draw = 0;
-	_item = nullptr;
 }
 
 Game::~Game()
@@ -22,7 +21,8 @@ void Game::Init()
 	Board plBoard = newPlayer.GetBoard();
 	_board = plBoard;
 	plBoard.Display();
-	_item = new Item("Shield", 1);
+	// Item tmp("Shield", 1, 3, 5);
+	//_item = tmp;
 	_isRunning = true;
 }
 
@@ -56,15 +56,33 @@ void Game::Update()
 	{
 	case 1:
 		_player.MoveObject(0, -1);
+		if (_player.GetPickedFlag()) {
+			_player.SetPickedFlag(false);
+			Inventory temp_inv = _player.GetInventory();
+			temp_inv.AddItem(Item("Shield",1,3,5));
+			_player.SetInventory(temp_inv);
+		}
 		break;
 	case 2:
 		_player.MoveObject(1, 0);
+		if (_player.GetPickedFlag()) {
+			_player.SetPickedFlag(false);
+			_player.GetInventory().AddItem(Item("Shield", 1, 3, 5));
+		}
 		break;
 	case 3:
 		_player.MoveObject(0, 1);
+		if (_player.GetPickedFlag()) {
+			_player.SetPickedFlag(false);
+			_player.GetInventory().AddItem(Item("Shield", 1, 3, 5));
+		}
 		break;
 	case 4:
 		_player.MoveObject(-1, 0);
+		if (_player.GetPickedFlag()) {
+			_player.SetPickedFlag(false);
+			_player.GetInventory().AddItem(Item("Shield", 1, 3, 5));
+		}
 		break;
 	default:
 		break;
@@ -78,6 +96,7 @@ void Game::Render()
 		_draw = false;
 		_board = _player.GetBoard();
 		_board.Display();
+		_player.GetInventory().toString();
 	}
 }
 

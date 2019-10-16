@@ -7,7 +7,8 @@ class Item
 private:
 	std::string _name;
 	unsigned int _type;
-
+	int _posX;
+	int _posY;
 	void Generate();
 public:
 	Item(std::string name, unsigned int type, int x, int y);

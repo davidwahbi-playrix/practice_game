@@ -8,7 +8,7 @@ private:
 	int _dir;
 	Player _player;
 	Board _board;
-	Item* _item;
+	//Item _item;
 public:
 	Game();
 	~Game();

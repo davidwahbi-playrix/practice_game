@@ -8,6 +8,8 @@ Item::Item(std::string name, unsigned int type, int x, int y)
 {
 	this->_name = name;
 	this->_type = type;
+	this->_posX = x;
+	this->_posY = y;
 }
 
 Item::~Item()
