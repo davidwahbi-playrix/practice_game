@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "Weapon.h"
 class Game
 {
 private:
@@ -8,7 +9,7 @@ private:
 	int _dir;
 	Player _player;
 	Board _board;
-	//Item _item;
+	Weapon* _weapon;
 public:
 	Game();
 	~Game();
@@ -18,6 +19,7 @@ public:
 	void Update();
 	void Render();
 	void Clean();
+	void UpdatePlayerInventory();
 	bool Running();
 	bool Draw();
 };

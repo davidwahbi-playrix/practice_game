@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <Windows.h>
+#include <iostream>
 
 Game::Game()
 {
@@ -16,14 +17,13 @@ void Game::Init()
 {
 	Board board;
 	board.Load("Map.txt");
-	Player newPlayer(1, 1, 100, 10, "David2", board);
+	Player newPlayer(1, 1, 100, 10, 0, "David", board);
 	_player = newPlayer;
 	Board plBoard = newPlayer.GetBoard();
 	_board = plBoard;
 	plBoard.Display();
-	// Item tmp("Shield", 1, 3, 5);
-	//_item = tmp;
 	_isRunning = true;
+	 _weapon = new Weapon("Sword", 0, 3, 5, 10);
 }
 
 void Game::HandleEvents()
@@ -57,31 +57,26 @@ void Game::Update()
 	case 1:
 		_player.MoveObject(0, -1);
 		if (_player.GetPickedFlag()) {
-			_player.SetPickedFlag(false);
-			Inventory temp_inv = _player.GetInventory();
-			temp_inv.AddItem(Item("Shield",1,3,5));
-			_player.SetInventory(temp_inv);
+			this->UpdatePlayerInventory();
 		}
 		break;
 	case 2:
 		_player.MoveObject(1, 0);
 		if (_player.GetPickedFlag()) {
 			_player.SetPickedFlag(false);
-			_player.GetInventory().AddItem(Item("Shield", 1, 3, 5));
+			this->UpdatePlayerInventory();
 		}
 		break;
 	case 3:
 		_player.MoveObject(0, 1);
 		if (_player.GetPickedFlag()) {
-			_player.SetPickedFlag(false);
-			_player.GetInventory().AddItem(Item("Shield", 1, 3, 5));
+			this->UpdatePlayerInventory();
 		}
 		break;
 	case 4:
 		_player.MoveObject(-1, 0);
 		if (_player.GetPickedFlag()) {
-			_player.SetPickedFlag(false);
-			_player.GetInventory().AddItem(Item("Shield", 1, 3, 5));
+			this->UpdatePlayerInventory();
 		}
 		break;
 	default:
@@ -96,12 +91,23 @@ void Game::Render()
 		_draw = false;
 		_board = _player.GetBoard();
 		_board.Display();
-		_player.GetInventory().toString();
+		if (_player.GetInventory().Size() > 0)
+		{
+			std::cout << _player.GetInventory().toString() << "\n";
+		}
 	}
 }
 
 void Game::Clean()
 {
+}
+
+void Game::UpdatePlayerInventory()
+{
+	_player.SetPickedFlag(false);
+	Inventory tmp = _player.GetInventory();
+	tmp.AddItem(*_weapon);
+	_player.SetInventory(tmp);
 }
 
 bool Game::Running()

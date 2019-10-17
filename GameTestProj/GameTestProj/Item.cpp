@@ -17,21 +17,22 @@ Item::~Item()
 
 }
 
-const std::string& Item::GetName()
+const std::string& Item::GetName() const
 {
 	return this->_name;
 }
 
-const unsigned int& Item::GetType()
+const unsigned int& Item::GetType() const
 {
 	return this->_type;
 }
 
-const std::string Item::toString() const
+int Item::GetPosX() const
 {
-	std::stringstream ss;
+	return _posX;
+}
 
-	ss << "Name: " << this->_name << "| Type: " << this->_type << "\n";
-
-	return ss.str();
+int Item::GetPosY() const
+{
+	return _posY;
 }

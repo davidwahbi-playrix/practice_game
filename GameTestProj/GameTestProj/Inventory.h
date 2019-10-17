@@ -13,16 +13,17 @@ private:
 	void Expand();
 public:
 	Inventory(unsigned int cap=10);
-	Inventory(const Inventory* other);
+	Inventory(const Inventory& other);
 	~Inventory();
 
-	void AddItem(const Item& item);
+	void AddItem(Item& item);
 	void RemoveItem(const unsigned index);
 
 	const unsigned int& Capacity() const;
 	const unsigned int& Size() const;
 	Item& At(const unsigned int index);
 
+	void operator = (const Inventory& other);
 	Item& operator[](const unsigned int index);
 	std::string toString() const;
 };

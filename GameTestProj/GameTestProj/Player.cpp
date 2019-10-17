@@ -1,15 +1,19 @@
 #include "Player.h"
 #include <sstream>
+#include<iostream>
 
 Player::Player()
 {
 }
 
-Player::Player( const int x, const int y, int health, int damage, std::string name, Board board) : MovableObject( x, y, health, damage)
+Player::Player( const int x, const int y, int health, int damage, int armor, std::string name, Board board) : MovableObject( x, y, health, damage)
 {
-	_playerName = name;
-	_playerBoard = board;
-	_itemPickedFlag = false;
+	this->_playerName = name;
+	this->_playerBoard = board;
+	this->_itemPickedFlag = false;
+	this->_health = health;
+	this->_damage = damage;
+	this->_armor = armor;
 }
 
 void Player::MoveObject(int vertical, int horizontal)
@@ -57,7 +61,7 @@ void Player::MoveObject(int vertical, int horizontal)
 
 Board Player::GetBoard()
 {
-	return _playerBoard;
+	return this->_playerBoard;
 }
 
 Inventory& Player::GetInventory()
@@ -72,23 +76,44 @@ void Player::SetInventory(Inventory inventory)
 
 void Player::SetBoard(Board board)
 {
-	_playerBoard = board;
+	this->_playerBoard = board;
 }
 
 void Player::SetPickedFlag(bool flag)
 {
-	_itemPickedFlag = flag;
+	this->_itemPickedFlag = flag;
 }
 
 bool Player::GetPickedFlag()
 {
-	return _itemPickedFlag;
+	return this->_itemPickedFlag;
 }
 
-void Player::DisplayName()
+const std::string& Player::GetName() const
 {
-	std::stringstream buffer;
-	buffer << _playerName << std::endl;
+	return this->_playerName;
+}
+
+void Player::AddDamage(int value)
+{
+	this->_health += value;
+}
+
+void Player::AddArmor(int value)
+{
+	this->_armor += value;
+}
+
+void Player::AddHealth(int value)
+{
+	this->_health += value;
+}
+
+const std::string Player::toString() const
+{
+	std::stringstream ss;
+	ss << this->GetName() << " | Health: " << this->_health << " | Damage: " << this->_damage << " | Armor: " << this->_armor;
+	return ss.str();
 }
 
 Player::~Player()

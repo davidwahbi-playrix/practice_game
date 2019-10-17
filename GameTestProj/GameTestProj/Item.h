@@ -14,9 +14,12 @@ public:
 	Item(std::string name, unsigned int type, int x, int y);
 	~Item();
 
-	const std::string& GetName();
-	const unsigned int& GetType();
+	const std::string& GetName() const;
+	const unsigned int& GetType() const;
+	int GetPosX() const;
+	int GetPosY() const;
 
-	const std::string toString() const;
+	virtual Item* Clone() = 0;
+	virtual const std::string toString() const = 0;
 };
 

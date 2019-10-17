@@ -37,17 +37,17 @@ Inventory::Inventory(unsigned int cap)
 	this->Init();
 }
 
-Inventory::Inventory(const Inventory* other)
+Inventory::Inventory(const Inventory& other)
 {
-	this->_cap = other->_cap;
-	this->_numOfItems = other->_numOfItems;
+	this->_cap = other._cap;
+	this->_numOfItems = other._numOfItems;
 
 	this->_items = new Item * [this->_cap];
 	this->Init();
 
 	for (size_t i = 0; i < this->_numOfItems; i++)
 	{
-		this->_items[i] = new Item(*other->_items[i]);
+		this->_items[i] = other._items[i]->Clone();
 	}
 }
 
@@ -61,14 +61,14 @@ Inventory::~Inventory()
 	delete [] this->_items;
 }
 
-void Inventory::AddItem(const Item& item)
+void Inventory::AddItem( Item& item)
 {
 	if (this->_numOfItems >= this->_cap)
 	{
 		this->Expand();
 	}
 
-	this->_items[this->_numOfItems++] = new Item(item);
+	this->_items[this->_numOfItems++] = item.Clone();
 }
 
 void Inventory::RemoveItem(const unsigned index)
@@ -96,6 +96,28 @@ Item& Inventory::At(const unsigned int index)
 	{
 		return *(this->_items[index]);
 	}
+}
+
+void Inventory::operator=(const Inventory& other)
+{
+	if (this != &other) {
+		for (size_t i = 0; i < this->_numOfItems; i++)
+		{
+			delete this->_items[i];
+		}
+		delete[] this->_items;
+
+		this->_cap = other._cap;
+		this->_numOfItems = other._numOfItems;
+		this->_items = new Item * [this->_cap];
+		this->Init();
+
+		for (size_t i = 0; i < this->_numOfItems; i++)
+		{
+			this->_items[i] = other._items[i]->Clone();
+		}
+	}
+
 }
 
 Item& Inventory::operator[](const unsigned int index)
