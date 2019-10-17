@@ -27,6 +27,6 @@ Weapon* Weapon::Clone()
 const std::string Weapon::toString() const
 {
 	std::stringstream ss;
-	ss << this->GetName() << " | Type: " << this->GetType() << " | Damage: " << this->_damage;
+	ss << "Weapon: " << this->GetName() << " | Type: " << this->GetType() << " | Damage: " << this->_damage;
 	return ss.str();
 }

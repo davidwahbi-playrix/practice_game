@@ -1,6 +1,7 @@
 #pragma once
 #include "Player.h"
 #include "Weapon.h"
+#include "Armor.h"
 class Game
 {
 private:
@@ -10,6 +11,7 @@ private:
 	Player _player;
 	Board _board;
 	Weapon* _weapon;
+	Armor* _armor;
 public:
 	Game();
 	~Game();

@@ -7,6 +7,8 @@ Game::Game()
 	_isRunning = false;
 	_dir = 0;
 	_draw = 0;
+	_weapon = nullptr;
+	_armor = nullptr;
 }
 
 Game::~Game()
@@ -24,6 +26,7 @@ void Game::Init()
 	plBoard.Display();
 	_isRunning = true;
 	 _weapon = new Weapon("Sword", 0, 3, 5, 10);
+	 _armor = new Armor("Shield", 1, 1, 8, 20);
 }
 
 void Game::HandleEvents()
@@ -106,7 +109,15 @@ void Game::UpdatePlayerInventory()
 {
 	_player.SetPickedFlag(false);
 	Inventory tmp = _player.GetInventory();
-	tmp.AddItem(*_weapon);
+	if (_player.GetPosX() == _weapon->GetPosX() && _player.GetPosY() == _weapon->GetPosY())
+	{
+		tmp.AddItem(*_weapon);
+	}
+	if (_player.GetPosX() == _armor->GetPosX() && _player.GetPosY() == _armor->GetPosY())
+	{
+		tmp.AddItem(*_armor);
+	}
+	
 	_player.SetInventory(tmp);
 }
 
