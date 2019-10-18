@@ -4,6 +4,10 @@
 
 Player::Player()
 {
+	this->_itemPickedFlag = false;
+	this->_health = 100;
+	this->_damage = 5;
+	this->_armor = 0;
 }
 
 Player::Player( const int x, const int y, int health, int damage, int armor, std::string name, Board board) : MovableObject( x, y, health, damage)

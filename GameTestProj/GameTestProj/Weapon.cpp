@@ -1,6 +1,6 @@
 #include "Weapon.h"
 
-Weapon::Weapon(std::string name, unsigned int type, int x, int y, int damage):EquipableItem(name,0,x,y)
+Weapon::Weapon(std::string name, unsigned int subType, int x, int y, int damage):EquipableItem(name,item_types::EQUIPABLE, subType,x,y)
 {
 	this->_damage = damage;
 }
@@ -27,6 +27,6 @@ Weapon* Weapon::Clone()
 const std::string Weapon::toString() const
 {
 	std::stringstream ss;
-	ss << "Weapon: " << this->GetName() << " | Type: " << this->GetType() << " | Damage: " << this->_damage;
+	ss << "Weapon: " << this->GetName() << " | Type: " << this->GetTypeAsString() << " | SubType: " << this->GetSubTypeAsString() << " | Damage: " << this->_damage;
 	return ss.str();
 }

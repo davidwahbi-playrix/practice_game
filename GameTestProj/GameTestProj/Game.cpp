@@ -7,14 +7,10 @@ Game::Game()
 	_isRunning = false;
 	_dir = 0;
 	_draw = 0;
-	//_weapon = nullptr;
-	//_armor = nullptr;
 }
 
 Game::~Game()
 {
-	//delete _weapon;
-	//delete _armor;
 }
 
 void Game::Init()
@@ -27,12 +23,11 @@ void Game::Init()
 	_board = plBoard;
 	plBoard.Display();
 
-	_gameItems.AddItem(Weapon("Sword", 0, 3, 5, 10));
-	_gameItems.AddItem(Armor("Shield", 0, 1, 8, 20));
+	_gameItems.AddItem(Weapon("Sword",1, 3, 5, 10));
+	_gameItems.AddItem(Armor("Shield",0, 1, 8, 20));
+	_gameItems.AddItem(HealthPotion("Heal", 2, 4, 2, 50));
 
 	_isRunning = true;
-	// _weapon = new Weapon("Sword", 0, 3, 5, 10);
-	// _armor = new Armor("Shield", 1, 1, 8, 20);
 }
 
 void Game::HandleEvents()

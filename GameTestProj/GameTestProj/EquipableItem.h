@@ -4,8 +4,9 @@ class EquipableItem :
 	public Item
 {
 private:
+	unsigned int _eqType;
 public:
-	EquipableItem(std::string name, unsigned int type, int x, int y);
+	EquipableItem(std::string name,unsigned int type, unsigned int subType, int x, int y);
 	~EquipableItem();
 
 	virtual const int GetDamageValue() = 0;

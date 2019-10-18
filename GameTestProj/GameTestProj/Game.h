@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Weapon.h"
 #include "Armor.h"
+#include "HealthPotion.h"
 class Game
 {
 private:

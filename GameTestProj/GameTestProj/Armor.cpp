@@ -1,6 +1,6 @@
 #include "Armor.h"
 
-Armor::Armor(std::string name, unsigned int type, int x, int y, int armor) :EquipableItem(name, 0, x, y)
+Armor::Armor(std::string name, unsigned int subType, int x, int y, int armor) :EquipableItem(name,item_types::EQUIPABLE, subType, x, y)
 {
 	this->_armor = armor;
 }
@@ -27,6 +27,6 @@ Armor* Armor::Clone()
 const std::string Armor::toString() const
 {
 	std::stringstream ss;
-	ss << "Armor: " << this->GetName() << " | Type: " << this->GetType() << " | Armor: " << this->_armor;
+	ss << "Armor: " << this->GetName() << " | Type: " << this->GetTypeAsString() << " | SubType: " << this->GetSubTypeAsString() << " | Armor: " << this->_armor;
 	return ss.str();
 }
