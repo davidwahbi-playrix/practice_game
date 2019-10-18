@@ -10,8 +10,9 @@ private:
 	int _dir;
 	Player _player;
 	Board _board;
-	Weapon* _weapon;
-	Armor* _armor;
+	Inventory _gameItems;
+	//Weapon* _weapon;
+	//Armor* _armor;
 public:
 	Game();
 	~Game();
@@ -22,6 +23,7 @@ public:
 	void Render();
 	void Clean();
 	void UpdatePlayerInventory();
+	unsigned int GetGameItemIndex(const int x, const int y);
 	bool Running();
 	bool Draw();
 };

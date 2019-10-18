@@ -7,12 +7,14 @@ Game::Game()
 	_isRunning = false;
 	_dir = 0;
 	_draw = 0;
-	_weapon = nullptr;
-	_armor = nullptr;
+	//_weapon = nullptr;
+	//_armor = nullptr;
 }
 
 Game::~Game()
 {
+	//delete _weapon;
+	//delete _armor;
 }
 
 void Game::Init()
@@ -24,9 +26,13 @@ void Game::Init()
 	Board plBoard = newPlayer.GetBoard();
 	_board = plBoard;
 	plBoard.Display();
+
+	_gameItems.AddItem(Weapon("Sword", 0, 3, 5, 10));
+	_gameItems.AddItem(Armor("Shield", 0, 1, 8, 20));
+
 	_isRunning = true;
-	 _weapon = new Weapon("Sword", 0, 3, 5, 10);
-	 _armor = new Armor("Shield", 1, 1, 8, 20);
+	// _weapon = new Weapon("Sword", 0, 3, 5, 10);
+	// _armor = new Armor("Shield", 1, 1, 8, 20);
 }
 
 void Game::HandleEvents()
@@ -66,7 +72,6 @@ void Game::Update()
 	case 2:
 		_player.MoveObject(1, 0);
 		if (_player.GetPickedFlag()) {
-			_player.SetPickedFlag(false);
 			this->UpdatePlayerInventory();
 		}
 		break;
@@ -109,16 +114,25 @@ void Game::UpdatePlayerInventory()
 {
 	_player.SetPickedFlag(false);
 	Inventory tmp = _player.GetInventory();
-	if (_player.GetPosX() == _weapon->GetPosX() && _player.GetPosY() == _weapon->GetPosY())
+	int index = GetGameItemIndex(_player.GetPosX(), _player.GetPosY());
+	if (index >= 0)
 	{
-		tmp.AddItem(*_weapon);
+		tmp.AddItem(_gameItems[index]);
+		_player.SetInventory(tmp);
 	}
-	if (_player.GetPosX() == _armor->GetPosX() && _player.GetPosY() == _armor->GetPosY())
+}
+
+unsigned int Game::GetGameItemIndex(const int x, const int y)
+{
+	int index = -1;
+	for (size_t i = 0; i < this->_gameItems.Size(); i++)
 	{
-		tmp.AddItem(*_armor);
+		if (_gameItems[i].GetPosX() == x && _gameItems[i].GetPosY() == y)
+		{
+			index = i;
+		 }
 	}
-	
-	_player.SetInventory(tmp);
+	return index;
 }
 
 bool Game::Running()

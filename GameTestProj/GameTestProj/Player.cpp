@@ -41,7 +41,7 @@ void Player::MoveObject(int vertical, int horizontal)
 		_playerBoard.SetElem(x, y, '@');
 	}
 
-	if (nextElem1 == '1') {
+	if (nextElem1 == 'i') {
 		_playerBoard.SetElem(x, y, ' ');
 		x += horizontal;
 		SetPosX(x);
@@ -50,24 +50,7 @@ void Player::MoveObject(int vertical, int horizontal)
 
 	}
 
-	if (nextElem2 == '1') {
-		_playerBoard.SetElem(x, y, ' ');
-		y += vertical;
-		SetPosY(y);
-		_playerBoard.SetElem(x, y, '@');
-		_itemPickedFlag = true;
-	}
-
-	if (nextElem1 == '2') {
-		_playerBoard.SetElem(x, y, ' ');
-		x += horizontal;
-		SetPosX(x);
-		_playerBoard.SetElem(x, y, '@');
-		_itemPickedFlag = true;
-
-	}
-
-	if (nextElem2 == '2') {
+	if (nextElem2 == 'i') {
 		_playerBoard.SetElem(x, y, ' ');
 		y += vertical;
 		SetPosY(y);
