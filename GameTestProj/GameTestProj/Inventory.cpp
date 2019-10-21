@@ -73,7 +73,12 @@ void Inventory::AddItem( Item& item)
 
 void Inventory::RemoveItem(const unsigned index)
 {
-
+	if (index < 0 || index >= this->_numOfItems)
+	{
+		cout << "OUT OF BOUNDS!" << endl;
+	}
+	delete this->_items[index];
+	this->_items[index] = this->_items[--this->_numOfItems];
 }
 
 const unsigned int& Inventory::Capacity() const
@@ -88,7 +93,7 @@ const unsigned int& Inventory::Size() const
 
 Item& Inventory::At(const unsigned int index)
 {
-	if (index < 0 || index > this->_numOfItems)
+	if (index < 0 || index >= this->_numOfItems)
 	{
 		cout << "OUT OF BOUNDS!" << endl;
 	}
@@ -130,6 +135,25 @@ Item& Inventory::operator[](const unsigned int index)
 	{
 		return *(this->_items[index]);
 	}
+}
+
+Item* Inventory::Replace(const unsigned index, Item* item)
+{
+	if (index < 0 || index >= this->_numOfItems)
+	{
+		cout << "OUT OF BOUNDS!" << endl;
+	}
+	Item* tmp_item = this->_items[index]->Clone();
+	delete this->_items[index];
+	if (item)
+	{
+		this->_items[index] = item->Clone();
+	}
+	else 
+	{
+		this->_items[index] = this->_items[--this->_numOfItems];
+	}
+	return tmp_item;
 }
 
 std::string Inventory::toString() const

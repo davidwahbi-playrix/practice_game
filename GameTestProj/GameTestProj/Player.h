@@ -3,7 +3,6 @@
 #include <string>
 #include "Board.h"
 #include "Inventory.h"
-#include "Weapon.h"
 
 class Player : public MovableObject
 {
@@ -14,11 +13,14 @@ private:
 	bool _itemPickedFlag;
 	int _health;
 	int _damage;
-	int _armor;
+	int _defence;
+	Weapon* _weapon;
+	Armor* _armor;
+
 public:
 	Player();
 	~Player();
-	Player( const int x, const int y, int health, int damage, int armor, std::string name, Board board);
+	Player( const int x, const int y, int health, int damage, int defence, std::string name, Board board);
 	void MoveObject(int vertical, int horizontal);
 	Inventory& GetInventory();
 	void SetInventory(Inventory inventory);
@@ -28,10 +30,14 @@ public:
 	bool GetPickedFlag();
 	Board GetBoard();
 	const std::string& GetName() const;
+	Weapon* GetWeapon();
+	Armor* GetArmor();
 
 	void AddDamage(int value);
-	void AddArmor(int value);
+	void AddDefence(int value);
 	void AddHealth(int value);
+	void SetWeapon(Weapon* weapon);
+	void SetArmor(Armor* armor);
 	const std::string toString() const;
 };
 

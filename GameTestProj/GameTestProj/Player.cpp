@@ -7,17 +7,21 @@ Player::Player()
 	this->_itemPickedFlag = false;
 	this->_health = 100;
 	this->_damage = 5;
-	this->_armor = 0;
+	this->_defence = 0;
+	this->_weapon = nullptr;
+	this->_armor = nullptr;
 }
 
-Player::Player( const int x, const int y, int health, int damage, int armor, std::string name, Board board) : MovableObject( x, y, health, damage)
+Player::Player( const int x, const int y, int health, int damage, int defence, std::string name, Board board) : MovableObject( x, y, health, damage)
 {
 	this->_playerName = name;
 	this->_playerBoard = board;
 	this->_itemPickedFlag = false;
 	this->_health = health;
 	this->_damage = damage;
-	this->_armor = armor;
+	this->_defence = defence;
+	this->_weapon = nullptr;
+	this->_armor = nullptr;
 }
 
 void Player::MoveObject(int vertical, int horizontal)
@@ -98,14 +102,24 @@ const std::string& Player::GetName() const
 	return this->_playerName;
 }
 
-void Player::AddDamage(int value)
+Weapon* Player::GetWeapon()
 {
-	this->_health += value;
+	return this->_weapon;
 }
 
-void Player::AddArmor(int value)
+Armor* Player::GetArmor()
 {
-	this->_armor += value;
+	return this->_armor;
+}
+
+void Player::AddDamage(int value)
+{
+	this->_damage += value;
+}
+
+void Player::AddDefence(int value)
+{
+	this->_defence += value;
 }
 
 void Player::AddHealth(int value)
@@ -113,13 +127,25 @@ void Player::AddHealth(int value)
 	this->_health += value;
 }
 
+void Player::SetWeapon(Weapon* weapon)
+{
+	this->_weapon = weapon;
+}
+
+void Player::SetArmor(Armor* armor)
+{
+	this->_armor = armor;
+}
+
 const std::string Player::toString() const
 {
 	std::stringstream ss;
-	ss << this->GetName() << " | Health: " << this->_health << " | Damage: " << this->_damage << " | Armor: " << this->_armor;
+	ss << this->GetName() << " | Health: " << this->_health << " | Damage: " << this->_damage <<  " | Armor: " << this->_defence;
 	return ss.str();
 }
 
 Player::~Player()
 {
+	delete this->_weapon;
+	delete this->_armor;
 }

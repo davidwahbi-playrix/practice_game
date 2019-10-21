@@ -2,6 +2,9 @@
 #include "Item.h"
 #include <string>
 #include <sstream>
+#include "Weapon.h"
+#include "Armor.h"
+#include "HealthPotion.h"
 class Inventory
 {
 private:
@@ -25,6 +28,7 @@ public:
 
 	void operator = (const Inventory& other);
 	Item& operator[](const unsigned int index);
+	Item* Replace(const unsigned index, Item* item);
 	std::string toString() const;
 };
 
