@@ -48,3 +48,10 @@ Board Enemy::GetBoard()
 {
 	return this->_enemyBoard;
 }
+
+const std::string Enemy::toString()
+{
+	std::stringstream ss;
+	ss << "Enemy: | Health: " << this->GetHealth() << " | Damage: " << this->GetDamage();
+	return ss.str();
+}

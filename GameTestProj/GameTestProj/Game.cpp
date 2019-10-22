@@ -9,10 +9,12 @@ Game::Game()
 	this->_draw = 0;
 	this->_equip = false;
 	this->_equipInd = 0;
+	this->_enemy = nullptr;
 }
 
 Game::~Game()
 {
+	delete this->_enemy;
 }
 
 void Game::Init()
@@ -20,9 +22,8 @@ void Game::Init()
 	Board board;
 	board.Load("Map.txt");
 	Player newPlayer(1, 1, 100, 10, 0, "David", board);
-	Enemy newEnemy(2, 12, 50, 5, board);
+	_enemy = new Enemy(2, 12, 50, 5, board);
 	this->_player = newPlayer;
-	this->_enemy = newEnemy;
 	Board plBoard = newPlayer.GetBoard();
 	this->_board = plBoard;
 	plBoard.Display();
@@ -86,36 +87,65 @@ void Game::Update()
 	{
 	case 1:
 		this->_player.MoveObject(0, -1);
-		this->_enemy.SetBoard(this->_player.GetBoard());
-		this->_enemy.MoveObject(0, -1);
-		this->_player.SetBoard(this->_enemy.GetBoard());
-		if (this->_player.GetPickedFlag()) {
+		if (this->_player.GetEnemyFlag())
+		{
+			this->Battle();
+		}
+		if (this->_enemy)
+		{
+			this->_enemy->SetBoard(this->_player.GetBoard());
+			this->_enemy->MoveObject(0, -1);
+			this->_player.SetBoard(this->_enemy->GetBoard());
+		}
+		if (this->_player.GetPickedFlag())
+		{
 			this->UpdatePlayerInventory();
 		}
 		break;
 	case 2:
 		this->_player.MoveObject(1, 0);
-		this->_enemy.SetBoard(this->_player.GetBoard());
-		this->_enemy.MoveObject(0, -1);
-		this->_player.SetBoard(this->_enemy.GetBoard());
+		if (this->_player.GetEnemyFlag())
+		{
+			this->Battle();
+		}
+		if (this->_enemy)
+		{
+			this->_enemy->SetBoard(this->_player.GetBoard());
+			this->_enemy->MoveObject(0, -1);
+			this->_player.SetBoard(this->_enemy->GetBoard());
+		}
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
-		}
+		}	
 		break;
 	case 3:
 		this->_player.MoveObject(0, 1);
-		this->_enemy.SetBoard(this->_player.GetBoard());
-		this->_enemy.MoveObject(0, 1);
-		this->_player.SetBoard(this->_enemy.GetBoard());
+		if (this->_player.GetEnemyFlag())
+		{
+			this->Battle();
+		}
+		if (this->_enemy)
+		{
+			this->_enemy->SetBoard(this->_player.GetBoard());
+			this->_enemy->MoveObject(0, 1);
+			this->_player.SetBoard(this->_enemy->GetBoard());
+		}
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
 		}
 		break;
 	case 4:
 		this->_player.MoveObject(-1, 0);
-		this->_enemy.SetBoard(this->_player.GetBoard());
-		this->_enemy.MoveObject(0, 1);
-		this->_player.SetBoard(this->_enemy.GetBoard());
+		if (this->_player.GetEnemyFlag())
+		{
+			this->Battle();
+		}
+		if (this->_enemy)
+		{
+			this->_enemy->SetBoard(this->_player.GetBoard());
+			this->_enemy->MoveObject(0, 1);
+			this->_player.SetBoard(this->_enemy->GetBoard());
+		}
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
 		}
@@ -158,6 +188,43 @@ void Game::UpdatePlayerInventory()
 	{
 		tmp.AddItem(_gameItems[index]);
 		this->_player.SetInventory(tmp);
+	}
+}
+
+void Game::Battle()
+{
+	this->_player.SetEnemyFlag(false);
+	bool exit = false;
+	std::cout << "Battle started!" << '\n';
+	while (!exit)
+	{
+		int tmpPlayerHP = this->_player.GetHealth();
+		int tmpEnemyHP = this->_enemy->GetHealth();
+		int tmpPlayerDamage = this->_player.GetDamage();
+		int tmpEnemyDamage = this->_enemy->GetDamage();
+		if (tmpPlayerHP - tmpEnemyDamage > 0)
+		{
+			this->_player.SetHealth(tmpPlayerHP - tmpEnemyDamage);
+			std::cout << "Enemy Attacks!" << '\n';
+			std::cout << this->_player.toString() << '\n';
+			if (tmpEnemyHP - tmpPlayerDamage > 0)
+			{
+				this->_enemy->SetHealth(tmpEnemyHP - tmpPlayerDamage);
+				std::cout << "Player Attacks!" << '\n';
+				std::cout << this->_enemy->toString() << '\n';
+				system("pause");
+			}
+			else {
+				std::cout << "Enemy KILLED!" << '\n';
+				exit = true;
+				delete this->_enemy;
+				this->_enemy = nullptr;
+			}
+		}
+		else {
+			std::cout << "You are DEAD!" << '\n';
+			exit = true;
+		}
 	}
 }
 

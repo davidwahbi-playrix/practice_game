@@ -1,10 +1,9 @@
 #include "Player.h"
-#include <sstream>
-#include<iostream>
 
 Player::Player()
 {
 	this->_itemPickedFlag = false;
+	this->_enemyEncounter = false;
 	this->_defence = 0;
 	this->_weapon = nullptr;
 	this->_armor = nullptr;
@@ -15,6 +14,7 @@ Player::Player( const int x, const int y, int health, int damage, int defence, s
 	this->_playerName = name;
 	this->_playerBoard = board;
 	this->_itemPickedFlag = false;
+	this->_enemyEncounter = false;
 	this->_defence = defence;
 	this->_weapon = nullptr;
 	this->_armor = nullptr;
@@ -61,6 +61,22 @@ void Player::MoveObject(int vertical, int horizontal)
 		_playerBoard.SetElem(x, y, '@');
 		_itemPickedFlag = true;
 	}
+	if (nextElem1 == 'e') {
+		_playerBoard.SetElem(x, y, ' ');
+		x += horizontal;
+		SetPosX(x);
+		_playerBoard.SetElem(x, y, '@');
+		_enemyEncounter = true;
+
+	}
+
+	if (nextElem2 == 'e') {
+		_playerBoard.SetElem(x, y, ' ');
+		y += vertical;
+		SetPosY(y);
+		_playerBoard.SetElem(x, y, '@');
+		_enemyEncounter = true;
+	}
 }
 
 Board Player::GetBoard()
@@ -88,9 +104,19 @@ void Player::SetPickedFlag(bool flag)
 	this->_itemPickedFlag = flag;
 }
 
+void Player::SetEnemyFlag(bool flag)
+{
+	this->_enemyEncounter = flag;
+}
+
 bool Player::GetPickedFlag()
 {
 	return this->_itemPickedFlag;
+}
+
+bool Player::GetEnemyFlag()
+{
+	return this->_enemyEncounter;
 }
 
 const std::string& Player::GetName() const
@@ -138,7 +164,7 @@ void Player::SetArmor(Armor* armor)
 const std::string Player::toString()
 {
 	std::stringstream ss;
-	ss << this->GetName() << " | Health: " << this->GetDamage() << " | Damage: " << this->GetDamage() <<  " | Armor: " << this->_defence;
+	ss << this->GetName() << " | Health: " << this->GetHealth() << " | Damage: " << this->GetDamage() <<  " | Armor: " << this->_defence;
 	return ss.str();
 }
 

@@ -1,4 +1,7 @@
 #pragma once
+#include <string>
+#include <sstream>
+#include <iostream>
 #include "MovableObject.h"
 #include "Board.h"
 class Enemy :
@@ -15,4 +18,6 @@ public:
 	void SetBoard(Board board);
 
 	Board GetBoard();
+
+	const std::string toString();
 };

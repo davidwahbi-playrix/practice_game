@@ -1,6 +1,8 @@
 #pragma once
 #include "MovableObject.h"
 #include <string>
+#include <sstream>
+#include <iostream>
 #include "Board.h"
 #include "Inventory.h"
 
@@ -11,6 +13,7 @@ private:
 	Board _playerBoard;
 	Inventory _inventory;
 	bool _itemPickedFlag;
+	bool _enemyEncounter;
 	int _defence;
 	Weapon* _weapon;
 	Armor* _armor;
@@ -24,8 +27,10 @@ public:
 	void SetInventory(Inventory inventory);
 	void SetBoard(Board board);
 	void SetPickedFlag(bool flag);
+	void SetEnemyFlag(bool flag);
 
 	bool GetPickedFlag();
+	bool GetEnemyFlag();
 	Board GetBoard();
 	const std::string& GetName() const;
 	Weapon* GetWeapon();

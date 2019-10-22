@@ -10,7 +10,7 @@ private:
 	int _dir;
 	int _equipInd;
 	Player _player;
-	Enemy _enemy;
+	Enemy* _enemy;
 	Board _board;
 	Inventory _gameItems;
 public:
@@ -23,6 +23,7 @@ public:
 	void Render();
 	void Clean();
 	void UpdatePlayerInventory();
+	void Battle();
 
 	void EquipItem(const int index);
 	unsigned int GetGameItemIndex(const int x, const int y);
