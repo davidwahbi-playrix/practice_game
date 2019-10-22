@@ -15,8 +15,8 @@ public:
 	void SetPosX(int x);
 	void SetPosY(int y);
 
-	int GetHealth();
-	int GetDamage();
+	const int GetHealth();
+	const int GetDamage();
 	void SetHealth(int health);
 	void SetDamage(int damage);
 

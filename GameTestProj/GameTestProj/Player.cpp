@@ -5,8 +5,6 @@
 Player::Player()
 {
 	this->_itemPickedFlag = false;
-	this->_health = 100;
-	this->_damage = 5;
 	this->_defence = 0;
 	this->_weapon = nullptr;
 	this->_armor = nullptr;
@@ -17,8 +15,6 @@ Player::Player( const int x, const int y, int health, int damage, int defence, s
 	this->_playerName = name;
 	this->_playerBoard = board;
 	this->_itemPickedFlag = false;
-	this->_health = health;
-	this->_damage = damage;
 	this->_defence = defence;
 	this->_weapon = nullptr;
 	this->_armor = nullptr;
@@ -114,7 +110,8 @@ Armor* Player::GetArmor()
 
 void Player::AddDamage(int value)
 {
-	this->_damage += value;
+	int damage = this->GetDamage() + value;
+	this->SetDamage(damage);
 }
 
 void Player::AddDefence(int value)
@@ -124,7 +121,8 @@ void Player::AddDefence(int value)
 
 void Player::AddHealth(int value)
 {
-	this->_health += value;
+	int health = this->GetHealth() + value;
+	this->SetHealth(health);
 }
 
 void Player::SetWeapon(Weapon* weapon)
@@ -137,10 +135,10 @@ void Player::SetArmor(Armor* armor)
 	this->_armor = armor;
 }
 
-const std::string Player::toString() const
+const std::string Player::toString()
 {
 	std::stringstream ss;
-	ss << this->GetName() << " | Health: " << this->_health << " | Damage: " << this->_damage <<  " | Armor: " << this->_defence;
+	ss << this->GetName() << " | Health: " << this->GetDamage() << " | Damage: " << this->GetDamage() <<  " | Armor: " << this->_defence;
 	return ss.str();
 }
 

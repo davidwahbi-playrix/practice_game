@@ -3,7 +3,7 @@ class Board
 {
 private:
 	static const int _mRowCount = 7;
-	static const int _mColCount = 11;
+	static const int _mColCount = 18;
 	char _mFields[_mRowCount][_mColCount];
 public:
 	Board();

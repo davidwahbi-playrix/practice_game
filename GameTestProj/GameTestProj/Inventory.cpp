@@ -127,7 +127,7 @@ void Inventory::operator=(const Inventory& other)
 
 Item& Inventory::operator[](const unsigned int index)
 {
-	if (index < 0 || index > this->_numOfItems)
+	if (index < 0 || index >= this->_numOfItems)
 	{
 		cout << "OUT OF BOUNDS!" << endl;
 	}

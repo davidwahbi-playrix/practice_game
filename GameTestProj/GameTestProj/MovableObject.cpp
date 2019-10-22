@@ -38,12 +38,12 @@ void MovableObject::SetPosY(int y)
 	this->_posY = y;
 }
 
-int MovableObject::GetHealth()
+const int MovableObject::GetHealth()
 {
 	return this->_health;
 }
 
-int MovableObject::GetDamage()
+const int MovableObject::GetDamage()
 {
 	return this->_damage;
 }

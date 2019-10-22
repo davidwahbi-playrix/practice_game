@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "Enemy.h"
 class Game
 {
 private:
@@ -9,10 +10,9 @@ private:
 	int _dir;
 	int _equipInd;
 	Player _player;
+	Enemy _enemy;
 	Board _board;
 	Inventory _gameItems;
-	//Weapon* _weapon;
-	//Armor* _armor;
 public:
 	Game();
 	~Game();
@@ -23,6 +23,7 @@ public:
 	void Render();
 	void Clean();
 	void UpdatePlayerInventory();
+
 	void EquipItem(const int index);
 	unsigned int GetGameItemIndex(const int x, const int y);
 	bool Running();

@@ -11,8 +11,6 @@ private:
 	Board _playerBoard;
 	Inventory _inventory;
 	bool _itemPickedFlag;
-	int _health;
-	int _damage;
 	int _defence;
 	Weapon* _weapon;
 	Armor* _armor;
@@ -38,6 +36,6 @@ public:
 	void AddHealth(int value);
 	void SetWeapon(Weapon* weapon);
 	void SetArmor(Armor* armor);
-	const std::string toString() const;
+	const std::string toString();
 };
 

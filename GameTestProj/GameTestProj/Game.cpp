@@ -20,7 +20,9 @@ void Game::Init()
 	Board board;
 	board.Load("Map.txt");
 	Player newPlayer(1, 1, 100, 10, 0, "David", board);
+	Enemy newEnemy(2, 12, 50, 5, board);
 	this->_player = newPlayer;
+	this->_enemy = newEnemy;
 	Board plBoard = newPlayer.GetBoard();
 	this->_board = plBoard;
 	plBoard.Display();
@@ -84,24 +86,36 @@ void Game::Update()
 	{
 	case 1:
 		this->_player.MoveObject(0, -1);
+		this->_enemy.SetBoard(this->_player.GetBoard());
+		this->_enemy.MoveObject(0, -1);
+		this->_player.SetBoard(this->_enemy.GetBoard());
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
 		}
 		break;
 	case 2:
 		this->_player.MoveObject(1, 0);
+		this->_enemy.SetBoard(this->_player.GetBoard());
+		this->_enemy.MoveObject(0, -1);
+		this->_player.SetBoard(this->_enemy.GetBoard());
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
 		}
 		break;
 	case 3:
 		this->_player.MoveObject(0, 1);
+		this->_enemy.SetBoard(this->_player.GetBoard());
+		this->_enemy.MoveObject(0, 1);
+		this->_player.SetBoard(this->_enemy.GetBoard());
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
 		}
 		break;
 	case 4:
 		this->_player.MoveObject(-1, 0);
+		this->_enemy.SetBoard(this->_player.GetBoard());
+		this->_enemy.MoveObject(0, 1);
+		this->_player.SetBoard(this->_enemy.GetBoard());
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
 		}
