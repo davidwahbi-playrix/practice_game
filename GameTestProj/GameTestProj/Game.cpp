@@ -19,7 +19,7 @@ Game::~Game()
 }
 
 void Game::Init()
-{
+{	
 	Board board;
 	board.Load("Map.txt");
 	Player newPlayer(1, 1, 100, 10, 0, "David", board);
@@ -27,6 +27,8 @@ void Game::Init()
 	this->_player = newPlayer;
 	Board plBoard = newPlayer.GetBoard();
 	this->_board = plBoard;
+	std::cout << "s -> Save game." << '\n';
+	std::cout << '\n';
 	plBoard.Display();
 
 	_gameItems.AddItem(Weapon("Sword",WEAPON, 3, 5, 10));
@@ -101,6 +103,10 @@ void Game::HandleEvents()
 			this->_equip = true;
 			this->_draw = true;
 		}
+	}
+	if (GetAsyncKeyState(0x53))
+	{
+		this->SaveGame();
 	}
 }
 
@@ -191,6 +197,8 @@ void Game::Render()
 {
 	if (_draw) 
 	{
+		std::cout << "s -> Save game." << '\n';
+		std::cout << '\n';
 		this->_draw = false;
 		this->_board = _player.GetBoard();
 		this->_board.Display();
@@ -302,6 +310,43 @@ void Game::EquipItem(const int index)
 	{
 		this->_player.AddHealth(tmp_p->GetHealthValue());
 		this->_player.GetInventory().RemoveItem(index);
+	}
+}
+
+void Game::SaveGame()
+{
+	std::ofstream newFile;
+	newFile.open("SaveGame.txt");
+	if (newFile.is_open()) {
+		newFile << this->_player.GetPosX() << ';' << this->_player.GetPosY() << ';' << this->_player.GetHealth() << ';' << this->_player.GetDamage() << ';' << this->_player.GetDefence() << ';' << this->_player.GetName() << std::endl;
+		if (this->_player.GetInventory().Size() > 0)
+		{
+			for (size_t i = 0; i < _player.GetInventory().Size(); i++)
+			{
+				Weapon* tmp_w = dynamic_cast<Weapon*>(&this->_player.GetInventory().At(i));
+				Armor* tmp_a = dynamic_cast<Armor*>(&this->_player.GetInventory().At(i));
+				HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&this->_player.GetInventory().At(i));
+
+				if (tmp_w)
+				{
+					newFile << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << std::endl;
+				}
+				if (tmp_a)
+				{
+					newFile << tmp_a->GetName() << ';' << tmp_a->GetSubTypeAsString() << ';' << tmp_a->GetPosX() << ';' << tmp_a->GetPosY() << ';' << tmp_a->GetArmorValue() << std::endl;
+				}
+				if (tmp_p)
+				{
+					newFile << tmp_p->GetName() << ';' << tmp_p->GetSubTypeAsString() << ';' << tmp_p->GetPosX() << ';' << tmp_p->GetPosY() << ';' << tmp_p->GetHealthValue() << std::endl;
+				}
+			}
+		}
+		if (this->_enemy)
+		{
+			newFile << this->_enemy->GetPosX() << ';' << this->_enemy->GetPosY() << ';' << this->_enemy->GetHealth() << ';' << this->_enemy->GetDamage() << std::endl;;
+		}
+		newFile.close();
+		std::cout << '\n' << "Game is saved!" << '\n';
 	}
 }
 

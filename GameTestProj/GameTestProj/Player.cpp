@@ -134,6 +134,11 @@ Armor* Player::GetArmor()
 	return this->_armor;
 }
 
+const int Player::GetDefence()
+{
+	return this->_defence;
+}
+
 void Player::AddDamage(int value)
 {
 	int damage = this->GetDamage() + value;

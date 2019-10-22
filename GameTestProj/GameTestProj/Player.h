@@ -35,6 +35,7 @@ public:
 	const std::string& GetName() const;
 	Weapon* GetWeapon();
 	Armor* GetArmor();
+	const int GetDefence();
 
 	void AddDamage(int value);
 	void AddDefence(int value);

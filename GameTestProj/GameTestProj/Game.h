@@ -1,4 +1,5 @@
 #pragma once
+#include <fstream>
 #include "Player.h"
 #include "Enemy.h"
 class Game
@@ -27,6 +28,8 @@ public:
 	void Battle();
 
 	void EquipItem(const int index);
+	void SaveGame();
+
 	unsigned int GetGameItemIndex(const int x, const int y);
 	bool Running();
 	bool Draw();
