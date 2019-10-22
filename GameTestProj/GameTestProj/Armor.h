@@ -6,6 +6,7 @@ class Armor :
 private:
 	int _armor;
 public:
+	Armor(std::string name, unsigned int subType, int armor);
 	Armor(std::string name,unsigned int subType, int x, int y, int armor);
 	~Armor();
 

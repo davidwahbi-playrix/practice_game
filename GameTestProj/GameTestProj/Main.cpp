@@ -22,7 +22,7 @@ int main()
 			game->Update();
 			game->Render();
 		}
-		Sleep(50);
+		Sleep(100);
 	}
 
 

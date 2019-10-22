@@ -23,7 +23,7 @@ void Game::Init()
 	Board board;
 	board.Load("Map.txt");
 	Player newPlayer(1, 1, 100, 10, 0, "David", board);
-	_enemy = new Enemy(2, 12, 50, 5, board);
+	_enemy = new Enemy(2, 12, 50, 5, board, 100);
 	this->_player = newPlayer;
 	Board plBoard = newPlayer.GetBoard();
 	this->_board = plBoard;
@@ -106,14 +106,10 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
-	if (this->_equip)
-	{
-		this->_equip = false;
-		this->EquipItem(_equipInd);
-	}
 	switch (this->_dir)
 	{
 	case 1:
+		this->_dir = 0;
 		this->_player.MoveObject(0, -1);
 		if (this->_player.GetEnemyFlag())
 		{
@@ -131,6 +127,7 @@ void Game::Update()
 		}
 		break;
 	case 2:
+		this->_dir = 0;
 		this->_player.MoveObject(1, 0);
 		if (this->_player.GetEnemyFlag())
 		{
@@ -147,6 +144,7 @@ void Game::Update()
 		}	
 		break;
 	case 3:
+		this->_dir = 0;
 		this->_player.MoveObject(0, 1);
 		if (this->_player.GetEnemyFlag())
 		{
@@ -163,6 +161,7 @@ void Game::Update()
 		}
 		break;
 	case 4:
+		this->_dir = 0;
 		this->_player.MoveObject(-1, 0);
 		if (this->_player.GetEnemyFlag())
 		{
@@ -180,6 +179,11 @@ void Game::Update()
 		break;
 	default:
 		break;
+	}
+	if (this->_equip)
+	{
+		this->_equip = false;
+		this->EquipItem(_equipInd);
 	}
 }
 
@@ -243,6 +247,28 @@ void Game::Battle()
 			else {
 				std::cout << "Enemy KILLED!" << '\n';
 				exit = true;
+				int drop = rand() % 100 + 1;
+				if (drop <= _enemy->GetDropChance())
+				{
+					int type = rand() % 3;
+					switch (type)
+					{
+					case 0:
+						std::cout << "Enemy dropped a wepon!" << '\n';
+						this->_player.GetInventory().AddItem(Weapon("Spear", WEAPON, 8));
+						break;
+					case 1:
+						std::cout << "Enemy dropped an aromor!" << '\n';
+						this->_player.GetInventory().AddItem(Armor("Vest",ARMOR, 5));
+						break;
+					case 2:
+						std::cout << "Enemy dropped a potion!" << '\n';
+						this->_player.GetInventory().AddItem(HealthPotion("Spirit",HEAL,15));
+						break;
+					default:
+						break;
+					}
+				}
 				delete this->_enemy;
 				this->_enemy = nullptr;
 			}
@@ -255,7 +281,7 @@ void Game::Battle()
 }
 
 void Game::EquipItem(const int index)
-{	
+{
 	Weapon* tmp_w = dynamic_cast<Weapon*>(&this->_player.GetInventory().At(index));
 	Armor* tmp_a = dynamic_cast<Armor*>(&this->_player.GetInventory().At(index));
 	HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&this->_player.GetInventory().At(index));

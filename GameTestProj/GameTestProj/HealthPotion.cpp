@@ -1,5 +1,10 @@
 #include "HealthPotion.h"
 
+HealthPotion::HealthPotion(std::string name, unsigned int subType, int heal) :ConsumableItem(name, item_types::CONSUMABLE, subType, 0, 0)
+{
+	this->_heal = heal;
+}
+
 HealthPotion::HealthPotion(std::string name, unsigned int subType, int x, int y, int heal):ConsumableItem(name,item_types::CONSUMABLE,subType,x,y)
 {
 	this->_heal = heal;

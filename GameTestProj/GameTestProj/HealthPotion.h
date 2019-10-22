@@ -6,6 +6,7 @@ class HealthPotion :
 private:
 	int _heal;
 public:
+	HealthPotion(std::string name, unsigned int subType, int heal);
 	HealthPotion(std::string name, unsigned int subType, int x, int y, int heal);
 	~HealthPotion();
 

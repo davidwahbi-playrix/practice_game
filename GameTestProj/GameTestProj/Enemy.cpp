@@ -4,9 +4,10 @@ Enemy::Enemy()
 {
 }
 
-Enemy::Enemy(const int x, const int y, int health, int damage, Board board) : MovableObject(x, y, health, damage)
+Enemy::Enemy(const int x, const int y, int health, int damage, Board board, int dropChance) : MovableObject(x, y, health, damage)
 {
 	this->_enemyBoard = board;
+	this->_dorpChance = dropChance;
 }
 
 Enemy::~Enemy()
@@ -42,6 +43,11 @@ void Enemy::MoveObject(int vertical, int horizontal)
 void Enemy::SetBoard(Board board)
 {
 	this->_enemyBoard = board;
+}
+
+const int Enemy::GetDropChance()
+{
+	return this->_dorpChance;
 }
 
 Board Enemy::GetBoard()
