@@ -10,6 +10,7 @@ Game::Game()
 	this->_equip = false;
 	this->_equipInd = 0;
 	this->_enemy = nullptr;
+	this->_canEquip = false;
 }
 
 Game::~Game()
@@ -59,30 +60,57 @@ void Game::HandleEvents()
 	}
 	if (GetAsyncKeyState(0x30))
 	{
-		this->_equipInd = 0;
-		this->_equip = true;
+		if (this->_canEquip)
+		{
+			system("cls");
+			this->_canEquip = false;
+			this->_equipInd = 0;
+			this->_equip = true;
+			this->_draw = true;
+		}
 	}
 	if (GetAsyncKeyState(0x31)) 
 	{
-		this->_equipInd = 1;
-		this->_equip = true;
+		if (this->_canEquip)
+		{
+			system("cls");
+			this->_canEquip = false;
+			this->_equipInd = 1;
+			this->_equip = true;
+			this->_draw = true;
+		}
 	}
 	if (GetAsyncKeyState(0x32))
 	{
-		this->_equipInd = 2;
-		this->_equip = true;
-		this->_draw = true;
+		if (this->_canEquip)
+		{
+			system("cls");
+			this->_canEquip = false;
+			this->_equipInd = 2;
+			this->_equip = true;
+			this->_draw = true;
+		}
 	}
 	if (GetAsyncKeyState(0x33))
 	{
-		this->_equipInd = 3;
-		this->_equip = true;
-		this->_draw = true;
+		if (this->_canEquip)
+		{
+			system("cls");
+			this->_canEquip = false;
+			this->_equipInd = 3;
+			this->_equip = true;
+			this->_draw = true;
+		}
 	}
 }
 
 void Game::Update()
 {
+	if (this->_equip)
+	{
+		this->_equip = false;
+		this->EquipItem(_equipInd);
+	}
 	switch (this->_dir)
 	{
 	case 1:
@@ -153,11 +181,6 @@ void Game::Update()
 	default:
 		break;
 	}
-	if (this->_equip)
-	{
-		_equip = false;
-		this->EquipItem(_equipInd);
-	}
 }
 
 void Game::Render()
@@ -169,9 +192,11 @@ void Game::Render()
 		this->_board.Display();
 		if (_player.GetInventory().Size() > 0)
 		{
-			std::cout << _player.GetInventory().toString() << "\n";
-			std::cout << this->_player.toString();
+			this->_canEquip = true;
+			std::cout << _player.GetInventory().toString() << '\n';
+			std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
 		}
+		std::cout << this->_player.toString();
 	}
 }
 
@@ -188,6 +213,7 @@ void Game::UpdatePlayerInventory()
 	{
 		tmp.AddItem(_gameItems[index]);
 		this->_player.SetInventory(tmp);
+		this->_canEquip = true;
 	}
 }
 

@@ -7,6 +7,7 @@ private:
 	bool _isRunning;
 	bool _draw;
 	bool _equip;
+	bool _canEquip;
 	int _dir;
 	int _equipInd;
 	Player _player;
@@ -30,4 +31,3 @@ public:
 	bool Running();
 	bool Draw();
 };
-
