@@ -81,6 +81,15 @@ void Inventory::RemoveItem(const unsigned index)
 	this->_items[index] = this->_items[--this->_numOfItems];
 }
 
+void Inventory::ClearInventory()
+{
+	for (size_t i = 0; i < this->_numOfItems; i++)
+	{
+		delete this->_items[i];
+	}
+	this->_numOfItems = 0;
+}
+
 const unsigned int& Inventory::Capacity() const
 {
 	return this->_cap;

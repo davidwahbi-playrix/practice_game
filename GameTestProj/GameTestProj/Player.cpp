@@ -109,6 +109,16 @@ void Player::SetEnemyFlag(bool flag)
 	this->_enemyEncounter = flag;
 }
 
+void Player::SetName(std::string name)
+{
+	this->_playerName = name;
+}
+
+void Player::SetDefence(const int defence)
+{
+	this->_defence = defence;
+}
+
 bool Player::GetPickedFlag()
 {
 	return this->_itemPickedFlag;
@@ -169,7 +179,7 @@ void Player::SetArmor(Armor* armor)
 const std::string Player::toString()
 {
 	std::stringstream ss;
-	ss << this->GetName() << " | Health: " << this->GetHealth() << " | Damage: " << this->GetDamage() <<  " | Armor: " << this->_defence;
+	ss << "Player: " << this->GetName() << " | Health: " << this->GetHealth() << " | Damage: " << this->GetDamage() <<  " | Armor: " << this->_defence;
 	return ss.str();
 }
 

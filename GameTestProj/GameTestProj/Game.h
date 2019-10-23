@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include <sstream>
 #include "Player.h"
 #include "Enemy.h"
 class Game
@@ -28,7 +29,17 @@ public:
 	void Battle();
 
 	void EquipItem(const int index);
+
 	void SaveGame();
+	void SavePlayerInventory(std::ofstream& file);
+	void SaveGameItems(std::ofstream& file);
+
+	void LoadGame();
+	void LoadGameItems(std::ifstream& file, const int size);
+	void LoadPlayer(std::ifstream& file);
+	void LoadPlayerIneventory(std::ifstream& file, const int size);
+	void LoadEnemy(std::ifstream& file);
+	void LoadBoard();
 
 	unsigned int GetGameItemIndex(const int x, const int y);
 	bool Running();

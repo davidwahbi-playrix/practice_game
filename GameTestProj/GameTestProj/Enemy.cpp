@@ -45,6 +45,11 @@ void Enemy::SetBoard(Board board)
 	this->_enemyBoard = board;
 }
 
+void Enemy::SetDropChance(const int dropChance)
+{
+	this->_dorpChance = dropChance;
+}
+
 const int Enemy::GetDropChance()
 {
 	return this->_dorpChance;
@@ -58,6 +63,6 @@ Board Enemy::GetBoard()
 const std::string Enemy::toString()
 {
 	std::stringstream ss;
-	ss << "Enemy: | Health: " << this->GetHealth() << " | Damage: " << this->GetDamage();
+	ss << "Enemy: | Health: " << this->GetHealth() << " | Damage: " << this->GetDamage() << " | Drop chance: " << this->GetDropChance();
 	return ss.str();
 }

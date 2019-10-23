@@ -15,6 +15,10 @@ public:
 	void CheckRow(const int row);
 	void CheckCol(const int col);
 
+	void ClearBoard();
+
+	void operator = (const Board& other);
+
 	void Load(const char *filename);
 	void Display();
 	~Board();

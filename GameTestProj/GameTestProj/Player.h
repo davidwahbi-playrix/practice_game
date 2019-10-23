@@ -28,6 +28,8 @@ public:
 	void SetBoard(Board board);
 	void SetPickedFlag(bool flag);
 	void SetEnemyFlag(bool flag);
+	void SetName(std::string name);
+	void SetDefence(const int defence);
 
 	bool GetPickedFlag();
 	bool GetEnemyFlag();

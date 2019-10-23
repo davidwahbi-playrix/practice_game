@@ -12,12 +12,12 @@ Board::Board()
 
 int Board::GetRowCount()
 {
-	return _mRowCount;
+	return this->_mRowCount;
 }
 
 int Board::GetColCount()
 {
-	return _mColCount;
+	return this->_mColCount;
 }
 
 char Board::GetElem(const int row, const int col)
@@ -25,7 +25,7 @@ char Board::GetElem(const int row, const int col)
 	CheckRow(row);
 	CheckCol(col);
 
-	return _mFields[row][col];
+	return this->_mFields[row][col];
 }
 
 void Board::SetElem(const int row, const int col, const char elem)
@@ -33,7 +33,7 @@ void Board::SetElem(const int row, const int col, const char elem)
 	CheckRow(row);
 	CheckCol(col);
 
-	_mFields[row][col] = elem;
+	this->_mFields[row][col] = elem;
 }
 
 void Board::CheckRow(const int row)
@@ -46,9 +46,31 @@ void Board::CheckRow(const int row)
 
 void Board::CheckCol(const int col)
 {
-	if (col < 0 || col > _mColCount)
+	if (col < 0 || col > this->_mColCount)
 	{
 		cout << "Column out of range!";
+	}
+}
+
+void Board::ClearBoard()
+{
+	for (size_t i = 1; i < this->_mRowCount - 2; i++)
+	{
+		for (size_t j = 1; j < this->_mColCount - 2; j++)
+		{
+			this->SetElem(i,j, ' ');
+		}
+	}
+}
+
+void Board::operator=(const Board& other)
+{
+	for (size_t i = 0; i < this->_mRowCount - 1; i++)
+	{
+		for (size_t j = 0; j < this->_mColCount - 1; j++)
+		{
+			this->_mFields[i][j] = other._mFields[i][j];
+		}
 	}
 }
 
@@ -63,12 +85,12 @@ void Board::Load(const char * filename)
 	int line = 0;
 	string input;
 
-	while (src && line < _mRowCount - 1)
+	while (src && line < this->_mRowCount - 1)
 	{
 		getline(src, input);
-		if (input.size() > _mColCount)
+		if (input.size() > this->_mColCount)
 		{
-			cout << "Line > 10 chars";
+			cout << "Line > 18 chars";
 		}
 		for (size_t i = 0; i < input.size(); i++)
 		{
@@ -84,7 +106,7 @@ void Board::Display()
 	{
 		for (int col = 0; col < _mColCount - 1; col++)
 		{
-			cout << _mFields[row][col];
+			cout << this->_mFields[row][col];
 		}
 		cout << '\n';
 	}

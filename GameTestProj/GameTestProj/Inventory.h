@@ -21,6 +21,7 @@ public:
 
 	void AddItem(Item& item);
 	void RemoveItem(const unsigned index);
+	void ClearInventory();
 
 	const unsigned int& Capacity() const;
 	const unsigned int& Size() const;

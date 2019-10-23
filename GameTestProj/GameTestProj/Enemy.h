@@ -19,6 +19,7 @@ public:
 
 	void MoveObject(int vertical, int horizontal);
 	void SetBoard(Board board);
+	void SetDropChance(const int dropChance);
 
 	const int GetDropChance();
 	Board GetBoard();
