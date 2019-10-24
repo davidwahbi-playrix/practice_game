@@ -31,6 +31,8 @@ public:
 
 	void EquipItem(const int index);
 
+	void SaveLoadMenu();
+
 	void SaveGame();
 	void SavePlayerInventory(std::ofstream& file);
 	void SavePlayerEquipment(std::ofstream& file);

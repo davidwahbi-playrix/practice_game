@@ -29,14 +29,7 @@ void Game::Init()
 	this->_player = newPlayer;
 	Board plBoard = newPlayer.GetBoard();
 	this->_board = plBoard;
-	std::cout << "s -> Save game." << '\n';
-	std::ifstream hasFile("SaveGame.txt");
-	if (!hasFile.fail())
-	{
-		this->SetHesFile(true);
-		std::cout << "l -> Load game." << '\n';
-	}
-	std::cout << '\n';
+	this->SaveLoadMenu();
 	plBoard.Display();
 
 	_gameItems.AddItem(Weapon("Sword",WEAPON, 3, 5, 10));
@@ -213,12 +206,7 @@ void Game::Render()
 {
 	if (_draw) 
 	{
-		std::cout << "s -> Save game." << '\n';
-		if (this->HasFile())
-		{
-			std::cout << "l -> Load game." << '\n';
-		}
-		std::cout << '\n';
+		this->SaveLoadMenu();
 		this->_draw = false;
 		this->_board = _player.GetBoard();
 		this->_board.Display();
@@ -337,6 +325,18 @@ void Game::EquipItem(const int index)
 		this->_player.AddHealth(tmp_p->GetHealthValue());
 		this->_player.GetInventory().RemoveItem(index);
 	}
+}
+
+void Game::SaveLoadMenu()
+{
+	std::cout << "s -> Save game." << '\n';
+	std::ifstream hasFile("SaveGame.txt");
+	if (!hasFile.fail())
+	{
+		this->SetHesFile(true);
+		std::cout << "l -> Load game." << '\n';
+	}
+	std::cout << '\n';
 }
 
 void Game::SaveGame()
@@ -545,6 +545,7 @@ void Game::LoadGame()
 		}
 		system("pause");
 		system("cls");
+		this->SaveLoadMenu();
 		this->LoadBoard();
 
 		std::cout << "Game loaded!" << std::endl;
