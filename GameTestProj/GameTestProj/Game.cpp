@@ -469,7 +469,7 @@ void Game::LoadGame()
 		else {
 			std::cout << "No enemies left!" << std::endl;
 		}
-
+		system("pause");
 		this->LoadBoard();
 
 		std::cout << "Game loaded!" << std::endl;
@@ -703,6 +703,7 @@ void Game::LoadBoard()
 	}
 
 	this->_board = board;
+	this->_player.SetBoard(board);
 	this->_board.Display();
 
 }
