@@ -5,6 +5,7 @@
 Game::Game()
 {
 	this->_isRunning = false;
+	this->_hasFile = false;
 	this->_dir = 0;
 	this->_draw = 0;
 	this->_equip = false;
@@ -16,6 +17,7 @@ Game::Game()
 Game::~Game()
 {
 	delete this->_enemy;
+	this->_enemy = nullptr;
 }
 
 void Game::Init()
@@ -28,7 +30,12 @@ void Game::Init()
 	Board plBoard = newPlayer.GetBoard();
 	this->_board = plBoard;
 	std::cout << "s -> Save game." << '\n';
-	std::cout << "l -> Load game." << '\n';
+	std::ifstream hasFile("SaveGame.txt");
+	if (!hasFile.fail())
+	{
+		this->SetHesFile(true);
+		std::cout << "l -> Load game." << '\n';
+	}
 	std::cout << '\n';
 	plBoard.Display();
 
@@ -108,6 +115,7 @@ void Game::HandleEvents()
 	if (GetAsyncKeyState(0x53))
 	{
 		this->SaveGame();
+		this->SetHesFile(true);
 	}
 	if (GetAsyncKeyState(0x4C))
 	{
@@ -206,13 +214,17 @@ void Game::Render()
 	if (_draw) 
 	{
 		std::cout << "s -> Save game." << '\n';
-		std::cout << "l -> Load game." << '\n';
+		if (this->HasFile())
+		{
+			std::cout << "l -> Load game." << '\n';
+		}
 		std::cout << '\n';
 		this->_draw = false;
 		this->_board = _player.GetBoard();
 		this->_board.Display();
 		if (_player.GetInventory().Size() > 0)
 		{
+			std::cout << "Player inventory:" << std::endl;
 			this->_canEquip = true;
 			std::cout << _player.GetInventory().toString() << '\n';
 			std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
@@ -289,11 +301,15 @@ void Game::Battle()
 				}
 				delete this->_enemy;
 				this->_enemy = nullptr;
+				system("pause");
+				system("cls");
 			}
 		}
 		else {
 			std::cout << "You are DEAD!" << '\n';
 			exit = true;
+			system("pause");
+			system("cls");
 		}
 	}
 }
@@ -528,6 +544,7 @@ void Game::LoadGame()
 			std::cout << "No enemies left!" << std::endl;
 		}
 		system("pause");
+		system("cls");
 		this->LoadBoard();
 
 		std::cout << "Game loaded!" << std::endl;
@@ -555,26 +572,11 @@ void Game::LoadGameItems(std::ifstream& file, const int size)
 		getline(file, tmp_string, ';');
 		std::string item_type = tmp_string;
 
-		getline(file, tmp_string, ';');
-		int item_pos_x;
-		tmp_stream.str("");
-		tmp_stream.clear();
-		tmp_stream << tmp_string;
-		tmp_stream >> item_pos_x;
+		int item_pos_x = this->ReadIntFromFile(file);
 
-		getline(file, tmp_string, ';');
-		int item_pos_y;
-		tmp_stream.str("");
-		tmp_stream.clear();
-		tmp_stream << tmp_string;
-		tmp_stream >> item_pos_y;
+		int item_pos_y = this->ReadIntFromFile(file);
 
-		getline(file, tmp_string, ';');
-		int item_atribut;
-		tmp_stream.str("");
-		tmp_stream.clear();
-		tmp_stream << tmp_string;
-		tmp_stream >> item_atribut;
+		int item_atribut = this->ReadIntFromFile(file);
 
 		if (item_type == "WEAPON")
 		{
@@ -597,45 +599,11 @@ void Game::LoadPlayer(std::ifstream& file)
 	std::string tmp_string;
 	std::stringstream tmp_stream;
 
-	getline(file, tmp_string, ';');
-	int player_pos_x;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> player_pos_x;
-	this->_player.SetPosX(player_pos_x);
-
-	getline(file, tmp_string, ';');
-	int player_pos_y;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> player_pos_y;
-	this->_player.SetPosY(player_pos_y);
-
-	getline(file, tmp_string, ';');
-	int player_health;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> player_health;
-	this->_player.SetHealth(player_health);
-
-	getline(file, tmp_string, ';');
-	int player_damage;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> player_damage;
-	this->_player.SetDamage(player_damage);
-
-	getline(file, tmp_string, ';');
-	int player_defence;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> player_defence;
-	this->_player.SetDefence(player_defence);
+	this->_player.SetPosX(this->ReadIntFromFile(file));
+	this->_player.SetPosY(this->ReadIntFromFile(file));
+	this->_player.SetHealth(this->ReadIntFromFile(file));
+	this->_player.SetDamage(this->ReadIntFromFile(file));
+	this->_player.SetDefence(this->ReadIntFromFile(file));
 
 	getline(file, tmp_string, ';');
 	this->_player.SetName(tmp_string);
@@ -657,26 +625,11 @@ void Game::LoadPlayerIneventory(std::ifstream& file, const int size)
 		getline(file, tmp_string, ';');
 		std::string item_type = tmp_string;
 
-		getline(file, tmp_string, ';');
-		int item_pos_x;
-		tmp_stream.str("");
-		tmp_stream.clear();
-		tmp_stream << tmp_string;
-		tmp_stream >> item_pos_x;
+		int item_pos_x = this->ReadIntFromFile(file);
 
-		getline(file, tmp_string, ';');
-		int item_pos_y;
-		tmp_stream.str("");
-		tmp_stream.clear();
-		tmp_stream << tmp_string;
-		tmp_stream >> item_pos_y;
+		int item_pos_y = this->ReadIntFromFile(file);
 
-		getline(file, tmp_string, ';');
-		int item_atribut;
-		tmp_stream.str("");
-		tmp_stream.clear();
-		tmp_stream << tmp_string;
-		tmp_stream >> item_atribut;
+		int item_atribut = this->ReadIntFromFile(file);
 
 		if (item_type == "WEAPON")
 		{
@@ -705,26 +658,11 @@ void Game::LoadPlayerEquipment(std::ifstream& file, const int state)
 	getline(file, tmp_string, ';');
 	std::string item_type = tmp_string;
 
-	getline(file, tmp_string, ';');
-	int item_pos_x;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> item_pos_x;
+	int item_pos_x = this->ReadIntFromFile(file);
 
-	getline(file, tmp_string, ';');
-	int item_pos_y;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> item_pos_y;
+	int item_pos_y = this->ReadIntFromFile(file);
 
-	getline(file, tmp_string, ';');
-	int item_atribut;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> item_atribut;
+	int item_atribut = this->ReadIntFromFile(file);
 
 	if (state == 1)
 	{
@@ -740,48 +678,16 @@ void Game::LoadPlayerEquipment(std::ifstream& file, const int state)
 
 void Game::LoadEnemy(std::ifstream& file)
 {
-	std::string tmp_string;
-	std::stringstream tmp_stream;
 
-	getline(file, tmp_string, ';');
-	int enemy_pos_x;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> enemy_pos_x;
-	this->_enemy->SetPosX(enemy_pos_x);
+	this->_enemy->SetPosX(this->ReadIntFromFile(file));
 
-	getline(file, tmp_string, ';');
-	int enemy_pos_y;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> enemy_pos_y;
-	this->_enemy->SetPosY(enemy_pos_y);
+	this->_enemy->SetPosY(this->ReadIntFromFile(file));
 
-	getline(file, tmp_string, ';');
-	int enemy_health;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> enemy_health;
-	this->_enemy->SetHealth(enemy_health);
+	this->_enemy->SetHealth(this->ReadIntFromFile(file));
 
-	getline(file, tmp_string, ';');
-	int enemy_damage;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> enemy_damage;
-	this->_enemy->SetDamage(enemy_damage);
+	this->_enemy->SetDamage(this->ReadIntFromFile(file));
 
-	getline(file, tmp_string, ';');
-	int enemy_dropChance;
-	tmp_stream.str("");
-	tmp_stream.clear();
-	tmp_stream << tmp_string;
-	tmp_stream >> enemy_dropChance;
-	this->_enemy->SetDropChance(enemy_dropChance);
+	this->_enemy->SetDropChance(this->ReadIntFromFile(file));
 
 }
 
@@ -835,4 +741,27 @@ bool Game::Running()
 bool Game::Draw()
 {
 	return this->_draw;
+}
+
+bool Game::HasFile()
+{
+	return this->_hasFile;
+}
+
+void Game::SetHesFile(bool flag)
+{
+	this->_hasFile = flag;
+}
+
+int Game::ReadIntFromFile(std::ifstream& file)
+{
+	std::string tmp_string;
+	std::stringstream tmp_stream;
+	int tmp_value = 0;
+	getline(file, tmp_string, ';');
+	tmp_stream.str("");
+	tmp_stream.clear();
+	tmp_stream << tmp_string;
+	tmp_stream >> tmp_value;
+	return tmp_value;
 }

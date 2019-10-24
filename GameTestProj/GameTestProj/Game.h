@@ -10,6 +10,7 @@ private:
 	bool _draw;
 	bool _equip;
 	bool _canEquip;
+	bool _hasFile;
 	int _dir;
 	int _equipInd;
 	Player _player;
@@ -46,4 +47,7 @@ public:
 	unsigned int GetGameItemIndex(const int x, const int y);
 	bool Running();
 	bool Draw();
+	bool HasFile();
+	void SetHesFile(bool flag);
+	int ReadIntFromFile(std::ifstream& file);
 };
