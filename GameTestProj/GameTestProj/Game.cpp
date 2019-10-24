@@ -194,7 +194,10 @@ void Game::Update()
 	if (this->_equip)
 	{
 		this->_equip = false;
-		this->EquipItem(_equipInd);
+		if (this->_equipInd < this->_player.GetInventory().Size())
+		{
+			this->EquipItem(_equipInd);
+		}
 	}
 }
 
@@ -331,6 +334,8 @@ void Game::SaveGame()
 		newFile << this->_player.GetPosX() << ';' << this->_player.GetPosY() << ';' << this->_player.GetHealth() << ';' << this->_player.GetDamage() << ';' << this->_player.GetDefence() << ';' << this->_player.GetName() << ';' << std::endl;;
 		newFile << "PlayerInventory" << std::endl;
 		this->SavePlayerInventory(newFile);
+		newFile << "PlayerEquipment" << std::endl;
+		this->SavePlayerEquipment(newFile);
 		newFile << "Enemy" << std::endl;
 		if (this->_enemy)
 		{
@@ -375,6 +380,30 @@ void Game::SavePlayerInventory(std::ofstream& file)
 	else
 	{
 		file << -1 << std::endl;
+	}
+}
+
+void Game::SavePlayerEquipment(std::ofstream& file)
+{	
+	file << "Weapon" << std::endl;
+	if (this->_player.GetWeapon()) {
+		file << "Yes" << std::endl;
+		file << _player.GetWeapon()->GetName() << ';' << _player.GetWeapon()->GetSubTypeAsString() << ';' << _player.GetWeapon()->GetPosX() << ';' << _player.GetWeapon()->GetPosY() << ';' << _player.GetWeapon()->GetDamageValue() << ';';
+		file << std::endl;
+	}
+	else
+	{
+		file << "None" << std::endl;
+	}
+	file << "Armor" << std::endl;
+	if (this->_player.GetArmor()) {
+		file << "Yes" << std::endl;
+		file << _player.GetArmor()->GetName() << ';' << _player.GetArmor()->GetSubTypeAsString() << ';' << _player.GetArmor()->GetPosX() << ';' << _player.GetArmor()->GetPosY() << ';' << _player.GetArmor()->GetDamageValue() << ';';
+		file << std::endl;
+	}
+	else
+	{
+		file << "None" << std::endl;
 	}
 }
 
@@ -459,10 +488,39 @@ void Game::LoadGame()
 		{
 			std::cout << "Player has no items in inventory!" << std::endl;
 		}
-		getline(loadedFile, tmp_string); // Enemy
+		getline(loadedFile, tmp_string); // PlayerEquipment
+		getline(loadedFile, tmp_string); // Weapon
 		getline(loadedFile, tmp_string); // Yes or None
 		if (tmp_string != "None")
 		{
+			this->LoadPlayerEquipment(loadedFile, 1);
+			std::cout << "Player weapon: " << this->_player.GetWeapon()->toString() << std::endl;
+			getline(loadedFile, tmp_string); // empty
+		}
+		else
+		{
+			std::cout << "Player has no weapon!" << std::endl;
+		}
+		getline(loadedFile, tmp_string); // Armor
+		getline(loadedFile, tmp_string); // Yes or None
+		if (tmp_string != "None")
+		{
+			this->LoadPlayerEquipment(loadedFile, 2);
+			std::cout << "Player armor: " << this->_player.GetArmor()->toString() << std::endl;
+			getline(loadedFile, tmp_string); // empty
+		}
+		else
+		{
+			std::cout << "Player has no armor!" << std::endl;
+		}
+		getline(loadedFile, tmp_string); // Enemy
+		getline(loadedFile, tmp_string); // Yes or None
+		if (tmp_string != "None")
+		{	
+			if (!_enemy)
+			{
+				_enemy = new Enemy(0, 0, 0, 0, this->_board, 0);
+			}
 			this->LoadEnemy(loadedFile);
 			std::cout << this->_enemy->toString() << std::endl;
 		}
@@ -636,6 +694,50 @@ void Game::LoadPlayerIneventory(std::ifstream& file, const int size)
 	}
 }
 
+void Game::LoadPlayerEquipment(std::ifstream& file, const int state)
+{
+	std::string tmp_string;
+	std::stringstream tmp_stream;
+
+	getline(file, tmp_string, ';');
+	std::string item_name = tmp_string;
+
+	getline(file, tmp_string, ';');
+	std::string item_type = tmp_string;
+
+	getline(file, tmp_string, ';');
+	int item_pos_x;
+	tmp_stream.str("");
+	tmp_stream.clear();
+	tmp_stream << tmp_string;
+	tmp_stream >> item_pos_x;
+
+	getline(file, tmp_string, ';');
+	int item_pos_y;
+	tmp_stream.str("");
+	tmp_stream.clear();
+	tmp_stream << tmp_string;
+	tmp_stream >> item_pos_y;
+
+	getline(file, tmp_string, ';');
+	int item_atribut;
+	tmp_stream.str("");
+	tmp_stream.clear();
+	tmp_stream << tmp_string;
+	tmp_stream >> item_atribut;
+
+	if (state == 1)
+	{
+		this->_player.SetWeapon(new Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
+	}
+	else if (state == 2)
+	{
+		this->_player.SetArmor(new Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
+	}
+	
+	
+}
+
 void Game::LoadEnemy(std::ifstream& file)
 {
 	std::string tmp_string;
@@ -704,6 +806,10 @@ void Game::LoadBoard()
 
 	this->_board = board;
 	this->_player.SetBoard(board);
+	if (_enemy)
+	{
+		this->_enemy->SetBoard(board);
+	}
 	this->_board.Display();
 
 }

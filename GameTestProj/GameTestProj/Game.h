@@ -32,12 +32,14 @@ public:
 
 	void SaveGame();
 	void SavePlayerInventory(std::ofstream& file);
+	void SavePlayerEquipment(std::ofstream& file);
 	void SaveGameItems(std::ofstream& file);
 
 	void LoadGame();
 	void LoadGameItems(std::ifstream& file, const int size);
 	void LoadPlayer(std::ifstream& file);
 	void LoadPlayerIneventory(std::ifstream& file, const int size);
+	void LoadPlayerEquipment(std::ifstream& file, const int state);
 	void LoadEnemy(std::ifstream& file);
 	void LoadBoard();
 
