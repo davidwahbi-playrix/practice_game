@@ -6,6 +6,7 @@
 #include "SaveGame.h"
 #include "LoadGame.h"
 #include "Combat.h"
+#include "Renderer.h"
 class Game
 {
 public:
@@ -21,23 +22,19 @@ public:
 
 	void EquipItem(const int index);
 
-	void SaveLoadMenu();
-
 	unsigned int GetGameItemIndex(const int x, const int y);
 	bool Running();
 	bool Draw();
-	bool HasFile();
-	void SetHesFile(bool flag);
 private:
 	bool _isRunning;
 	bool _draw;
 	bool _equip;
 	bool _canEquip;
-	bool _hasFile;
 	int _dir;
 	int _equipInd;
 	Player _player;
 	Enemy* _enemy;
 	Board _board;
 	Inventory _gameItems;
+	Renderer _renderer;
 };

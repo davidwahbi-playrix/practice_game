@@ -5,7 +5,6 @@
 Game::Game()
 {
 	this->_isRunning = false;
-	this->_hasFile = false;
 	this->_dir = 0;
 	this->_draw = 0;
 	this->_equip = false;
@@ -29,7 +28,7 @@ void Game::Init()
 	this->_player = newPlayer;
 	Board plBoard = newPlayer.GetBoard();
 	this->_board = plBoard;
-	this->SaveLoadMenu();
+	this->_renderer.SaveLoadMenu();
 	plBoard.Display();
 
 	this->_gameItems.AddItem(Weapon("Sword",WEAPON, 3, 5, 10));
@@ -110,7 +109,6 @@ void Game::HandleEvents()
 		SaveGame saveGame(this->_player, this->_enemy, this->_gameItems);
 		saveGame.SaveGameState();
 		//this->SaveGame();
-		this->SetHesFile(true);
 	}
 	if (GetAsyncKeyState(0x4C))
 	{	
@@ -224,20 +222,14 @@ void Game::Update()
 
 void Game::Render()
 {
-	if (_draw) 
+	if (_draw)
 	{
-		this->SaveLoadMenu();
 		this->_draw = false;
-		this->_board = _player.GetBoard();
-		this->_board.Display();
+		this->_renderer.Render(this->_board, this->_player);
 		if (_player.GetInventory().Size() > 0)
 		{
-			std::cout << "Player inventory:" << std::endl;
 			this->_canEquip = true;
-			std::cout << _player.GetInventory().toString() << '\n';
-			std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
 		}
-		std::cout << this->_player.toString();
 	}
 }
 
@@ -284,18 +276,6 @@ void Game::EquipItem(const int index)
 	}
 }
 
-void Game::SaveLoadMenu()
-{
-	std::cout << "s -> Save game." << '\n';
-	std::ifstream hasFile("SaveGame.txt");
-	if (!hasFile.fail())
-	{
-		this->SetHesFile(true);
-		std::cout << "l -> Load game." << '\n';
-	}
-	std::cout << '\n';
-}
-
 unsigned int Game::GetGameItemIndex(const int x, const int y)
 {
 	int index = -1;
@@ -317,14 +297,4 @@ bool Game::Running()
 bool Game::Draw()
 {
 	return this->_draw;
-}
-
-bool Game::HasFile()
-{
-	return this->_hasFile;
-}
-
-void Game::SetHesFile(bool flag)
-{
-	this->_hasFile = flag;
 }

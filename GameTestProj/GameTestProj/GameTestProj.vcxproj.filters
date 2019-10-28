@@ -19,6 +19,12 @@
     <Filter Include="SaveLoad">
       <UniqueIdentifier>{ff799695-9062-476a-aaef-4ddd124792b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Combat">
+      <UniqueIdentifier>{3a65c6c5-19e4-4b97-9097-9e6d84d4b871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{209aa7df-2745-472b-a995-c35c396824ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -67,7 +73,10 @@
       <Filter>SaveLoad</Filter>
     </ClCompile>
     <ClCompile Include="Combat.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +123,10 @@
       <Filter>SaveLoad</Filter>
     </ClInclude>
     <ClInclude Include="Combat.h">
-      <Filter>Header Files</Filter>
+      <Filter>Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
