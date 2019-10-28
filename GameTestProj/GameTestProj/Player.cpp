@@ -89,27 +89,27 @@ Inventory& Player::GetInventory()
 	return this->_inventory;
 }
 
-void Player::SetInventory(Inventory inventory)
+void Player::SetInventory(const Inventory& inventory)
 {
 	this->_inventory = inventory;
 }
 
-void Player::SetBoard(Board board)
+void Player::SetBoard(const Board& board)
 {
 	this->_playerBoard = board;
 }
 
-void Player::SetPickedFlag(bool flag)
+void Player::SetPickedFlag(const bool& flag)
 {
 	this->_itemPickedFlag = flag;
 }
 
-void Player::SetEnemyFlag(bool flag)
+void Player::SetEnemyFlag(const bool& flag)
 {
 	this->_enemyEncounter = flag;
 }
 
-void Player::SetName(std::string name)
+void Player::SetName(const std::string& name)
 {
 	this->_playerName = name;
 }

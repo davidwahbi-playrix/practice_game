@@ -3,20 +3,10 @@
 #include <sstream>
 #include "Player.h"
 #include "Enemy.h"
+#include "SaveGame.h"
+#include "LoadGame.h"
 class Game
 {
-private:
-	bool _isRunning;
-	bool _draw;
-	bool _equip;
-	bool _canEquip;
-	bool _hasFile;
-	int _dir;
-	int _equipInd;
-	Player _player;
-	Enemy* _enemy;
-	Board _board;
-	Inventory _gameItems;
 public:
 	Game();
 	~Game();
@@ -33,12 +23,7 @@ public:
 
 	void SaveLoadMenu();
 
-	void SaveGame();
-	void SavePlayerInventory(std::ofstream& file);
-	void SavePlayerEquipment(std::ofstream& file);
-	void SaveGameItems(std::ofstream& file);
-
-	void LoadGame();
+	//void LoadGame();
 	void LoadGameItems(std::ifstream& file, const int size);
 	void LoadPlayer(std::ifstream& file);
 	void LoadPlayerIneventory(std::ifstream& file, const int size);
@@ -52,4 +37,16 @@ public:
 	bool HasFile();
 	void SetHesFile(bool flag);
 	int ReadIntFromFile(std::ifstream& file);
+private:
+	bool _isRunning;
+	bool _draw;
+	bool _equip;
+	bool _canEquip;
+	bool _hasFile;
+	int _dir;
+	int _equipInd;
+	Player _player;
+	Enemy* _enemy;
+	Board _board;
+	Inventory _gameItems;
 };

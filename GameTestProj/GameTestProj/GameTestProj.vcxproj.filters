@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Items">
+      <UniqueIdentifier>{386688cb-be99-4bc4-9c11-fa026e090a16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SaveLoad">
+      <UniqueIdentifier>{ff799695-9062-476a-aaef-4ddd124792b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -30,29 +36,35 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Inventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EquipableItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ConsumableItem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Armor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthPotion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Armor.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthPotion.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsumableItem.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipableItem.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveGame.cpp">
+      <Filter>SaveLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadGame.cpp">
+      <Filter>SaveLoad</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,29 +80,35 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Inventory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EquipableItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ConsumableItem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Armor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthPotion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthPotion.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Armor.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsumableItem.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipableItem.h">
+      <Filter>Items</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveGame.h">
+      <Filter>SaveLoad</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadGame.h">
+      <Filter>SaveLoad</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

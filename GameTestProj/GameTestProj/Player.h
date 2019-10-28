@@ -17,6 +17,8 @@ private:
 	int _defence;
 	Weapon* _weapon;
 	Armor* _armor;
+	/*std::unique_ptr<Weapon> _weapon
+	std::unique_ptr*/
 
 public:
 	Player();
@@ -24,11 +26,11 @@ public:
 	Player( const int x, const int y, int health, int damage, int defence, std::string name, Board board);
 	void MoveObject(int vertical, int horizontal);
 	Inventory& GetInventory();
-	void SetInventory(Inventory inventory);
-	void SetBoard(Board board);
-	void SetPickedFlag(bool flag);
-	void SetEnemyFlag(bool flag);
-	void SetName(std::string name);
+	void SetInventory(const Inventory& inventory);
+	void SetBoard(const Board& board);
+	void SetPickedFlag(const bool& flag);
+	void SetEnemyFlag(const bool& flag);
+	void SetName(const std::string& name);
 	void SetDefence(const int defence);
 
 	bool GetPickedFlag();
