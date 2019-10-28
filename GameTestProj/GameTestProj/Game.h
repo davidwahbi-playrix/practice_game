@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include "SaveGame.h"
 #include "LoadGame.h"
+#include "Combat.h"
 class Game
 {
 public:
@@ -17,26 +18,16 @@ public:
 	void Render();
 	void Clean();
 	void UpdatePlayerInventory();
-	void Battle();
 
 	void EquipItem(const int index);
 
 	void SaveLoadMenu();
-
-	//void LoadGame();
-	void LoadGameItems(std::ifstream& file, const int size);
-	void LoadPlayer(std::ifstream& file);
-	void LoadPlayerIneventory(std::ifstream& file, const int size);
-	void LoadPlayerEquipment(std::ifstream& file, const int state);
-	void LoadEnemy(std::ifstream& file);
-	void LoadBoard();
 
 	unsigned int GetGameItemIndex(const int x, const int y);
 	bool Running();
 	bool Draw();
 	bool HasFile();
 	void SetHesFile(bool flag);
-	int ReadIntFromFile(std::ifstream& file);
 private:
 	bool _isRunning;
 	bool _draw;

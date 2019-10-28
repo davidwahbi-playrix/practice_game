@@ -133,7 +133,10 @@ void Game::Update()
 		this->_player.MoveObject(0, -1);
 		if (this->_player.GetEnemyFlag())
 		{
-			this->Battle();
+			Combat newCombat(this->_player, this->_enemy);
+			newCombat.Battle();
+			this->_player = newCombat.GetPlayer();
+			this->_enemy = newCombat.GetEnemy();
 		}
 		if (this->_enemy)
 		{
@@ -151,7 +154,10 @@ void Game::Update()
 		this->_player.MoveObject(1, 0);
 		if (this->_player.GetEnemyFlag())
 		{
-			this->Battle();
+			Combat newCombat(this->_player, this->_enemy);
+			newCombat.Battle();
+			this->_player = newCombat.GetPlayer();
+			this->_enemy = newCombat.GetEnemy();
 		}
 		if (this->_enemy)
 		{
@@ -168,7 +174,10 @@ void Game::Update()
 		this->_player.MoveObject(0, 1);
 		if (this->_player.GetEnemyFlag())
 		{
-			this->Battle();
+			Combat newCombat(this->_player, this->_enemy);
+			newCombat.Battle();
+			this->_player = newCombat.GetPlayer();
+			this->_enemy = newCombat.GetEnemy();
 		}
 		if (this->_enemy)
 		{
@@ -185,7 +194,10 @@ void Game::Update()
 		this->_player.MoveObject(-1, 0);
 		if (this->_player.GetEnemyFlag())
 		{
-			this->Battle();
+			Combat newCombat(this->_player, this->_enemy);
+			newCombat.Battle();
+			this->_player = newCombat.GetPlayer();
+			this->_enemy = newCombat.GetEnemy();
 		}
 		if (this->_enemy)
 		{
@@ -244,69 +256,6 @@ void Game::UpdatePlayerInventory()
 		this->_player.SetInventory(tmp);
 		this->_gameItems.RemoveItem(index);
 		this->_canEquip = true;
-	}
-}
-
-void Game::Battle()
-{
-	this->_player.SetEnemyFlag(false);
-	bool exit = false;
-	std::cout << "Battle started!" << '\n';
-	while (!exit)
-	{
-		int tmpPlayerHP = this->_player.GetHealth();
-		int tmpEnemyHP = this->_enemy->GetHealth();
-		int tmpPlayerDamage = this->_player.GetDamage();
-		int tmpEnemyDamage = this->_enemy->GetDamage();
-		if (tmpPlayerHP - tmpEnemyDamage > 0)
-		{
-			this->_player.SetHealth(tmpPlayerHP - tmpEnemyDamage);
-			std::cout << "Enemy Attacks!" << '\n';
-			std::cout << this->_player.toString() << '\n';
-			if (tmpEnemyHP - tmpPlayerDamage > 0)
-			{
-				this->_enemy->SetHealth(tmpEnemyHP - tmpPlayerDamage);
-				std::cout << "Player Attacks!" << '\n';
-				std::cout << this->_enemy->toString() << '\n';
-				system("pause");
-			}
-			else {
-				std::cout << "Enemy KILLED!" << '\n';
-				exit = true;
-				int drop = rand() % 100 + 1;
-				if (drop <= _enemy->GetDropChance())
-				{
-					int type = rand() % 3;
-					switch (type)
-					{
-					case 0:
-						std::cout << "Enemy dropped a wepon!" << '\n';
-						this->_player.GetInventory().AddItem(Weapon("Spear", WEAPON, 8));
-						break;
-					case 1:
-						std::cout << "Enemy dropped an aromor!" << '\n';
-						this->_player.GetInventory().AddItem(Armor("Vest",ARMOR, 5));
-						break;
-					case 2:
-						std::cout << "Enemy dropped a potion!" << '\n';
-						this->_player.GetInventory().AddItem(HealthPotion("Spirit",HEAL,15));
-						break;
-					default:
-						break;
-					}
-				}
-				delete this->_enemy;
-				this->_enemy = nullptr;
-				system("pause");
-				system("cls");
-			}
-		}
-		else {
-			std::cout << "You are DEAD!" << '\n';
-			exit = true;
-			system("pause");
-			system("cls");
-		}
 	}
 }
 
