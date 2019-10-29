@@ -2,37 +2,31 @@
 
 SaveGame::SaveGame()
 {
-}
-
-SaveGame::SaveGame(Player player, Enemy* enemy, Inventory gameItems)
-{
-	this->_player = player;
-	this->_enemy = enemy;
-	this->_gameItems = gameItems;
+	this->_enemy = nullptr;
 }
 
 SaveGame::~SaveGame()
 {
 }
 
-void SaveGame::SaveGameState()
+void SaveGame::SaveGameState(Player player, Enemy* enemy, Inventory gameItems)
 {
 	std::ofstream newFile;
 	newFile.open("SaveGame.txt");
 	if (newFile.is_open()) {
 		newFile << "Game" << std::endl;
-		this->SaveGameItems(newFile);
+		this->SaveGameItems(newFile, gameItems);
 		newFile << "Player" << std::endl;
-		newFile << this->_player.GetPosX() << ';' << this->_player.GetPosY() << ';' << this->_player.GetHealth() << ';' << this->_player.GetDamage() << ';' << this->_player.GetDefence() << ';' << this->_player.GetName() << ';' << std::endl;;
+		newFile << player.GetPosX() << ';' << player.GetPosY() << ';' << player.GetHealth() << ';' << player.GetDamage() << ';' << player.GetDefence() << ';' << player.GetName() << ';' << std::endl;;
 		newFile << "PlayerInventory" << std::endl;
-		this->SavePlayerInventory(newFile);
+		this->SavePlayerInventory(newFile, player);
 		newFile << "PlayerEquipment" << std::endl;
-		this->SavePlayerEquipment(newFile);
+		this->SavePlayerEquipment(newFile, player);
 		newFile << "Enemy" << std::endl;
-		if (this->_enemy)
+		if (enemy)
 		{
 			newFile << "Yes" << std::endl;
-			newFile << this->_enemy->GetPosX() << ';' << this->_enemy->GetPosY() << ';' << this->_enemy->GetHealth() << ';' << this->_enemy->GetDamage() << ';' << this->_enemy->GetDropChance() << ';' << std::endl;;
+			newFile << enemy->GetPosX() << ';' << enemy->GetPosY() << ';' << enemy->GetHealth() << ';' << enemy->GetDamage() << ';' << enemy->GetDropChance() << ';' << std::endl;;
 		}
 		else
 		{
@@ -43,16 +37,16 @@ void SaveGame::SaveGameState()
 	}
 }
 
-void SaveGame::SavePlayerInventory(std::ofstream& file)
+void SaveGame::SavePlayerInventory(std::ofstream& file, Player player)
 {
-	if (this->_player.GetInventory().Size() > 0)
+	if (player.GetInventory().Size() > 0)
 	{
-		file << this->_player.GetInventory().Size() << std::endl;
-		for (size_t i = 0; i < _player.GetInventory().Size(); i++)
+		file << player.GetInventory().Size() << std::endl;
+		for (size_t i = 0; i < player.GetInventory().Size(); i++)
 		{
-			Weapon* tmp_w = dynamic_cast<Weapon*>(&this->_player.GetInventory().At(i));
-			Armor* tmp_a = dynamic_cast<Armor*>(&this->_player.GetInventory().At(i));
-			HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&this->_player.GetInventory().At(i));
+			Weapon* tmp_w = dynamic_cast<Weapon*>(&player.GetInventory().At(i));
+			Armor* tmp_a = dynamic_cast<Armor*>(&player.GetInventory().At(i));
+			HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&player.GetInventory().At(i));
 
 			if (tmp_w)
 			{
@@ -75,12 +69,12 @@ void SaveGame::SavePlayerInventory(std::ofstream& file)
 	}
 }
 
-void SaveGame::SavePlayerEquipment(std::ofstream& file)
+void SaveGame::SavePlayerEquipment(std::ofstream& file, Player player)
 {
 	file << "Weapon" << std::endl;
-	if (this->_player.GetWeapon()) {
+	if (player.GetWeapon()) {
 		file << "Yes" << std::endl;
-		file << _player.GetWeapon()->GetName() << ';' << _player.GetWeapon()->GetSubTypeAsString() << ';' << _player.GetWeapon()->GetPosX() << ';' << _player.GetWeapon()->GetPosY() << ';' << _player.GetWeapon()->GetDamageValue() << ';';
+		file << player.GetWeapon()->GetName() << ';' << player.GetWeapon()->GetSubTypeAsString() << ';' << player.GetWeapon()->GetPosX() << ';' << player.GetWeapon()->GetPosY() << ';' << player.GetWeapon()->GetDamageValue() << ';';
 		file << std::endl;
 	}
 	else
@@ -88,9 +82,9 @@ void SaveGame::SavePlayerEquipment(std::ofstream& file)
 		file << "None" << std::endl;
 	}
 	file << "Armor" << std::endl;
-	if (this->_player.GetArmor()) {
+	if (player.GetArmor()) {
 		file << "Yes" << std::endl;
-		file << _player.GetArmor()->GetName() << ';' << _player.GetArmor()->GetSubTypeAsString() << ';' << _player.GetArmor()->GetPosX() << ';' << _player.GetArmor()->GetPosY() << ';' << _player.GetArmor()->GetDamageValue() << ';';
+		file << player.GetArmor()->GetName() << ';' << player.GetArmor()->GetSubTypeAsString() << ';' << player.GetArmor()->GetPosX() << ';' << player.GetArmor()->GetPosY() << ';' << player.GetArmor()->GetDamageValue() << ';';
 		file << std::endl;
 	}
 	else
@@ -99,16 +93,16 @@ void SaveGame::SavePlayerEquipment(std::ofstream& file)
 	}
 }
 
-void SaveGame::SaveGameItems(std::ofstream& file)
+void SaveGame::SaveGameItems(std::ofstream& file, Inventory gameItems)
 {
-	if (this->_gameItems.Size() > 0)
+	if (gameItems.Size() > 0)
 	{
-		file << this->_gameItems.Size() << std::endl;
-		for (size_t i = 0; i < this->_gameItems.Size(); i++)
+		file << gameItems.Size() << std::endl;
+		for (size_t i = 0; i < gameItems.Size(); i++)
 		{
-			Weapon* tmp_w = dynamic_cast<Weapon*>(&this->_gameItems.At(i));
-			Armor* tmp_a = dynamic_cast<Armor*>(&this->_gameItems.At(i));
-			HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&this->_gameItems.At(i));
+			Weapon* tmp_w = dynamic_cast<Weapon*>(&gameItems.At(i));
+			Armor* tmp_a = dynamic_cast<Armor*>(&gameItems.At(i));
+			HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&gameItems.At(i));
 
 			if (tmp_w)
 			{

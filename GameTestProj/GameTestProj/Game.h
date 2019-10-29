@@ -8,6 +8,9 @@
 #include "Combat.h"
 #include "Renderer.h"
 #include "MoveUnit.h"
+#include "EventHandler.h"
+#include "LoadGame.h"
+#include "SaveGame.h"
 class Game
 {
 public:
@@ -32,4 +35,7 @@ private:
 	Inventory _gameItems;
 	Renderer _renderer;
 	MoveUnit _unitMover;
+	EventHandler _eventHandler;
+	LoadGame _loader;
+	SaveGame _saver;
 };

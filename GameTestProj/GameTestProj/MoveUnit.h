@@ -15,10 +15,12 @@ public:
 	int GetDirection() const;
 	Player GetPlayer() const;
 	Enemy* GetEnemy() const;
+	Inventory GetGameInv() const;
 private:
 	Player _player;
 	Enemy* _enemy;
 	Combat _bettle;
+	Inventory _gameInv;
 	int _dir;
 };
 

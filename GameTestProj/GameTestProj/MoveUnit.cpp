@@ -13,6 +13,7 @@ MoveUnit::~MoveUnit()
 
 void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 {
+	Inventory tmpInv;
 	switch (this->_dir)
 	{
 	case 1:
@@ -26,7 +27,11 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 		}
 		if (player.GetPickedFlag())
 		{
-			player.UpdatePlayerInventory(gameInv);
+			tmpInv = player.UpdatePlayerInventory(gameInv);
+		}
+		else
+		{
+			tmpInv = gameInv;
 		}
 		break;
 	case 2:
@@ -40,7 +45,11 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 		}
 		if (player.GetPickedFlag())
 		{
-			player.UpdatePlayerInventory(gameInv);
+			tmpInv = player.UpdatePlayerInventory(gameInv);
+		}
+		else
+		{
+			tmpInv = gameInv;
 		}
 		break;
 	case 3:
@@ -54,7 +63,11 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 		}
 		if (player.GetPickedFlag())
 		{
-			player.UpdatePlayerInventory(gameInv);
+			tmpInv = player.UpdatePlayerInventory(gameInv);
+		}
+		else
+		{
+			tmpInv = gameInv;
 		}
 		break;
 	case 4:
@@ -68,7 +81,11 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 		}
 		if (player.GetPickedFlag())
 		{
-			player.UpdatePlayerInventory(gameInv);
+			tmpInv = player.UpdatePlayerInventory(gameInv);
+		}
+		else
+		{
+			tmpInv = gameInv;
 		}
 		break;
 	default:
@@ -100,6 +117,7 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 
 	this->_player = player;
 	this->_enemy = enemy;
+	this->_gameInv = tmpInv;
 }
 
 void MoveUnit::SetDir(const int value)
@@ -120,4 +138,9 @@ Player MoveUnit::GetPlayer() const
 Enemy* MoveUnit::GetEnemy() const
 {
 	return this->_enemy;
+}
+
+Inventory MoveUnit::GetGameInv() const
+{
+	return this->_gameInv;
 }

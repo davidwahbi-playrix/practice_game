@@ -200,7 +200,7 @@ void Player::SetArmor(Armor* armor)
 	this->_armor = armor;
 }
 
-void Player::UpdatePlayerInventory(Inventory gameInventory)
+Inventory Player::UpdatePlayerInventory(Inventory gameInventory)
 {
 	this->SetPickedFlag(false);
 	Inventory tmp = this->GetInventory();
@@ -211,6 +211,7 @@ void Player::UpdatePlayerInventory(Inventory gameInventory)
 		SetInventory(tmp);
 		gameInventory.RemoveItem(index);
 		this->_canEquip = true;
+		return gameInventory;
 	}
 }
 

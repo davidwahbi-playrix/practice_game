@@ -37,28 +37,30 @@ void Game::Init()
 
 void Game::HandleEvents()
 {
-	if (GetAsyncKeyState(VK_UP)) {
+	int tmp = this->_eventHandler.HandleEvent();
+	switch (tmp)
+	{
+	case 1:
 		system("cls");
 		this->_unitMover.SetDir(1);
 		this->_draw = true;
-	}
-	if (GetAsyncKeyState(VK_DOWN)) {
-		system("cls");
-		this->_unitMover.SetDir(3);
-		this->_draw = true;
-	}
-	if (GetAsyncKeyState(VK_LEFT)) {
-		system("cls");
-		this->_unitMover.SetDir(4);
-		this->_draw = true;
-	}
-	if (GetAsyncKeyState(VK_RIGHT)) {
+		break;
+	case 2:
 		system("cls");
 		this->_unitMover.SetDir(2);
 		this->_draw = true;
-	}
-	if (GetAsyncKeyState(0x30))
-	{
+		break;
+	case 3:
+		system("cls");
+		this->_unitMover.SetDir(3);
+		this->_draw = true;
+		break;
+	case 4:
+		system("cls");
+		this->_unitMover.SetDir(4);
+		this->_draw = true;
+		break;
+	case 5:
 		if (this->_player.GetCanEquip())
 		{
 			system("cls");
@@ -67,9 +69,8 @@ void Game::HandleEvents()
 			this->_equip = true;
 			this->_draw = true;
 		}
-	}
-	if (GetAsyncKeyState(0x31)) 
-	{
+		break;
+	case 6:
 		if (this->_player.GetCanEquip())
 		{
 			system("cls");
@@ -78,9 +79,8 @@ void Game::HandleEvents()
 			this->_equip = true;
 			this->_draw = true;
 		}
-	}
-	if (GetAsyncKeyState(0x32))
-	{
+		break;
+	case 7:
 		if (this->_player.GetCanEquip())
 		{
 			system("cls");
@@ -89,9 +89,8 @@ void Game::HandleEvents()
 			this->_equip = true;
 			this->_draw = true;
 		}
-	}
-	if (GetAsyncKeyState(0x33))
-	{
+		break;
+	case 8:
 		if (this->_player.GetCanEquip())
 		{
 			system("cls");
@@ -100,20 +99,19 @@ void Game::HandleEvents()
 			this->_equip = true;
 			this->_draw = true;
 		}
-	}
-	if (GetAsyncKeyState(0x53))
-	{
-		SaveGame saveGame(this->_player, this->_enemy, this->_gameItems);
-		saveGame.SaveGameState();
-	}
-	if (GetAsyncKeyState(0x4C))
-	{	
-		LoadGame loadGame;
-		loadGame.LoadGameState();
-		this->_player = loadGame.GetPlayer();
-		this->_enemy = loadGame.GetEnemy();
-		this->_gameItems = loadGame.GetGameInventory();
-		this->_board = loadGame.GetBoard();
+		break;
+	case 9:
+		this->_saver.SaveGameState(this->_player, this->_enemy, this->_gameItems);
+		break;
+	case 10:
+		this->_loader.LoadGameState();
+		this->_player = this->_loader.GetPlayer();
+		this->_enemy = this->_loader.GetEnemy();
+		this->_gameItems = this->_loader.GetGameInventory();
+		this->_board = this->_loader.GetBoard();
+		break;
+	default:
+		break;
 	}
 }
 
@@ -124,6 +122,7 @@ void Game::Update()
 		this->_unitMover.UnitMove(this->_player, this->_enemy, this->_gameItems);
 		this->_player = this->_unitMover.GetPlayer();
 		this->_enemy = this->_unitMover.GetEnemy();
+		this->_gameItems = this->_unitMover.GetGameInv();
 	}
 	if (this->_equip)
 	{

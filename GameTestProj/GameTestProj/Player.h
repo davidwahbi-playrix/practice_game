@@ -43,7 +43,7 @@ public:
 	void SetWeapon(Weapon* weapon);
 	void SetArmor(Armor* armor);
 
-	void UpdatePlayerInventory(Inventory gameInventory);
+	Inventory UpdatePlayerInventory(Inventory gameInventory);
 	void EquipItem(const int index);
 
 	const std::string toString();

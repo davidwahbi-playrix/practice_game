@@ -8,13 +8,12 @@ class SaveGame
 {
 public:
 	SaveGame();
-	SaveGame(Player player, Enemy* enemy, Inventory gameItems);
 	~SaveGame();
 
-	void SaveGameState();
-	void SaveGameItems(std::ofstream& file);
-	void SavePlayerInventory(std::ofstream& file);
-	void SavePlayerEquipment(std::ofstream& file);
+	void SaveGameState(Player player, Enemy* enemy, Inventory gameItems);
+	void SaveGameItems(std::ofstream& file, Inventory gameItems);
+	void SavePlayerInventory(std::ofstream& file, Player player);
+	void SavePlayerEquipment(std::ofstream& file, Player player);
 private:
 
 	Player _player;

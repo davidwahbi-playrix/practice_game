@@ -116,6 +116,7 @@
     <ClCompile Include="ConsumableItem.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EquipableItem.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HealthPotion.cpp" />
     <ClCompile Include="Inventory.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="ConsumableItem.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EquipableItem.h" />
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HealthPotion.h" />
     <ClInclude Include="Inventory.h" />
