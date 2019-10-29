@@ -165,6 +165,19 @@ Item* Inventory::Replace(const unsigned index, Item* item)
 	return tmp_item;
 }
 
+unsigned int Inventory::GetItemIndex(const int x, const int y) const
+{
+	int index = -1;
+	for (size_t i = 0; i < _numOfItems; i++)
+	{
+		if (this->_items[i]->GetPosX() == x && this->_items[i]->GetPosY() == y)
+		{
+			index = i;
+		}
+	}
+	return index;
+}
+
 std::string Inventory::toString() const
 {	
 	std::stringstream ss;

@@ -30,6 +30,7 @@ public:
 	void operator = (const Inventory& other);
 	Item& operator[](const unsigned int index);
 	Item* Replace(const unsigned index, Item* item);
+	unsigned int GetItemIndex(const int x, const int y) const;
 	std::string toString() const;
 };
 

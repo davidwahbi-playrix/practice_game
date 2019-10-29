@@ -3,6 +3,7 @@
 MoveUnit::MoveUnit()
 {
 	this->_dir = 0;
+	this->_enemy = nullptr;
 }
 
 MoveUnit::~MoveUnit()
@@ -10,7 +11,7 @@ MoveUnit::~MoveUnit()
 	
 }
 
-void MoveUnit::UnitMove(Player player, Enemy* enemy)
+void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 {
 	switch (this->_dir)
 	{
@@ -19,7 +20,7 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy)
 		player.MoveObject(0, -1);
 		if (player.GetEnemyFlag())
 		{
-			this->_bettle.Battle(player,enemy);
+			this->_bettle.Battle(player, enemy);
 			player = this->_bettle.GetPlayer();
 			enemy = this->_bettle.GetEnemy();
 		}
@@ -28,6 +29,10 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy)
 			enemy->SetBoard(player.GetBoard());
 			enemy->MoveObject(0, -1);
 			player.SetBoard(enemy->GetBoard());
+		}
+		if (player.GetPickedFlag())
+		{
+			player.UpdatePlayerInventory(gameInv);
 		}
 		break;
 	case 2:
@@ -45,6 +50,10 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy)
 			enemy->MoveObject(0, -1);
 			player.SetBoard(enemy->GetBoard());
 		}
+		if (player.GetPickedFlag())
+		{
+			player.UpdatePlayerInventory(gameInv);
+		}
 		break;
 	case 3:
 		this->_dir = 0;
@@ -61,6 +70,10 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy)
 			enemy->MoveObject(0, 1);
 			player.SetBoard(enemy->GetBoard());
 		}
+		if (player.GetPickedFlag())
+		{
+			player.UpdatePlayerInventory(gameInv);
+		}
 		break;
 	case 4:
 		this->_dir = 0;
@@ -76,6 +89,10 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy)
 			enemy->SetBoard(player.GetBoard());
 			enemy->MoveObject(0, 1);
 			player.SetBoard(enemy->GetBoard());
+		}
+		if (player.GetPickedFlag())
+		{
+			player.UpdatePlayerInventory(gameInv);
 		}
 		break;
 	default:

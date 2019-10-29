@@ -8,7 +8,7 @@ public:
 	MoveUnit();
 	~MoveUnit();
 
-	void UnitMove(Player player, Enemy* enemy);
+	void UnitMove(Player player, Enemy* enemy, Inventory gameInv);
 
 	void SetDir(const int value);
 

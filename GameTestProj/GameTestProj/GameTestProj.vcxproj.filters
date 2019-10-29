@@ -28,6 +28,27 @@
     <Filter Include="MovableObject">
       <UniqueIdentifier>{edc806d1-c546-45e0-9d97-40675e1ccfea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MoveUnit">
+      <UniqueIdentifier>{a1e46aea-fc5d-4b12-a722-0784e1378415}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{49022799-dac0-42d3-ac04-37723b316a7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{f96f3eaf-c710-4d4d-8999-7e7cf6de06d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Armor">
+      <UniqueIdentifier>{79d66d87-079f-4eb0-8203-124e02c9a45e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Weapon">
+      <UniqueIdentifier>{3a04bd75-39c1-4527-8c58-066267c7bb5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HealthPotion">
+      <UniqueIdentifier>{71e078b7-27b2-4be9-a151-79c9d4833deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{0e6cffe3-e476-4722-ac24-309b715fecf7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -41,18 +62,6 @@
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Weapon.cpp">
-      <Filter>Items</Filter>
-    </ClCompile>
-    <ClCompile Include="Armor.cpp">
-      <Filter>Items</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthPotion.cpp">
-      <Filter>Items</Filter>
     </ClCompile>
     <ClCompile Include="ConsumableItem.cpp">
       <Filter>Items</Filter>
@@ -78,14 +87,26 @@
     <ClCompile Include="Unit.cpp">
       <Filter>MovableObject</Filter>
     </ClCompile>
+    <ClCompile Include="MoveUnit.cpp">
+      <Filter>MoveUnit</Filter>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Renderer</Filter>
+      <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Renderer</Filter>
+      <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="MoveUnit.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Armor.cpp">
+      <Filter>Armor</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthPotion.cpp">
+      <Filter>HealthPotion</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,18 +118,6 @@
     </ClInclude>
     <ClInclude Include="Inventory.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Weapon.h">
-      <Filter>Items</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthPotion.h">
-      <Filter>Items</Filter>
-    </ClInclude>
-    <ClInclude Include="Armor.h">
-      <Filter>Items</Filter>
     </ClInclude>
     <ClInclude Include="ConsumableItem.h">
       <Filter>Items</Filter>
@@ -128,20 +137,32 @@
     <ClInclude Include="Renderer.h">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="MovableObject.h">
-      <Filter>Renderer</Filter>
+    <ClInclude Include="MoveUnit.h">
+      <Filter>MoveUnit</Filter>
     </ClInclude>
     <ClInclude Include="Unit.h">
-      <Filter>Renderer</Filter>
+      <Filter>MovableObject</Filter>
     </ClInclude>
-    <ClInclude Include="MoveUnit.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="MovableObject.h">
+      <Filter>MovableObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Armor.h">
+      <Filter>Armor</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthPotion.h">
+      <Filter>HealthPotion</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

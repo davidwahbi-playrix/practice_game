@@ -14,6 +14,7 @@ public:
 	Player(const int x, const int y, int health, int damage, int defence, std::string name, Board board);
 	void MoveObject(int vertical, int horizontal);
 	Inventory& GetInventory();
+
 	void SetInventory(const Inventory& inventory);
 	void SetBoard(const Board& board);
 	void SetPickedFlag(const bool& flag);
@@ -23,6 +24,13 @@ public:
 
 	bool GetPickedFlag();
 	bool GetEnemyFlag();
+	bool GetCanEquip() const;
+
+	int GetEquipInd() const;
+
+	void SetCanEquip(const bool& value);
+	void SetEquipInd(const int value);
+
 	Board GetBoard();
 	const std::string& GetName() const;
 	Weapon* GetWeapon();
@@ -34,6 +42,10 @@ public:
 	void AddHealth(int value);
 	void SetWeapon(Weapon* weapon);
 	void SetArmor(Armor* armor);
+
+	void UpdatePlayerInventory(Inventory gameInventory);
+	void EquipItem(const int index);
+
 	const std::string toString();
 private:
 	std::string _playerName;
@@ -41,6 +53,8 @@ private:
 	Inventory _inventory;
 	bool _itemPickedFlag;
 	bool _enemyEncounter;
+	bool _canEquip;
+	int _equipInd;
 	int _defence;
 	Weapon* _weapon;
 	Armor* _armor;
