@@ -11,6 +11,9 @@ public:
 
 	void Render(Board board, Player player);
 	void SaveLoadMenu();
+
+	bool GetFlag() const;
 private:
+	bool _canEnter;
 };
 

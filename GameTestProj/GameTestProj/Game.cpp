@@ -43,21 +43,25 @@ void Game::HandleEvents()
 	if (GetAsyncKeyState(VK_UP)) {
 		system("cls");
 		this->_dir = 1;
+		this->_unitMover.SetDir(1);
 		this->_draw = true;
 	}
 	if (GetAsyncKeyState(VK_DOWN)) {
 		system("cls");
 		this->_dir = 3;
+		this->_unitMover.SetDir(3);
 		this->_draw = true;
 	}
 	if (GetAsyncKeyState(VK_LEFT)) {
 		system("cls");
 		this->_dir = 4;
+		this->_unitMover.SetDir(4);
 		this->_draw = true;
 	}
 	if (GetAsyncKeyState(VK_RIGHT)) {
 		system("cls");
 		this->_dir = 2;
+		this->_unitMover.SetDir(2);
 		this->_draw = true;
 	}
 	if (GetAsyncKeyState(0x30))
@@ -108,13 +112,11 @@ void Game::HandleEvents()
 	{
 		SaveGame saveGame(this->_player, this->_enemy, this->_gameItems);
 		saveGame.SaveGameState();
-		//this->SaveGame();
 	}
 	if (GetAsyncKeyState(0x4C))
 	{	
 		LoadGame loadGame;
 		loadGame.LoadGameState();
-		//this->LoadGame();
 		this->_player = loadGame.GetPlayer();
 		this->_enemy = loadGame.GetEnemy();
 		this->_gameItems = loadGame.GetGameInventory();
@@ -124,85 +126,26 @@ void Game::HandleEvents()
 
 void Game::Update()
 {
+	this->_unitMover.UnitMove(this->_player, this->_enemy);
 	switch (this->_dir)
 	{
 	case 1:
-		this->_dir = 0;
-		this->_player.MoveObject(0, -1);
-		if (this->_player.GetEnemyFlag())
-		{
-			Combat newCombat(this->_player, this->_enemy);
-			newCombat.Battle();
-			this->_player = newCombat.GetPlayer();
-			this->_enemy = newCombat.GetEnemy();
-		}
-		if (this->_enemy)
-		{
-			this->_enemy->SetBoard(this->_player.GetBoard());
-			this->_enemy->MoveObject(0, -1);
-			this->_player.SetBoard(this->_enemy->GetBoard());
-		}
 		if (this->_player.GetPickedFlag())
 		{
 			this->UpdatePlayerInventory();
 		}
 		break;
 	case 2:
-		this->_dir = 0;
-		this->_player.MoveObject(1, 0);
-		if (this->_player.GetEnemyFlag())
-		{
-			Combat newCombat(this->_player, this->_enemy);
-			newCombat.Battle();
-			this->_player = newCombat.GetPlayer();
-			this->_enemy = newCombat.GetEnemy();
-		}
-		if (this->_enemy)
-		{
-			this->_enemy->SetBoard(this->_player.GetBoard());
-			this->_enemy->MoveObject(0, -1);
-			this->_player.SetBoard(this->_enemy->GetBoard());
-		}
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
 		}	
 		break;
 	case 3:
-		this->_dir = 0;
-		this->_player.MoveObject(0, 1);
-		if (this->_player.GetEnemyFlag())
-		{
-			Combat newCombat(this->_player, this->_enemy);
-			newCombat.Battle();
-			this->_player = newCombat.GetPlayer();
-			this->_enemy = newCombat.GetEnemy();
-		}
-		if (this->_enemy)
-		{
-			this->_enemy->SetBoard(this->_player.GetBoard());
-			this->_enemy->MoveObject(0, 1);
-			this->_player.SetBoard(this->_enemy->GetBoard());
-		}
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
 		}
 		break;
 	case 4:
-		this->_dir = 0;
-		this->_player.MoveObject(-1, 0);
-		if (this->_player.GetEnemyFlag())
-		{
-			Combat newCombat(this->_player, this->_enemy);
-			newCombat.Battle();
-			this->_player = newCombat.GetPlayer();
-			this->_enemy = newCombat.GetEnemy();
-		}
-		if (this->_enemy)
-		{
-			this->_enemy->SetBoard(this->_player.GetBoard());
-			this->_enemy->MoveObject(0, 1);
-			this->_player.SetBoard(this->_enemy->GetBoard());
-		}
 		if (this->_player.GetPickedFlag()) {
 			this->UpdatePlayerInventory();
 		}
@@ -218,20 +161,45 @@ void Game::Update()
 			this->EquipItem(_equipInd);
 		}
 	}
+	this->_player = this->_unitMover.GetPlayer();
+	this->_enemy = this->_unitMover.GetEnemy();
 }
+
 
 void Game::Render()
 {
 	if (_draw)
 	{
 		this->_draw = false;
-		this->_renderer.Render(this->_board, this->_player);
-		if (_player.GetInventory().Size() > 0)
+		this->_renderer.SaveLoadMenu();
+		this->_board = this->_player.GetBoard();
+		this->_board.Display();
+		if (this->_player.GetInventory().Size() > 0)
 		{
+			std::cout << "Player inventory:" << std::endl;
+			std::cout << this->_player.GetInventory().toString() << '\n';
+			std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
 			this->_canEquip = true;
 		}
+		std::cout << this->_player.toString();
 	}
 }
+
+/*void Game::Render()
+{
+	if (_draw)
+	{
+		this->_draw = false;
+		if (this->_renderer.GetFlag())
+		{
+			this->_renderer.Render(this->_board, this->_player);
+			if (this->_player.GetInventory().Size() > 0)
+			{
+				this->_canEquip = true;
+			}
+		}
+	}
+} */
 
 void Game::Clean()
 {

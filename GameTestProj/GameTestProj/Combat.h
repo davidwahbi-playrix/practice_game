@@ -6,10 +6,9 @@ class Combat
 {
 public:
 	Combat();
-	Combat(Player player, Enemy* enemy);
 	~Combat();
 
-	void Battle();
+	void Battle(Player player, Enemy* enemy);
 	Player GetPlayer();
 	Enemy* GetEnemy();
 private:

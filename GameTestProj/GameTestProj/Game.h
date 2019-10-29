@@ -7,6 +7,7 @@
 #include "LoadGame.h"
 #include "Combat.h"
 #include "Renderer.h"
+#include "MoveUnit.h"
 class Game
 {
 public:
@@ -31,10 +32,11 @@ private:
 	bool _equip;
 	bool _canEquip;
 	int _dir;
-	int _equipInd;
+	unsigned int _equipInd;
 	Player _player;
 	Enemy* _enemy;
 	Board _board;
 	Inventory _gameItems;
 	Renderer _renderer;
+	MoveUnit _unitMover;
 };

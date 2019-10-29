@@ -9,7 +9,7 @@ Player::Player()
 	this->_armor = nullptr;
 }
 
-Player::Player( const int x, const int y, int health, int damage, int defence, std::string name, Board board) : MovableObject( x, y, health, damage)
+Player::Player( const int x, const int y, int health, int damage, int defence, std::string name, Board board) : Unit( x, y, health, damage)
 {
 	this->_playerName = name;
 	this->_playerBoard = board;

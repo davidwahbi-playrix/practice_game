@@ -4,7 +4,7 @@ Enemy::Enemy()
 {
 }
 
-Enemy::Enemy(const int x, const int y, int health, int damage, Board board, int dropChance) : MovableObject(x, y, health, damage)
+Enemy::Enemy(const int x, const int y, int health, int damage, Board board, int dropChance) : Unit(x, y, health, damage)
 {
 	this->_enemyBoard = board;
 	this->_dorpChance = dropChance;

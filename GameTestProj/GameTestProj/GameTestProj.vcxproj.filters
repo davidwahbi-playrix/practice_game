@@ -25,6 +25,9 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{209aa7df-2745-472b-a995-c35c396824ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MovableObject">
+      <UniqueIdentifier>{edc806d1-c546-45e0-9d97-40675e1ccfea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -33,19 +36,10 @@
     <ClCompile Include="Board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MovableObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Inventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Item.cpp">
@@ -78,24 +72,30 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="MovableObject.cpp">
+      <Filter>MovableObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>MovableObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveUnit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MovableObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Inventory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
@@ -127,6 +127,21 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableObject.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveUnit.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

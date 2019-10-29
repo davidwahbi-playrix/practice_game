@@ -2,6 +2,7 @@
 
 Renderer::Renderer()
 {
+	this->_canEnter = true;
 }
 
 Renderer::~Renderer()
@@ -10,6 +11,7 @@ Renderer::~Renderer()
 
 void Renderer::Render(Board board, Player player)
 {
+	this->_canEnter = false;
 	this->SaveLoadMenu();
 	board = player.GetBoard();
 	board.Display();
@@ -20,6 +22,7 @@ void Renderer::Render(Board board, Player player)
 		std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
 	}
 	std::cout << player.toString();
+	this->_canEnter = true;
 }
 
 void Renderer::SaveLoadMenu()
@@ -31,4 +34,9 @@ void Renderer::SaveLoadMenu()
 		std::cout << "l -> Load game." << '\n';
 	}
 	std::cout << '\n';
+}
+
+bool Renderer::GetFlag() const
+{
+	return this->_canEnter;
 }

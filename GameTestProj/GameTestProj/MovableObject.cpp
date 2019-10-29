@@ -5,17 +5,16 @@ using namespace std;
 
 MovableObject::MovableObject()
 {
+	this->_posX = 1;
+	this->_posY = 1;
 }
 
-MovableObject::MovableObject( const int x, const int y, int health, int damage)
+MovableObject::MovableObject( const int x, const int y)
 {
-	// id++;
 	CheckPosX(x);
 	CheckPosX(y);
 	this->_posX = x;
 	this->_posY = y;
-	this->_health = health;
-	this->_damage = damage;
 }
 
 int MovableObject::GetPosX()
@@ -36,26 +35,6 @@ void MovableObject::SetPosX(int x)
 void MovableObject::SetPosY(int y)
 {
 	this->_posY = y;
-}
-
-const int MovableObject::GetHealth()
-{
-	return this->_health;
-}
-
-const int MovableObject::GetDamage()
-{
-	return this->_damage;
-}
-
-void MovableObject::SetHealth(int health)
-{
-	this->_health = health;
-}
-
-void MovableObject::SetDamage(int damage)
-{
-	this->_damage = damage;
 }
 
 void MovableObject::CheckPosX(const int x)

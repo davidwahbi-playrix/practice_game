@@ -1,17 +1,13 @@
 #pragma once
-#include "MovableObject.h"
+#include "Unit.h"
 
 #include <string>
 #include <sstream>
 #include <iostream>
 #include "Item.h"
 #include "Board.h"
-class Enemy :
-	public MovableObject
+class Enemy : public Unit
 {
-private:
-	Board _enemyBoard;
-	int _dorpChance;
 public:
 	Enemy();
 	Enemy(const int x, const int y, int health, int damage, Board board, int dropChance);
@@ -25,4 +21,7 @@ public:
 	Board GetBoard();
 
 	const std::string toString();
+private:
+	Board _enemyBoard;
+	int _dorpChance;
 };
