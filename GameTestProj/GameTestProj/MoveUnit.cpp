@@ -24,12 +24,6 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 			player = this->_bettle.GetPlayer();
 			enemy = this->_bettle.GetEnemy();
 		}
-		if (enemy)
-		{
-			enemy->SetBoard(player.GetBoard());
-			enemy->MoveObject(0, -1);
-			player.SetBoard(enemy->GetBoard());
-		}
 		if (player.GetPickedFlag())
 		{
 			player.UpdatePlayerInventory(gameInv);
@@ -43,12 +37,6 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 			this->_bettle.Battle(player, enemy);
 			player = this->_bettle.GetPlayer();
 			enemy = this->_bettle.GetEnemy();
-		}
-		if (enemy)
-		{
-			enemy->SetBoard(player.GetBoard());
-			enemy->MoveObject(0, -1);
-			player.SetBoard(enemy->GetBoard());
 		}
 		if (player.GetPickedFlag())
 		{
@@ -64,12 +52,6 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 			player = this->_bettle.GetPlayer();
 			enemy = this->_bettle.GetEnemy();
 		}
-		if (enemy)
-		{
-			enemy->SetBoard(player.GetBoard());
-			enemy->MoveObject(0, 1);
-			player.SetBoard(enemy->GetBoard());
-		}
 		if (player.GetPickedFlag())
 		{
 			player.UpdatePlayerInventory(gameInv);
@@ -84,12 +66,6 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 			player = this->_bettle.GetPlayer();
 			enemy = this->_bettle.GetEnemy();
 		}
-		if (enemy)
-		{
-			enemy->SetBoard(player.GetBoard());
-			enemy->MoveObject(0, 1);
-			player.SetBoard(enemy->GetBoard());
-		}
 		if (player.GetPickedFlag())
 		{
 			player.UpdatePlayerInventory(gameInv);
@@ -97,6 +73,29 @@ void MoveUnit::UnitMove(Player player, Enemy* enemy, Inventory gameInv)
 		break;
 	default:
 		break;
+	}
+	if (enemy)
+	{
+		enemy->SetBoard(player.GetBoard());
+		int moveDir = rand() % 4 + 1;
+		switch (moveDir)
+		{
+		case 1:
+			enemy->MoveObject(0, -1);
+			break;
+		case 2:
+			enemy->MoveObject(1, 0);
+			break;
+		case 3:
+			enemy->MoveObject(0, 1);
+			break;
+		case 4:
+			enemy->MoveObject(-1, 0);
+			break;
+		default:
+			break;
+		}
+		player.SetBoard(enemy->GetBoard());
 	}
 
 	this->_player = player;
