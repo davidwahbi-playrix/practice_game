@@ -19,8 +19,8 @@ public:
 	void Display();
 	~Board();
 private:
-	static const int _mRowCount = 7;
-	static const int _mColCount = 18;
+	static const int _mRowCount = 10;
+	static const int _mColCount = 50;
 	char _mFields[_mRowCount][_mColCount];
 };
 
