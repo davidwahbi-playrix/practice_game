@@ -23,6 +23,7 @@ void Game::Init()
 void Game::HandleEvents()
 {
 	int tmp = this->_eventHandler.HandleEvent();
+	Player tmpPlayer = this->_profile.GetPlayer();
 	switch (tmp)
 	{
 	case 1:
@@ -49,7 +50,6 @@ void Game::HandleEvents()
 		if (this->_profile.GetPlayer().GetCanEquip())
 		{
 			system("cls");
-			Player tmpPlayer = this->_profile.GetPlayer();
 			tmpPlayer.SetCanEquip(false);
 			tmpPlayer.SetEquipInd(0);
 			this->_profile.SetPlayer(tmpPlayer);
@@ -61,7 +61,6 @@ void Game::HandleEvents()
 		if (this->_profile.GetPlayer().GetCanEquip())
 		{
 			system("cls");
-			Player tmpPlayer = this->_profile.GetPlayer();
 			tmpPlayer.SetCanEquip(false);
 			tmpPlayer.SetEquipInd(1);
 			this->_profile.SetPlayer(tmpPlayer);
@@ -73,7 +72,6 @@ void Game::HandleEvents()
 		if (this->_profile.GetPlayer().GetCanEquip())
 		{
 			system("cls");
-			Player tmpPlayer = this->_profile.GetPlayer();
 			tmpPlayer.SetCanEquip(false);
 			tmpPlayer.SetEquipInd(2);
 			this->_profile.SetPlayer(tmpPlayer);
@@ -85,7 +83,6 @@ void Game::HandleEvents()
 		if (this->_profile.GetPlayer().GetCanEquip())
 		{
 			system("cls");
-			Player tmpPlayer = this->_profile.GetPlayer();
 			tmpPlayer.SetCanEquip(false);
 			tmpPlayer.SetEquipInd(3);
 			this->_profile.SetPlayer(tmpPlayer);
@@ -94,12 +91,12 @@ void Game::HandleEvents()
 		}
 		break;
 	case 9:
-		this->_saver.SaveGameState(this->_profile.GetPlayer(), this->_profile.GetEnemy(), this->_profile.GetGameItems());
+		this->_saver.SaveGameState(this->_profile.GetPlayer(), this->_profile.GetEnemies(), this->_profile.GetGameItems());
 		break;
 	case 10:
 		this->_loader.LoadGameState();
 		this->_profile.SetPlayer(this->_loader.GetPlayer());
-		this->_profile.SetEnemy(this->_loader.GetEnemy());
+		this->_profile.SetEnemies(this->_loader.GetEnemies());
 		this->_profile.SetGameItems(this->_loader.GetGameInventory());
 		this->_profile.SetBoard(this->_loader.GetBoard());
 		break;
@@ -112,9 +109,9 @@ void Game::Update()
 {
 	if (_unitMover.GetDirection() > 0)
 	{
-		this->_unitMover.UnitMove(this->_profile.GetPlayer(), this->_profile.GetEnemy(), this->_profile.GetGameItems());
+		this->_unitMover.UnitMove(this->_profile.GetPlayer(), this->_profile.GetEnemies(), this->_profile.GetGameItems());
 		this->_profile.SetPlayer(this->_unitMover.GetPlayer());
-		this->_profile.SetEnemy(this->_unitMover.GetEnemy());
+		this->_profile.SetEnemies(this->_unitMover.GetEnemies());
 		this->_profile.SetGameItems(this->_unitMover.GetGameInv());
 	}
 	if (this->_equip)
@@ -160,4 +157,4 @@ bool Game::Running() const
 bool Game::Draw() const
 {
 	return this->_draw;
-}
+} 

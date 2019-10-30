@@ -83,15 +83,15 @@ void LoadGame::LoadGameState()
 			std::cout << "Player has no armor!" << std::endl;
 		}
 		getline(loadedFile, tmp_string); // Enemy
-		getline(loadedFile, tmp_string); // Yes or None
-		if (tmp_string != "None")
+		getline(loadedFile, tmp_string); // Enemy number or None
+		int num_of_enemies;
+		tmp_stream.str("");
+		tmp_stream.clear();
+		tmp_stream << tmp_string;
+		tmp_stream >> num_of_enemies;
+		if (num_of_enemies!= -1)
 		{
-			if (!_enemy)
-			{
-				_enemy = new Enemy(0, 0, 0, 0, this->_board, 0);
-			}
-			this->LoadEnemy(loadedFile);
-			std::cout << this->_enemy->toString() << std::endl;
+			this->LoadEnemy(loadedFile, num_of_enemies);
 		}
 		else {
 			std::cout << "No enemies left!" << std::endl;
@@ -229,19 +229,26 @@ void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
 
 }
 
-void LoadGame::LoadEnemy(std::ifstream& file)
+void LoadGame::LoadEnemy(std::ifstream& file, const int size)
 {
+	size_t index = 0;
+	this->_enemies.clear();
+	while (!file.eof() && index < size)
+	{
+		this->_enemies.emplace_back(new Enemy(1, 1, 0, 0, this->_board, 0));
+		this->_enemies[index]->SetPosX(this->ReadIntFromFile(file));
 
-	this->_enemy->SetPosX(this->ReadIntFromFile(file));
+		this->_enemies[index]->SetPosY(this->ReadIntFromFile(file));
 
-	this->_enemy->SetPosY(this->ReadIntFromFile(file));
+		this->_enemies[index]->SetHealth(this->ReadIntFromFile(file));
 
-	this->_enemy->SetHealth(this->ReadIntFromFile(file));
+		this->_enemies[index]->SetDamage(this->ReadIntFromFile(file));
 
-	this->_enemy->SetDamage(this->ReadIntFromFile(file));
+		this->_enemies[index]->SetDropChance(this->ReadIntFromFile(file));
 
-	this->_enemy->SetDropChance(this->ReadIntFromFile(file));
-
+		std::cout << this->_enemies[index]->toString() << std::endl;
+		index++;
+	}
 }
 
 void LoadGame::LoadBoard()
@@ -251,23 +258,29 @@ void LoadGame::LoadBoard()
 
 	board.ClearBoard();
 	board.SetElem(_player.GetPosX(), _player.GetPosY(), '@');
-	if (_gameItems.Size() > 0)
+	if (this->_gameItems.Size() > 0)
 	{
-		for (size_t i = 0; i < _gameItems.Size(); i++)
+		for (size_t i = 0; i < this->_gameItems.Size(); i++)
 		{
-			board.SetElem(_gameItems[i].GetPosX(), _gameItems[i].GetPosY(), 'i');
+			board.SetElem(this->_gameItems[i].GetPosX(), this->_gameItems[i].GetPosY(), 'i');
 		}
 	}
-	if (_enemy)
+	if (this->_enemies.size() > 0)
 	{
-		board.SetElem(_enemy->GetPosX(), _enemy->GetPosY(), 'e');
+		for (size_t i = 0; i < this->_enemies.size(); i++)
+		{
+			board.SetElem(this->_enemies[i]->GetPosX(), this->_enemies[i]->GetPosY(), 'e');
+		}
 	}
 
 	this->_board = board;
 	this->_player.SetBoard(board);
-	if (_enemy)
+	if (this->_enemies.size() > 0)
 	{
-		this->_enemy->SetBoard(board);
+		for (size_t i = 0; i < this->_enemies.size(); i++)
+		{
+			this->_enemies[i]->SetBoard(board);
+		}
 	}
 	this->_board.Display();
 
@@ -279,9 +292,9 @@ Player LoadGame::GetPlayer() const
 	return this->_player;
 }
 
-Enemy* LoadGame::GetEnemy() const
+std::vector<Enemy*> LoadGame::GetEnemies() const
 {
-	return this->_enemy;
+	return this->_enemies;
 }
 
 Inventory LoadGame::GetGameInventory() const

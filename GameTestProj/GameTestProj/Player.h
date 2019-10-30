@@ -59,7 +59,5 @@ private:
 	int _defence;
 	Weapon* _weapon;
 	Armor* _armor;
-	/*std::unique_ptr<Weapon> _weapon
-	std::unique_ptr*/
 };
 

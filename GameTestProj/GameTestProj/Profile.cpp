@@ -9,6 +9,13 @@ Profile::~Profile()
 {
 	delete this->_enemy;
 	this->_enemy = nullptr;
+
+	for (size_t i = 0; i < this->_enemies.size(); i++)
+	{
+		delete this->_enemies[i];
+		this->_enemies[i] = nullptr;
+	}
+	this->_enemies.clear();
 }
 
 void Profile::NewGame()
@@ -17,6 +24,8 @@ void Profile::NewGame()
 	board.Load("Map.txt");
 	Player newPlayer(1, 1, 100, 10, 0, "David", board);
 	this->_enemy = new Enemy(2, 12, 50, 5, board, 100);
+	this->_enemies.emplace_back(new Enemy(2, 12, 50, 5, board, 100));
+	this->_enemies.emplace_back(new Enemy(6, 41, 100, 3, board, 100));
 	this->_player = newPlayer;
 	Board plBoard = newPlayer.GetBoard();
 	this->_board = plBoard;
@@ -47,6 +56,11 @@ Board Profile::GetBoard() const
 	return this->_board;
 }
 
+std::vector<Enemy*> Profile::GetEnemies() const
+{
+	return this->_enemies;
+}
+
 void Profile::SetPlayer(const Player& player)
 {
 	this->_player = player;
@@ -65,4 +79,9 @@ void Profile::SetGameItems(const Inventory& inv)
 void Profile::SetBoard(const Board& board)
 {
 	this->_board = board;
+}
+
+void Profile::SetEnemies(const std::vector<Enemy*> enemies)
+{
+	this->_enemies = enemies;
 }

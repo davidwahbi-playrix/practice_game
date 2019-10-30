@@ -4,6 +4,7 @@
 #include <fstream>
 #include "Player.h"
 #include "Enemy.h"
+#include <vector>
 class LoadGame
 {
 public:
@@ -15,17 +16,17 @@ public:
 	void LoadPlayer(std::ifstream& file);
 	void LoadPlayerIneventory(std::ifstream& file, const int size);
 	void LoadPlayerEquipment(std::ifstream& file, const int state);
-	void LoadEnemy(std::ifstream& file);
+	void LoadEnemy(std::ifstream& file, const int size);
 	void LoadBoard();
 
 	Player GetPlayer() const;
-	Enemy* GetEnemy() const;
+	std::vector<Enemy*> GetEnemies() const;
 	Inventory GetGameInventory() const;
 	Board GetBoard() const;
 	int ReadIntFromFile(std::ifstream& file);
 private:
 	Player _player;
-	Enemy* _enemy;
+	std::vector<Enemy*> _enemies;
 	Inventory _gameItems;
 	Board _board;
 };
