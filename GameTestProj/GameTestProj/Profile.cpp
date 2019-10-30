@@ -2,13 +2,10 @@
 
 Profile::Profile()
 {
-	this->_enemy = nullptr;
 }
 
 Profile::~Profile()
 {
-	delete this->_enemy;
-	this->_enemy = nullptr;
 
 	for (size_t i = 0; i < this->_enemies.size(); i++)
 	{
@@ -23,7 +20,6 @@ void Profile::NewGame()
 	Board board;
 	board.Load("Map.txt");
 	Player newPlayer(1, 1, 100, 10, 0, "David", board);
-	this->_enemy = new Enemy(2, 12, 50, 5, board, 100);
 	this->_enemies.emplace_back(new Enemy(2, 12, 50, 5, board, 100));
 	this->_enemies.emplace_back(new Enemy(6, 41, 100, 3, board, 100));
 	this->_player = newPlayer;
@@ -39,11 +35,6 @@ void Profile::NewGame()
 Player Profile::GetPlayer() const
 {
 	return this->_player;
-}
-
-Enemy* Profile::GetEnemy() const
-{
-	return this->_enemy;
 }
 
 Inventory Profile::GetGameItems() const
@@ -64,11 +55,6 @@ std::vector<Enemy*> Profile::GetEnemies() const
 void Profile::SetPlayer(const Player& player)
 {
 	this->_player = player;
-}
-
-void Profile::SetEnemy(Enemy* enemy)
-{
-	this->_enemy = enemy;
 }
 
 void Profile::SetGameItems(const Inventory& inv)

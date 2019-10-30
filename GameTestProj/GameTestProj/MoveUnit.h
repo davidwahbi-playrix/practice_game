@@ -9,7 +9,6 @@ public:
 	MoveUnit();
 	~MoveUnit();
 
-	void UnitMove(Player player, Enemy* enemy, Inventory gameInv);
 	void UnitMove(Player player, std::vector<Enemy*> enemies, Inventory gameInv);
 	void SetDir(const int value);
 
@@ -17,12 +16,10 @@ public:
 
 	int GetDirection() const;
 	Player GetPlayer() const;
-	Enemy* GetEnemy() const;
 	Inventory GetGameInv() const;
 	std::vector<Enemy*> GetEnemies() const;
 private:
 	Player _player;
-	Enemy* _enemy;
 	Combat _bettle;
 	Inventory _gameInv;
 	std::vector<Enemy*> _enemies;
