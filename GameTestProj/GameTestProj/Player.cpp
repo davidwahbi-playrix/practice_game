@@ -175,13 +175,31 @@ const int Player::GetDefence() const
 
 void Player::AddDamage(int value)
 {
-	int damage = this->GetDamage() + value;
+	int damage = 0;
+	if (this->GetWeapon() != nullptr)
+	{
+		damage = this->GetDamage() + value - this->GetWeapon()->GetDamageValue();
+	}
+	else
+	{
+		damage = this->GetDamage() + value;
+	}
+	
 	this->SetDamage(damage);
 }
 
 void Player::AddDefence(int value)
 {
-	this->_defence += value;
+	int defence = 0;
+	if (this->GetArmor() != nullptr)
+	{
+		defence = this->GetDefence() + value - this->GetArmor()->GetArmorValue();
+	}
+	else
+	{
+		defence = this->GetDefence() + value;
+	}
+	this->SetDefence(defence);
 }
 
 void Player::AddHealth(int value)
@@ -224,14 +242,15 @@ void Player::EquipItem(const int index)
 	if (tmp_w)
 	{
 		tmp_w = static_cast<Weapon*>(this->GetInventory().Replace(index, this->GetWeapon()));
-		this->SetWeapon(tmp_w);
 		this->AddDamage(tmp_w->GetDamageValue());
+		this->SetWeapon(tmp_w);
+
 	}
 	else if (tmp_a)
 	{
 		tmp_a = static_cast<Armor*>(this->GetInventory().Replace(index, this->GetArmor()));
-		this->SetArmor(tmp_a);
 		this->AddDefence(tmp_a->GetArmorValue());
+		this->SetArmor(tmp_a);
 	}
 	else if (tmp_p)
 	{

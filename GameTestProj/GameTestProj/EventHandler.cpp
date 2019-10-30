@@ -42,10 +42,14 @@ int EventHandler::HandleEvent()
 	{
 		return 8;
 	}
+	if (GetAsyncKeyState(0x34))
+	{
+		return 9;
+	}
 	if (GetAsyncKeyState(0x53))
 	{
 		//this->_saver.SaveGameState(player, enemy, gameInv);
-		return 9;
+		return 10;
 	}
 	if (GetAsyncKeyState(0x4C))
 	{
@@ -54,7 +58,7 @@ int EventHandler::HandleEvent()
 		this->_enemy = this->_loader.GetEnemy();
 		this->_gameInv= this->_loader.GetGameInventory();
 		this->_board = this->_loader.GetBoard(); */
-		return 10;
+		return 11;
 	}
 }
 

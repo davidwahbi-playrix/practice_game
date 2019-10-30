@@ -91,9 +91,20 @@ void Game::HandleEvents()
 		}
 		break;
 	case 9:
-		this->_saver.SaveGameState(this->_profile.GetPlayer(), this->_profile.GetEnemies(), this->_profile.GetGameItems());
+		if (this->_profile.GetPlayer().GetCanEquip())
+		{
+			system("cls");
+			tmpPlayer.SetCanEquip(false);
+			tmpPlayer.SetEquipInd(4);
+			this->_profile.SetPlayer(tmpPlayer);
+			this->_equip = true;
+			this->_draw = true;
+		}
 		break;
 	case 10:
+		this->_saver.SaveGameState(this->_profile.GetPlayer(), this->_profile.GetEnemies(), this->_profile.GetGameItems());
+		break;
+	case 11:
 		this->_loader.LoadGameState();
 		this->_profile.SetPlayer(this->_loader.GetPlayer());
 		this->_profile.SetEnemies(this->_loader.GetEnemies());
@@ -122,6 +133,15 @@ void Game::Update()
 			Player tmpPlayer = this->_profile.GetPlayer();
 			tmpPlayer.EquipItem(_profile.GetPlayer().GetEquipInd());
 			this->_profile.SetPlayer(tmpPlayer);
+		}
+		else
+		{
+			if (this->_profile.GetPlayer().GetInventory().Size() > 0)
+			{
+				Player tmpPlayer = this->_profile.GetPlayer();
+				tmpPlayer.SetCanEquip(true);
+				this->_profile.SetPlayer(tmpPlayer);
+			}
 		}
 	}
 }
