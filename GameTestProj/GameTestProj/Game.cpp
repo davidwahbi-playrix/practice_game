@@ -7,31 +7,16 @@ Game::Game()
 	this->_isRunning = false;
 	this->_draw = 0;
 	this->_equip = false;
-	this->_enemy = nullptr;
 }
 
 Game::~Game()
 {
-	delete this->_enemy;
-	this->_enemy = nullptr;
 }
 
 void Game::Init()
 {	
-	Board board;
-	board.Load("Map.txt");
-	Player newPlayer(1, 1, 100, 10, 0, "David", board);
-	_enemy = new Enemy(2, 12, 50, 5, board, 100);
-	this->_player = newPlayer;
-	Board plBoard = newPlayer.GetBoard();
-	this->_board = plBoard;
 	this->_renderer.SaveLoadMenu();
-	plBoard.Display();
-
-	this->_gameItems.AddItem(Weapon("Sword",WEAPON, 3, 5, 10));
-	this->_gameItems.AddItem(Armor("Shield",ARMOR, 1, 8, 20));
-	this->_gameItems.AddItem(HealthPotion("Heal", HEAL, 4, 2, 50));
-
+	this->_profile.NewGame();
 	this->_isRunning = true;
 }
 
@@ -61,54 +46,62 @@ void Game::HandleEvents()
 		this->_draw = true;
 		break;
 	case 5:
-		if (this->_player.GetCanEquip())
+		if (this->_profile.GetPlayer().GetCanEquip())
 		{
 			system("cls");
-			this->_player.SetCanEquip(false);
-			this->_player.SetEquipInd(0);
+			Player tmpPlayer = this->_profile.GetPlayer();
+			tmpPlayer.SetCanEquip(false);
+			tmpPlayer.SetEquipInd(0);
+			this->_profile.SetPlayer(tmpPlayer);
 			this->_equip = true;
 			this->_draw = true;
 		}
 		break;
 	case 6:
-		if (this->_player.GetCanEquip())
+		if (this->_profile.GetPlayer().GetCanEquip())
 		{
 			system("cls");
-			this->_player.SetCanEquip(false);
-			this->_player.SetEquipInd(1);
+			Player tmpPlayer = this->_profile.GetPlayer();
+			tmpPlayer.SetCanEquip(false);
+			tmpPlayer.SetEquipInd(1);
+			this->_profile.SetPlayer(tmpPlayer);
 			this->_equip = true;
 			this->_draw = true;
 		}
 		break;
 	case 7:
-		if (this->_player.GetCanEquip())
+		if (this->_profile.GetPlayer().GetCanEquip())
 		{
 			system("cls");
-			this->_player.SetCanEquip(false);
-			this->_player.SetEquipInd(2);
+			Player tmpPlayer = this->_profile.GetPlayer();
+			tmpPlayer.SetCanEquip(false);
+			tmpPlayer.SetEquipInd(2);
+			this->_profile.SetPlayer(tmpPlayer);
 			this->_equip = true;
 			this->_draw = true;
 		}
 		break;
 	case 8:
-		if (this->_player.GetCanEquip())
+		if (this->_profile.GetPlayer().GetCanEquip())
 		{
 			system("cls");
-			this->_player.SetCanEquip(false);
-			this->_player.SetEquipInd(3);
+			Player tmpPlayer = this->_profile.GetPlayer();
+			tmpPlayer.SetCanEquip(false);
+			tmpPlayer.SetEquipInd(3);
+			this->_profile.SetPlayer(tmpPlayer);
 			this->_equip = true;
 			this->_draw = true;
 		}
 		break;
 	case 9:
-		this->_saver.SaveGameState(this->_player, this->_enemy, this->_gameItems);
+		this->_saver.SaveGameState(this->_profile.GetPlayer(), this->_profile.GetEnemy(), this->_profile.GetGameItems());
 		break;
 	case 10:
 		this->_loader.LoadGameState();
-		this->_player = this->_loader.GetPlayer();
-		this->_enemy = this->_loader.GetEnemy();
-		this->_gameItems = this->_loader.GetGameInventory();
-		this->_board = this->_loader.GetBoard();
+		this->_profile.SetPlayer(this->_loader.GetPlayer());
+		this->_profile.SetEnemy(this->_loader.GetEnemy());
+		this->_profile.SetGameItems(this->_loader.GetGameInventory());
+		this->_profile.SetBoard(this->_loader.GetBoard());
 		break;
 	default:
 		break;
@@ -119,17 +112,19 @@ void Game::Update()
 {
 	if (_unitMover.GetDirection() > 0)
 	{
-		this->_unitMover.UnitMove(this->_player, this->_enemy, this->_gameItems);
-		this->_player = this->_unitMover.GetPlayer();
-		this->_enemy = this->_unitMover.GetEnemy();
-		this->_gameItems = this->_unitMover.GetGameInv();
+		this->_unitMover.UnitMove(this->_profile.GetPlayer(), this->_profile.GetEnemy(), this->_profile.GetGameItems());
+		this->_profile.SetPlayer(this->_unitMover.GetPlayer());
+		this->_profile.SetEnemy(this->_unitMover.GetEnemy());
+		this->_profile.SetGameItems(this->_unitMover.GetGameInv());
 	}
 	if (this->_equip)
 	{
 		this->_equip = false;
-		if (this->_player.GetEquipInd() < this->_player.GetInventory().Size())
+		if (this->_profile.GetPlayer().GetEquipInd() < this->_profile.GetPlayer().GetInventory().Size())
 		{
-			this->_player.EquipItem(_player.GetEquipInd());
+			Player tmpPlayer = this->_profile.GetPlayer();
+			tmpPlayer.EquipItem(_profile.GetPlayer().GetEquipInd());
+			this->_profile.SetPlayer(tmpPlayer);
 		}
 	}
 }
@@ -141,15 +136,15 @@ void Game::Render()
 	{
 		this->_draw = false;
 		this->_renderer.SaveLoadMenu();
-		this->_board = this->_player.GetBoard();
-		this->_board.Display();
-		if (this->_player.GetInventory().Size() > 0)
+		this->_profile.SetBoard(this->_profile.GetPlayer().GetBoard());
+		this->_profile.GetBoard().Display();
+		if (this->_profile.GetPlayer().GetInventory().Size() > 0)
 		{
 			std::cout << "Player inventory:" << std::endl;
-			std::cout << this->_player.GetInventory().toString() << '\n';
+			std::cout << this->_profile.GetPlayer().GetInventory().toString() << '\n';
 			std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
 		}
-		std::cout << this->_player.toString();
+		std::cout << this->_profile.GetPlayer().toString();
 	}
 }
 

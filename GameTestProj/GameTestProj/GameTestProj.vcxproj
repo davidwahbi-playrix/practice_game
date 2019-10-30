@@ -126,6 +126,7 @@
     <ClCompile Include="MovableObject.cpp" />
     <ClCompile Include="MoveUnit.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Profile.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SaveGame.cpp" />
     <ClCompile Include="Unit.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="MovableObject.h" />
     <ClInclude Include="MoveUnit.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Profile.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SaveGame.h" />
     <ClInclude Include="Unit.h" />

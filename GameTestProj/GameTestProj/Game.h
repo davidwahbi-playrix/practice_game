@@ -11,6 +11,7 @@
 #include "EventHandler.h"
 #include "LoadGame.h"
 #include "SaveGame.h"
+#include "Profile.h"
 class Game
 {
 public:
@@ -29,13 +30,10 @@ private:
 	bool _isRunning;
 	bool _draw;
 	bool _equip;
-	Player _player;
-	Enemy* _enemy;
-	Board _board;
-	Inventory _gameItems;
 	Renderer _renderer;
 	MoveUnit _unitMover;
 	EventHandler _eventHandler;
 	LoadGame _loader;
 	SaveGame _saver;
+	Profile _profile;
 };
