@@ -10,8 +10,8 @@ public:
 	Weapon(std::string name, unsigned int subType, int x, int y, int damage);
 	~Weapon();
 
-	const int GetDamageValue();
-	const int GetArmorValue();
+	const int GetDamageValue() const;
+	const int GetArmorValue() const;
 
 	Weapon* Clone();
 	const std::string toString() const;

@@ -14,11 +14,11 @@ public:
 	~Enemy();
 
 	void MoveObject(int vertical, int horizontal);
-	void SetBoard(Board board);
+	void SetBoard(const Board& board);
 	void SetDropChance(const int dropChance);
 
-	const int GetDropChance();
-	Board GetBoard();
+	const int GetDropChance() const;
+	Board GetBoard() const;
 
 	const std::string toString();
 private:

@@ -17,22 +17,22 @@ MovableObject::MovableObject( const int x, const int y)
 	this->_posY = y;
 }
 
-int MovableObject::GetPosX()
+int MovableObject::GetPosX() const
 {
 	return this->_posX;
 }
 
-int MovableObject::GetPosY()
+int MovableObject::GetPosY() const
 {
 	return this->_posY;
 }
 
-void MovableObject::SetPosX(int x)
+void MovableObject::SetPosX(const int x)
 {
 	this->_posX = x;
 }
 
-void MovableObject::SetPosY(int y)
+void MovableObject::SetPosY(const int y)
 {
 	this->_posY = y;
 }

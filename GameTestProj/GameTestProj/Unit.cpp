@@ -16,22 +16,22 @@ Unit::~Unit()
 {
 }
 
-const int Unit::GetHealth()
+const int Unit::GetHealth() const
 {
 	return this->_health;
 }
 
-const int Unit::GetDamage()
+const int Unit::GetDamage() const
 {
 	return _damage;
 }
 
-void Unit::SetHealth(int health)
+void Unit::SetHealth(const int health)
 {
 	this->_health = health;
 }
 
-void Unit::SetDamage(int damage)
+void Unit::SetDamage(const int damage)
 {
 	this->_damage = damage;
 }

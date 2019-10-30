@@ -4,10 +4,10 @@ class MovableObject
 public:
 	MovableObject();
 	MovableObject(const int x, const int y);
-	int GetPosX();
-	int GetPosY();
-	void SetPosX(int x);
-	void SetPosY(int y);
+	int GetPosX() const;
+	int GetPosY() const;
+	void SetPosX(const int x);
+	void SetPosY(const int y);
 
 	void CheckPosX(const int x);
 	void CheckPosY(const int y);

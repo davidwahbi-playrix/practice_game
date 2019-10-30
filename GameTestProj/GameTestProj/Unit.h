@@ -7,10 +7,10 @@ public:
 	Unit(const int x, const int y, const int health, const int damage);
 	~Unit();
 
-	const int GetHealth();
-	const int GetDamage();
-	void SetHealth(int health);
-	void SetDamage(int damage);
+	const int GetHealth() const;
+	const int GetDamage() const;
+	void SetHealth(const int health);
+	void SetDamage(const int damage);
 private:
 	int _health;
 	int _damage;

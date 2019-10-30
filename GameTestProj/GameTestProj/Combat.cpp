@@ -73,12 +73,12 @@ void Combat::Battle(Player player, Enemy* enemy)
 	this->_enemy = enemy;
 }
 
-Player Combat::GetPlayer()
+Player Combat::GetPlayer() const
 {
 	return this->_player;
 }
 
-Enemy* Combat::GetEnemy()
+Enemy* Combat::GetEnemy() const
 {
 	return this->_enemy;
 }

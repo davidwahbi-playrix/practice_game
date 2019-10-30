@@ -52,18 +52,18 @@
     <Filter Include="EventHandler">
       <UniqueIdentifier>{3952a81c-e8de-402a-978a-b4727395c180}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Board">
+      <UniqueIdentifier>{6911c3ce-f9db-490d-9205-403d519bdef4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inventory">
+      <UniqueIdentifier>{91c8966f-bfbf-4636-af3b-89e61cb8dbf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{cf297aa0-83ab-4a67-81ef-b4e7d69658e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Board.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ConsumableItem.cpp">
@@ -114,17 +114,17 @@
     <ClCompile Include="EventHandler.cpp">
       <Filter>EventHandler</Filter>
     </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Board.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ConsumableItem.h">
       <Filter>Items</Filter>
     </ClInclude>
@@ -172,6 +172,15 @@
     </ClInclude>
     <ClInclude Include="EventHandler.h">
       <Filter>EventHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="Board.h">
+      <Filter>Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

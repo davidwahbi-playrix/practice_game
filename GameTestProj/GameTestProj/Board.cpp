@@ -10,17 +10,17 @@ Board::Board()
 {
 }
 
-int Board::GetRowCount()
+int Board::GetRowCount() const
 {
 	return this->_mRowCount;
 }
 
-int Board::GetColCount()
+int Board::GetColCount() const
 {
 	return this->_mColCount;
 }
 
-char Board::GetElem(const int row, const int col)
+char Board::GetElem(const int row, const int col) const
 {
 	CheckRow(row);
 	CheckCol(col);
@@ -28,7 +28,7 @@ char Board::GetElem(const int row, const int col)
 	return this->_mFields[row][col];
 }
 
-void Board::SetElem(const int row, const int col, const char elem)
+void Board::SetElem(const int row, const int col, const char& elem)
 {
 	CheckRow(row);
 	CheckCol(col);
@@ -36,7 +36,7 @@ void Board::SetElem(const int row, const int col, const char elem)
 	this->_mFields[row][col] = elem;
 }
 
-void Board::CheckRow(const int row)
+void Board::CheckRow(const int row) const
 {
 	if (row < 0 || row > _mRowCount - 1)
 	{
@@ -44,7 +44,7 @@ void Board::CheckRow(const int row)
 	}
 }
 
-void Board::CheckCol(const int col)
+void Board::CheckCol(const int col) const
 {
 	if (col < 0 || col > this->_mColCount)
 	{

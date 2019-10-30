@@ -14,12 +14,12 @@ Armor::~Armor()
 {
 }
 
-const int Armor::GetDamageValue()
+const int Armor::GetDamageValue() const
 {
 	return 0;
 }
 
-const int Armor::GetArmorValue()
+const int Armor::GetArmorValue() const
 {
 	return this->_armor;
 }

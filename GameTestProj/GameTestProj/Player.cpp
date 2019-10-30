@@ -83,16 +83,6 @@ void Player::MoveObject(int vertical, int horizontal)
 	}
 }
 
-Board Player::GetBoard()
-{
-	return this->_playerBoard;
-}
-
-Inventory& Player::GetInventory()
-{
-	return this->_inventory;
-}
-
 void Player::SetInventory(const Inventory& inventory)
 {
 	this->_inventory = inventory;
@@ -123,12 +113,32 @@ void Player::SetDefence(const int defence)
 	this->_defence = defence;
 }
 
-bool Player::GetPickedFlag()
+void Player::SetCanEquip(const bool& value)
+{
+	this->_canEquip = value;
+}
+
+void Player::SetEquipInd(const int value)
+{
+	this->_equipInd = value;
+}
+
+Board Player::GetBoard() const
+{
+	return this->_playerBoard;
+}
+
+Inventory& Player::GetInventory()
+{
+	return this->_inventory;
+}
+
+bool Player::GetPickedFlag() const
 {
 	return this->_itemPickedFlag;
 }
 
-bool Player::GetEnemyFlag()
+bool Player::GetEnemyFlag() const
 {
 	return this->_enemyEncounter;
 }
@@ -143,32 +153,22 @@ int Player::GetEquipInd() const
 	return _equipInd;
 }
 
-void Player::SetCanEquip(const bool& value)
-{
-	this->_canEquip = value;
-}
-
-void Player::SetEquipInd(const int value)
-{
-	this->_equipInd = value;
-}
-
 const std::string& Player::GetName() const
 {
 	return this->_playerName;
 }
 
-Weapon* Player::GetWeapon()
+Weapon* Player::GetWeapon() const
 {
 	return this->_weapon;
 }
 
-Armor* Player::GetArmor()
+Armor* Player::GetArmor() const
 {
 	return this->_armor;
 }
 
-const int Player::GetDefence()
+const int Player::GetDefence() const
 {
 	return this->_defence;
 }
@@ -242,7 +242,7 @@ void Player::EquipItem(const int index)
 		this->SetCanEquip(true);
 	}
 }
-const std::string Player::toString()
+const std::string Player::toString() const
 {
 	std::stringstream ss;
 	ss << "Player: " << this->GetName() << " | Health: " << this->GetHealth() << " | Damage: " << this->GetDamage() <<  " | Armor: " << this->_defence;

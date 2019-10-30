@@ -14,12 +14,12 @@ Weapon::~Weapon()
 {
 }
 
-const int Weapon::GetDamageValue()
+const int Weapon::GetDamageValue() const
 {
 	return this->_damage;
 }
 
-const int Weapon::GetArmorValue()
+const int Weapon::GetArmorValue() const
 {
 	return 0;
 }

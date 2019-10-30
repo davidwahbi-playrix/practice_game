@@ -23,8 +23,8 @@ public:
 	void Render();
 	void Clean();
 
-	bool Running();
-	bool Draw();
+	bool Running() const;
+	bool Draw() const;
 private:
 	bool _isRunning;
 	bool _draw;

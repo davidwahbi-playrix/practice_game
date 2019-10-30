@@ -157,12 +157,12 @@ void Game::Clean()
 {
 }
 
-bool Game::Running()
+bool Game::Running() const
 {
 	return this->_isRunning;
 }
 
-bool Game::Draw()
+bool Game::Draw() const
 {
 	return this->_draw;
 }

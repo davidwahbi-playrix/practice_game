@@ -10,8 +10,8 @@ public:
 	HealthPotion(std::string name, unsigned int subType, int x, int y, int heal);
 	~HealthPotion();
 
-	const int GetHealthValue();
-	const int GetPoisonValue();
+	const int GetHealthValue() const;
+	const int GetPoisonValue() const;
 
 	HealthPotion* Clone();
 	const std::string toString() const;

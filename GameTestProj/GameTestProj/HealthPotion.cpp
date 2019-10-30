@@ -14,12 +14,12 @@ HealthPotion::~HealthPotion()
 {
 }
 
-const int HealthPotion::GetHealthValue()
+const int HealthPotion::GetHealthValue() const
 {
 	return this->_heal;
 }
 
-const int HealthPotion::GetPoisonValue()
+const int HealthPotion::GetPoisonValue() const
 {
 	return 0;
 }

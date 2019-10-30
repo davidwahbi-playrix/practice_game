@@ -274,22 +274,22 @@ void LoadGame::LoadBoard()
 }
 
 
-Player LoadGame::GetPlayer()
+Player LoadGame::GetPlayer() const
 {
 	return this->_player;
 }
 
-Enemy* LoadGame::GetEnemy()
+Enemy* LoadGame::GetEnemy() const
 {
 	return this->_enemy;
 }
 
-Inventory LoadGame::GetGameInventory()
+Inventory LoadGame::GetGameInventory() const
 {
 	return this->_gameItems;
 }
 
-Board LoadGame::GetBoard()
+Board LoadGame::GetBoard() const
 {
 	return this->_board;
 }

@@ -18,10 +18,10 @@ public:
 	void LoadEnemy(std::ifstream& file);
 	void LoadBoard();
 
-	Player GetPlayer();
-	Enemy* GetEnemy();
-	Inventory GetGameInventory();
-	Board GetBoard();
+	Player GetPlayer() const;
+	Enemy* GetEnemy() const;
+	Inventory GetGameInventory() const;
+	Board GetBoard() const;
 	int ReadIntFromFile(std::ifstream& file);
 private:
 	Player _player;

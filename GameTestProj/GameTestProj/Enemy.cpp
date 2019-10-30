@@ -2,6 +2,7 @@
 
 Enemy::Enemy()
 {
+	this->_dorpChance = 50;
 }
 
 Enemy::Enemy(const int x, const int y, int health, int damage, Board board, int dropChance) : Unit(x, y, health, damage)
@@ -40,7 +41,7 @@ void Enemy::MoveObject(int vertical, int horizontal)
 	}
 }
 
-void Enemy::SetBoard(Board board)
+void Enemy::SetBoard(const Board& board)
 {
 	this->_enemyBoard = board;
 }
@@ -50,12 +51,12 @@ void Enemy::SetDropChance(const int dropChance)
 	this->_dorpChance = dropChance;
 }
 
-const int Enemy::GetDropChance()
+const int Enemy::GetDropChance() const
 {
 	return this->_dorpChance;
 }
 
-Board Enemy::GetBoard()
+Board Enemy::GetBoard() const
 {
 	return this->_enemyBoard;
 }

@@ -7,15 +7,8 @@
 #include "HealthPotion.h"
 class Inventory
 {
-private:
-	Item** _items;
-	unsigned int _cap;
-	unsigned int _numOfItems;
-
-	void Init(const unsigned from=0);
-	void Expand();
 public:
-	Inventory(unsigned int cap=10);
+	Inventory(unsigned int cap = 10);
 	Inventory(const Inventory& other);
 	~Inventory();
 
@@ -32,5 +25,12 @@ public:
 	Item* Replace(const unsigned index, Item* item);
 	unsigned int GetItemIndex(const int x, const int y) const;
 	std::string toString() const;
+private:
+	Item** _items;
+	unsigned int _cap;
+	unsigned int _numOfItems;
+
+	void Init(const unsigned from=0);
+	void Expand();
 };
 

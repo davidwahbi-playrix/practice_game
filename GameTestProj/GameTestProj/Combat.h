@@ -9,8 +9,8 @@ public:
 	~Combat();
 
 	void Battle(Player player, Enemy* enemy);
-	Player GetPlayer();
-	Enemy* GetEnemy();
+	Player GetPlayer() const;
+	Enemy* GetEnemy() const;
 private:
 	Player _player;
 	Enemy* _enemy;

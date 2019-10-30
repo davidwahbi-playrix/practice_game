@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include "Board.h";
-#include "Player.h";
+#include "Board.h"
+#include "Player.h"
 class Renderer
 {
 public:
