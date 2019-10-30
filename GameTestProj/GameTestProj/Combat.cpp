@@ -19,9 +19,19 @@ void Combat::Battle(Player player, Enemy* enemy)
 		int tmpEnemyHP = enemy->GetHealth();
 		int tmpPlayerDamage = player.GetDamage();
 		int tmpEnemyDamage = enemy->GetDamage();
-		if (tmpPlayerHP - tmpEnemyDamage > 0)
+		int tmpPlayerDefence = player.GetDefence();
+		if (tmpPlayerHP + tmpPlayerDefence - tmpEnemyDamage > 0)
 		{
-			player.SetHealth(tmpPlayerHP - tmpEnemyDamage);
+			int tmpDamage = tmpPlayerDefence - tmpEnemyDamage;
+			if (tmpDamage < 0)
+			{
+				player.SetDefence(0);
+				player.SetHealth(tmpPlayerHP + tmpDamage);
+			}
+			else
+			{
+				player.SetDefence(tmpDamage);
+			}	
 			std::cout << "Enemy Attacks!" << '\n';
 			std::cout << player.toString() << '\n';
 			if (tmpEnemyHP - tmpPlayerDamage > 0)
