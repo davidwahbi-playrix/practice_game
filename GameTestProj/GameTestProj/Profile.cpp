@@ -6,13 +6,6 @@ Profile::Profile()
 
 Profile::~Profile()
 {
-
-	for (size_t i = 0; i < this->_enemies.size(); i++)
-	{
-		delete this->_enemies[i];
-		this->_enemies[i] = nullptr;
-	}
-	this->_enemies.clear();
 }
 
 void Profile::NewGame()
@@ -20,8 +13,8 @@ void Profile::NewGame()
 	Board board;
 	board.Load("Map.txt");
 	Player newPlayer(1, 1, 100, 10, 0, "David", board);
-	this->_enemies.emplace_back(new Enemy(2, 12, 50, 5, board, 100));
-	this->_enemies.emplace_back(new Enemy(6, 41, 100, 3, board, 100));
+	this->_smartEnemies.emplace_back(std::make_shared<Enemy>(2, 12, 50, 5, board, 100));
+	this->_smartEnemies.emplace_back(std::make_shared<Enemy>(6, 41, 100, 3, board, 100));
 	this->_player = newPlayer;
 	Board plBoard = newPlayer.GetBoard();
 	this->_board = plBoard;
@@ -47,9 +40,9 @@ Board Profile::GetBoard() const
 	return this->_board;
 }
 
-std::vector<Enemy*> Profile::GetEnemies() const
+std::vector<std::shared_ptr<Enemy>> Profile::GetSmartEnemies() const
 {
-	return this->_enemies;
+	return this->_smartEnemies;
 }
 
 void Profile::SetPlayer(const Player& player)
@@ -67,7 +60,7 @@ void Profile::SetBoard(const Board& board)
 	this->_board = board;
 }
 
-void Profile::SetEnemies(const std::vector<Enemy*> enemies)
+void Profile::SetSmartEnemies(const std::vector<std::shared_ptr<Enemy>> smartEnemies)
 {
-	this->_enemies = enemies;
+	this->_smartEnemies = smartEnemies;
 }

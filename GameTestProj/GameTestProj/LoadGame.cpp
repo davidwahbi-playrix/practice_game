@@ -8,7 +8,7 @@ LoadGame::~LoadGame()
 {
 }
 
-void LoadGame::LoadGameState()
+void LoadGame::LoadSmartGameState()
 {
 	std::ifstream loadedFile("SaveGame.txt");
 	std::string tmp_string;
@@ -89,9 +89,9 @@ void LoadGame::LoadGameState()
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
 		tmp_stream >> num_of_enemies;
-		if (num_of_enemies!= -1)
+		if (num_of_enemies != -1)
 		{
-			this->LoadEnemy(loadedFile, num_of_enemies);
+			this->LoadSmartEnemy(loadedFile, num_of_enemies);
 		}
 		else {
 			std::cout << "No enemies left!" << std::endl;
@@ -229,24 +229,24 @@ void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
 
 }
 
-void LoadGame::LoadEnemy(std::ifstream& file, const int size)
+void LoadGame::LoadSmartEnemy(std::ifstream& file, const int size)
 {
 	size_t index = 0;
-	this->_enemies.clear();
+	this->_smartEnemies.clear();
 	while (!file.eof() && index < size)
 	{
-		this->_enemies.emplace_back(new Enemy(1, 1, 0, 0, this->_board, 0));
-		this->_enemies[index]->SetPosX(this->ReadIntFromFile(file));
+		this->_smartEnemies.emplace_back(std::make_shared<Enemy>(1, 1, 0, 0, this->_board, 0));
+		this->_smartEnemies[index]->SetPosX(this->ReadIntFromFile(file));
 
-		this->_enemies[index]->SetPosY(this->ReadIntFromFile(file));
+		this->_smartEnemies[index]->SetPosY(this->ReadIntFromFile(file));
 
-		this->_enemies[index]->SetHealth(this->ReadIntFromFile(file));
+		this->_smartEnemies[index]->SetHealth(this->ReadIntFromFile(file));
 
-		this->_enemies[index]->SetDamage(this->ReadIntFromFile(file));
+		this->_smartEnemies[index]->SetDamage(this->ReadIntFromFile(file));
 
-		this->_enemies[index]->SetDropChance(this->ReadIntFromFile(file));
+		this->_smartEnemies[index]->SetDropChance(this->ReadIntFromFile(file));
 
-		std::cout << this->_enemies[index]->toString() << std::endl;
+		std::cout << this->_smartEnemies[index]->toString() << std::endl;
 		index++;
 	}
 }
@@ -265,21 +265,21 @@ void LoadGame::LoadBoard()
 			board.SetElem(this->_gameItems[i].GetPosX(), this->_gameItems[i].GetPosY(), 'i');
 		}
 	}
-	if (this->_enemies.size() > 0)
+	if (this->_smartEnemies.size() > 0)
 	{
-		for (size_t i = 0; i < this->_enemies.size(); i++)
+		for (size_t i = 0; i < this->_smartEnemies.size(); i++)
 		{
-			board.SetElem(this->_enemies[i]->GetPosX(), this->_enemies[i]->GetPosY(), 'e');
+			board.SetElem(this->_smartEnemies[i]->GetPosX(), this->_smartEnemies[i]->GetPosY(), 'e');
 		}
 	}
 
 	this->_board = board;
 	this->_player.SetBoard(board);
-	if (this->_enemies.size() > 0)
+	if (this->_smartEnemies.size() > 0)
 	{
-		for (size_t i = 0; i < this->_enemies.size(); i++)
+		for (size_t i = 0; i < this->_smartEnemies.size(); i++)
 		{
-			this->_enemies[i]->SetBoard(board);
+			this->_smartEnemies[i]->SetBoard(board);
 		}
 	}
 	this->_board.Display();
@@ -292,9 +292,9 @@ Player LoadGame::GetPlayer() const
 	return this->_player;
 }
 
-std::vector<Enemy*> LoadGame::GetEnemies() const
+std::vector<std::shared_ptr<Enemy>> LoadGame::GetSmartEnemies() const
 {
-	return this->_enemies;
+	return this->_smartEnemies;
 }
 
 Inventory LoadGame::GetGameInventory() const

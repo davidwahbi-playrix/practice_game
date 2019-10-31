@@ -43,13 +43,13 @@ void Game::HandleEvents()
 	}
 	else if (tmpInput == 10)
 	{
-		this->_saver.SaveGameState(this->_profile.GetPlayer(), this->_profile.GetEnemies(), this->_profile.GetGameItems());
+		this->_saver.SaveSmartGameState(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems());
 	}
 	else if (tmpInput == 11)
 	{
-		this->_loader.LoadGameState();
+		this->_loader.LoadSmartGameState();
 		this->_profile.SetPlayer(this->_loader.GetPlayer());
-		this->_profile.SetEnemies(this->_loader.GetEnemies());
+		this->_profile.SetSmartEnemies(this->_loader.GetSmartEnemies());
 		this->_profile.SetGameItems(this->_loader.GetGameInventory());
 		this->_profile.SetBoard(this->_loader.GetBoard());
 	}
@@ -59,9 +59,9 @@ void Game::Update()
 {
 	if (_unitMover.GetDirection() > 0)
 	{
-		this->_unitMover.UnitMove(this->_profile.GetPlayer(), this->_profile.GetEnemies(), this->_profile.GetGameItems());
+		this->_unitMover.SmartUnitMove(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems());
 		this->_profile.SetPlayer(this->_unitMover.GetPlayer());
-		this->_profile.SetEnemies(this->_unitMover.GetEnemies());
+		this->_profile.SetSmartEnemies(this->_unitMover.GetSmartEnemies());
 		this->_profile.SetGameItems(this->_unitMover.GetGameInv());
 	}
 	Player tmpPlayer = this->_profile.GetPlayer();

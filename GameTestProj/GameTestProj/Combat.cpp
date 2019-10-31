@@ -8,7 +8,7 @@ Combat::~Combat()
 {
 }
 
-void Combat::Battle(Player player, Enemy* enemy)
+void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 {
 	player.SetEnemyFlag(false);
 	bool exit = false;
@@ -16,9 +16,9 @@ void Combat::Battle(Player player, Enemy* enemy)
 	while (!exit)
 	{
 		int tmpPlayerHP = player.GetHealth();
-		int tmpEnemyHP = enemy->GetHealth();
+		int tmpEnemyHP = smartEnemy->GetHealth();
 		int tmpPlayerDamage = player.GetDamage();
-		int tmpEnemyDamage = enemy->GetDamage();
+		int tmpEnemyDamage = smartEnemy->GetDamage();
 		int tmpPlayerDefence = player.GetDefence();
 		if (tmpPlayerHP + tmpPlayerDefence - tmpEnemyDamage > 0)
 		{
@@ -31,21 +31,21 @@ void Combat::Battle(Player player, Enemy* enemy)
 			else
 			{
 				player.SetDefence(tmpDamage);
-			}	
+			}
 			std::cout << "Enemy Attacks!" << '\n';
 			std::cout << player.toString() << '\n';
 			if (tmpEnemyHP - tmpPlayerDamage > 0)
 			{
-				enemy->SetHealth(tmpEnemyHP - tmpPlayerDamage);
+				smartEnemy->SetHealth(tmpEnemyHP - tmpPlayerDamage);
 				std::cout << "Player Attacks!" << '\n';
-				std::cout << enemy->toString() << '\n';
+				std::cout << smartEnemy->toString() << '\n';
 				system("pause");
 			}
 			else {
 				std::cout << "Enemy KILLED!" << '\n';
 				exit = true;
 				int drop = rand() % 100 + 1;
-				if (drop <= enemy->GetDropChance())
+				if (drop <= smartEnemy->GetDropChance())
 				{
 					int type = rand() % 3;
 					switch (type)
@@ -66,10 +66,9 @@ void Combat::Battle(Player player, Enemy* enemy)
 						break;
 					}
 				}
-				delete enemy;
-				enemy = nullptr;
 				system("pause");
 				system("cls");
+				smartEnemy = nullptr;
 			}
 		}
 		else {
@@ -80,7 +79,7 @@ void Combat::Battle(Player player, Enemy* enemy)
 		}
 	}
 	this->_player = player;
-	this->_enemy = enemy;
+	this->_smartEnemy = smartEnemy;
 }
 
 Player Combat::GetPlayer() const
@@ -88,7 +87,7 @@ Player Combat::GetPlayer() const
 	return this->_player;
 }
 
-Enemy* Combat::GetEnemy() const
+std::shared_ptr<Enemy> Combat::GetSmartEnemy()
 {
-	return this->_enemy;
+	return this->_smartEnemy;
 }

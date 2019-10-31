@@ -5,28 +5,29 @@
 #include "Player.h"
 #include "Enemy.h"
 #include <vector>
+#include <memory>
 class LoadGame
 {
 public:
 	LoadGame();
 	~LoadGame();
 
-	void LoadGameState();
+	void LoadSmartGameState();
 	void LoadGameItems(std::ifstream& file, const int size);
 	void LoadPlayer(std::ifstream& file);
 	void LoadPlayerIneventory(std::ifstream& file, const int size);
 	void LoadPlayerEquipment(std::ifstream& file, const int state);
-	void LoadEnemy(std::ifstream& file, const int size);
+	void LoadSmartEnemy(std::ifstream& file, const int size);
 	void LoadBoard();
 
 	Player GetPlayer() const;
-	std::vector<Enemy*> GetEnemies() const;
+	std::vector<std::shared_ptr<Enemy>> GetSmartEnemies() const;
 	Inventory GetGameInventory() const;
 	Board GetBoard() const;
 	int ReadIntFromFile(std::ifstream& file);
 private:
 	Player _player;
-	std::vector<Enemy*> _enemies;
+	std::vector<std::shared_ptr<Enemy>> _smartEnemies;
 	Inventory _gameItems;
 	Board _board;
 };

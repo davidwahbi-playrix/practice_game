@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <memory>
 #include "Player.h"
 #include "Enemy.h"
 class Combat
@@ -8,11 +9,11 @@ public:
 	Combat();
 	~Combat();
 
-	void Battle(Player player, Enemy* enemy);
+	void SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy);
 	Player GetPlayer() const;
-	Enemy* GetEnemy() const;
+	std::shared_ptr<Enemy> GetSmartEnemy();
 private:
 	Player _player;
-	Enemy* _enemy;
+	std::shared_ptr<Enemy> _smartEnemy;
 };
 

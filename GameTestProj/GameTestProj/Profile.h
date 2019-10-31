@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include <vector>
+#include <memory>
 class Profile
 {
 public:
@@ -13,15 +14,15 @@ public:
 	Player GetPlayer() const;
 	Inventory GetGameItems() const;
 	Board GetBoard() const;
-	std::vector<Enemy*> GetEnemies() const;
+	std::vector<std::shared_ptr<Enemy>> GetSmartEnemies() const;
 
 	void SetPlayer(const Player& player);
 	void SetGameItems(const Inventory& inv);
 	void SetBoard(const Board& board);
-	void SetEnemies(const std::vector<Enemy*> enemies);
+	void SetSmartEnemies(const std::vector<std::shared_ptr<Enemy>> smartEnemies);
 private:
 	Player _player;
-	std::vector<Enemy*> _enemies;
+	std::vector<std::shared_ptr<Enemy>> _smartEnemies;
 	Inventory _gameItems;
 	Board _board;
 };

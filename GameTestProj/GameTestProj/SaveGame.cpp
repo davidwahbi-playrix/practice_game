@@ -8,7 +8,7 @@ SaveGame::~SaveGame()
 {
 }
 
-void SaveGame::SaveGameState(Player player, std::vector<Enemy*> enemies, Inventory gameItems)
+void SaveGame::SaveSmartGameState(Player player, std::vector<std::shared_ptr<Enemy>> smartEnemies, Inventory gameItems)
 {
 	std::ofstream newFile;
 	newFile.open("SaveGame.txt");
@@ -22,19 +22,19 @@ void SaveGame::SaveGameState(Player player, std::vector<Enemy*> enemies, Invento
 		newFile << "PlayerEquipment" << std::endl;
 		this->SavePlayerEquipment(newFile, player);
 		newFile << "Enemy" << std::endl;
-		if (enemies.size() > 0)
+		if (smartEnemies.size() > 0)
 		{
-			newFile << enemies.size() << std::endl;
-			for (size_t i = 0; i < enemies.size(); i++)
+			newFile << smartEnemies.size() << std::endl;
+			for (size_t i = 0; i < smartEnemies.size(); i++)
 			{
-				newFile << enemies[i]->GetPosX() << ';' << enemies[i]->GetPosY() << ';' << enemies[i]->GetHealth() << ';' << enemies[i]->GetDamage() << ';' << enemies[i]->GetDropChance() << ';' << std::endl;
+				newFile << smartEnemies[i]->GetPosX() << ';' << smartEnemies[i]->GetPosY() << ';' << smartEnemies[i]->GetHealth() << ';' << smartEnemies[i]->GetDamage() << ';' << smartEnemies[i]->GetDropChance() << ';' << std::endl;
 			}
 		}
 		else
 		{
 			newFile << -1 << std::endl;
 		}
-		
+
 		newFile.close();
 		std::cout << '\n' << "Game is saved!" << '\n';
 	}
