@@ -5,6 +5,7 @@ Player::Player()
 	this->_itemPickedFlag = false;
 	this->_enemyEncounter = false;
 	this->_canEquip = false;
+	this->_equipAction = false;
 	this->_defence = 0;
 	this->_equipInd = 0;
 	this->_weapon = nullptr;
@@ -19,6 +20,7 @@ Player::Player( const int x, const int y, int health, int damage, int defence, s
 	this->_itemPickedFlag = false;
 	this->_enemyEncounter = false;
 	this->_canEquip = false;
+	this->_equipAction = false;
 	this->_equipInd = 0;
 	this->_weapon = nullptr;
 	this->_armor = nullptr;
@@ -118,6 +120,11 @@ void Player::SetCanEquip(const bool& value)
 	this->_canEquip = value;
 }
 
+void Player::SetEquipAction(const bool& value)
+{
+	this->_equipAction = value;
+}
+
 void Player::SetEquipInd(const int value)
 {
 	this->_equipInd = value;
@@ -146,6 +153,11 @@ bool Player::GetEnemyFlag() const
 bool Player::GetCanEquip() const
 {
 	return this->_canEquip;
+}
+
+bool Player::GetEquipAction() const
+{
+	return this->_equipAction;
 }
 
 int Player::GetEquipInd() const

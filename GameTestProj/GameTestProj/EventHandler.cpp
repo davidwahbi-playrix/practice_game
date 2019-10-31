@@ -10,46 +10,47 @@ EventHandler::~EventHandler()
 
 int EventHandler::HandleEvent()
 {
+	int tmp = 100;
 	if (GetAsyncKeyState(VK_UP))
 	{
-		return 1;
+		tmp = 1;
 	}
 	if (GetAsyncKeyState(VK_DOWN))
 	{
-		return 3;
+		tmp = 3;
 	}
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		return 4;
+		tmp = 4;
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
-		return 2;
+		tmp = 2;
 	}
 	if (GetAsyncKeyState(0x30))
 	{
-		return 5;
+		tmp = 5;
 	}
 	if (GetAsyncKeyState(0x31))
 	{
-		return 6;
+		tmp = 6;
 	}
 	if (GetAsyncKeyState(0x32))
 	{
-		return 7;
+		tmp = 7;
 	}
 	if (GetAsyncKeyState(0x33))
 	{
-		return 8;
+		tmp = 8;
 	}
 	if (GetAsyncKeyState(0x34))
 	{
-		return 9;
+		tmp = 9;
 	}
 	if (GetAsyncKeyState(0x53))
 	{
 		//this->_saver.SaveGameState(player, enemy, gameInv);
-		return 10;
+		tmp = 10;
 	}
 	if (GetAsyncKeyState(0x4C))
 	{
@@ -58,8 +59,9 @@ int EventHandler::HandleEvent()
 		this->_enemy = this->_loader.GetEnemy();
 		this->_gameInv= this->_loader.GetGameInventory();
 		this->_board = this->_loader.GetBoard(); */
-		return 11;
+		tmp = 11;
 	}
+	return tmp;
 }
 
 /*Player EventHandler::GetPlayer() const

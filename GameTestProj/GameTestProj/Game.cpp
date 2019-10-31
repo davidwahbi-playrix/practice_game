@@ -5,8 +5,6 @@
 Game::Game()
 {
 	this->_isRunning = false;
-	this->_draw = 0;
-	this->_equip = false;
 }
 
 Game::~Game()
@@ -22,97 +20,38 @@ void Game::Init()
 
 void Game::HandleEvents()
 {
-	int tmp = this->_eventHandler.HandleEvent();
+	int tmpInput = this->_eventHandler.HandleEvent();
 	Player tmpPlayer = this->_profile.GetPlayer();
-	switch (tmp)
+	if (tmpInput < 5)
 	{
-	case 1:
 		system("cls");
-		this->_unitMover.SetDir(1);
-		this->_draw = true;
-		break;
-	case 2:
-		system("cls");
-		this->_unitMover.SetDir(2);
-		this->_draw = true;
-		break;
-	case 3:
-		system("cls");
-		this->_unitMover.SetDir(3);
-		this->_draw = true;
-		break;
-	case 4:
-		system("cls");
-		this->_unitMover.SetDir(4);
-		this->_draw = true;
-		break;
-	case 5:
+		this->_unitMover.SetDir(tmpInput);
+		this->_renderer.SetDraw(true);
+	}
+	else if (tmpInput > 4 && tmpInput < 10)
+	{
 		if (this->_profile.GetPlayer().GetCanEquip())
 		{
 			system("cls");
 			tmpPlayer.SetCanEquip(false);
-			tmpPlayer.SetEquipInd(0);
+			tmpPlayer.SetEquipInd(tmpInput - 5);
+			tmpPlayer.SetEquipAction(true);
 			this->_profile.SetPlayer(tmpPlayer);
-			this->_equip = true;
-			this->_draw = true;
+			this->_renderer.SetDraw(true);
 		}
-		break;
-	case 6:
-		if (this->_profile.GetPlayer().GetCanEquip())
-		{
-			system("cls");
-			tmpPlayer.SetCanEquip(false);
-			tmpPlayer.SetEquipInd(1);
-			this->_profile.SetPlayer(tmpPlayer);
-			this->_equip = true;
-			this->_draw = true;
-		}
-		break;
-	case 7:
-		if (this->_profile.GetPlayer().GetCanEquip())
-		{
-			system("cls");
-			tmpPlayer.SetCanEquip(false);
-			tmpPlayer.SetEquipInd(2);
-			this->_profile.SetPlayer(tmpPlayer);
-			this->_equip = true;
-			this->_draw = true;
-		}
-		break;
-	case 8:
-		if (this->_profile.GetPlayer().GetCanEquip())
-		{
-			system("cls");
-			tmpPlayer.SetCanEquip(false);
-			tmpPlayer.SetEquipInd(3);
-			this->_profile.SetPlayer(tmpPlayer);
-			this->_equip = true;
-			this->_draw = true;
-		}
-		break;
-	case 9:
-		if (this->_profile.GetPlayer().GetCanEquip())
-		{
-			system("cls");
-			tmpPlayer.SetCanEquip(false);
-			tmpPlayer.SetEquipInd(4);
-			this->_profile.SetPlayer(tmpPlayer);
-			this->_equip = true;
-			this->_draw = true;
-		}
-		break;
-	case 10:
+
+	}
+	else if (tmpInput == 10)
+	{
 		this->_saver.SaveGameState(this->_profile.GetPlayer(), this->_profile.GetEnemies(), this->_profile.GetGameItems());
-		break;
-	case 11:
+	}
+	else if (tmpInput == 11)
+	{
 		this->_loader.LoadGameState();
 		this->_profile.SetPlayer(this->_loader.GetPlayer());
 		this->_profile.SetEnemies(this->_loader.GetEnemies());
 		this->_profile.SetGameItems(this->_loader.GetGameInventory());
 		this->_profile.SetBoard(this->_loader.GetBoard());
-		break;
-	default:
-		break;
 	}
 }
 
@@ -125,9 +64,12 @@ void Game::Update()
 		this->_profile.SetEnemies(this->_unitMover.GetEnemies());
 		this->_profile.SetGameItems(this->_unitMover.GetGameInv());
 	}
-	if (this->_equip)
+	Player tmpPlayer = this->_profile.GetPlayer();
+
+	if (tmpPlayer.GetEquipAction())
 	{
-		this->_equip = false;
+		tmpPlayer.SetEquipAction(false);
+		this->_profile.SetPlayer(tmpPlayer);
 		if (this->_profile.GetPlayer().GetEquipInd() < this->_profile.GetPlayer().GetInventory().Size())
 		{
 			Player tmpPlayer = this->_profile.GetPlayer();
@@ -149,19 +91,18 @@ void Game::Update()
 
 void Game::Render()
 {
-	if (_draw)
+
+	if (this->_renderer.GetDraw())
 	{
-		this->_draw = false;
+		this->_renderer.SetDraw(false);
 		this->_renderer.SaveLoadMenu();
 		this->_profile.SetBoard(this->_profile.GetPlayer().GetBoard());
 		this->_profile.GetBoard().Display();
 		if (this->_profile.GetPlayer().GetInventory().Size() > 0)
 		{
-			std::cout << "Player inventory:" << std::endl;
-			std::cout << this->_profile.GetPlayer().GetInventory().toString() << '\n';
-			std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
+			this->_renderer.RenderPlayerInventory(this->_profile.GetPlayer());
 		}
-		std::cout << this->_profile.GetPlayer().toString();
+		this->_renderer.RenderPlayer(this->_profile.GetPlayer());
 	}
 }
 
@@ -173,8 +114,8 @@ bool Game::Running() const
 {
 	return this->_isRunning;
 }
-
-bool Game::Draw() const
+Renderer Game::GetRenderer() const
 {
-	return this->_draw;
-} 
+	return this->_renderer;
+}
+

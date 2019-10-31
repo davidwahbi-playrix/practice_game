@@ -3,26 +3,24 @@
 Renderer::Renderer()
 {
 	this->_canEnter = true;
+	this->_draw = false;
 }
 
 Renderer::~Renderer()
 {
 }
 
-void Renderer::Render(Board board, Player player)
+void Renderer::RenderPlayerInventory(Player player) const
 {
-	this->_canEnter = false;
-	this->SaveLoadMenu();
-	board = player.GetBoard();
-	board.Display();
-	if (player.GetInventory().Size() > 0)
-	{
-		std::cout << "Player inventory:" << std::endl;
-		std::cout << player.GetInventory().toString() << '\n';
-		std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
-	}
+
+	std::cout << "Player inventory:" << std::endl;
+	std::cout << player.GetInventory().toString() << '\n';
+	std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
+}
+
+void Renderer::RenderPlayer(Player player) const
+{
 	std::cout << player.toString();
-	this->_canEnter = true;
 }
 
 void Renderer::SaveLoadMenu()
@@ -34,6 +32,16 @@ void Renderer::SaveLoadMenu()
 		std::cout << "l -> Load game." << '\n';
 	}
 	std::cout << '\n';
+}
+
+void Renderer::SetDraw(const bool& value)
+{
+	this->_draw = value;
+}
+
+bool Renderer::GetDraw() const
+{
+	return this->_draw;
 }
 
 bool Renderer::GetFlag() const

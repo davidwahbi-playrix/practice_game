@@ -17,7 +17,7 @@ int main()
 	while (game->Running()) {
 
 		game->HandleEvents();
-		if (game->Draw())
+		if (game->GetRenderer().GetDraw())
 		{
 			game->Update();
 			game->Render();

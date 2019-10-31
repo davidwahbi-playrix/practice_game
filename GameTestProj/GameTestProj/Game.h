@@ -25,11 +25,9 @@ public:
 	void Clean();
 
 	bool Running() const;
-	bool Draw() const;
+	Renderer GetRenderer() const;
 private:
 	bool _isRunning;
-	bool _draw;
-	bool _equip;
 	Renderer _renderer;
 	MoveUnit _unitMover;
 	EventHandler _eventHandler;
