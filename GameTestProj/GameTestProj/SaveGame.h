@@ -14,8 +14,13 @@ public:
 
 	void SaveSmartGameState(Player player, std::vector<std::shared_ptr<Enemy>> smartEnemies, Inventory gameItems);
 	void SaveGameItems(std::ofstream& file, Inventory gameItems);
+	//void SaveSmartGameItems(std::ofstream& file, Inventory gameItems);
+
 	void SavePlayerInventory(std::ofstream& file, Player player);
+	//void SaveSmartPlayerInventory(std::ofstream& file, Player player);
+
 	void SavePlayerEquipment(std::ofstream& file, Player player);
+	//void SaveSmartPlayerEquipment(std::ofstream& file, Player player);
 private:
 
 	Player _player;

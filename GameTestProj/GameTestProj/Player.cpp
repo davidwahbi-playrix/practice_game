@@ -90,6 +90,11 @@ void Player::SetInventory(const Inventory& inventory)
 	this->_inventory = inventory;
 }
 
+/*void Player::SetSmartInventory(const Inventory& inventory)
+{
+	this->_smartInventory = inventory;
+} */
+
 void Player::SetBoard(const Board& board)
 {
 	this->_playerBoard = board;
@@ -140,6 +145,11 @@ Inventory& Player::GetInventory()
 	return this->_inventory;
 }
 
+Inventory& Player::GetSmartInventory()
+{
+	return this->_smartInventory;
+}
+
 bool Player::GetPickedFlag() const
 {
 	return this->_itemPickedFlag;
@@ -175,10 +185,20 @@ Weapon* Player::GetWeapon() const
 	return this->_weapon;
 }
 
+/*std::shared_ptr<Weapon> Player::GetSmartWeapon() const
+{
+	return this->_smartWeapon;
+} */
+
 Armor* Player::GetArmor() const
 {
 	return this->_armor;
 }
+
+/*std::shared_ptr<Armor> Player::GetSmartArmor() const
+{
+	return this->_smartArmor;
+} */
 
 const int Player::GetDefence() const
 {
@@ -225,10 +245,20 @@ void Player::SetWeapon(Weapon* weapon)
 	this->_weapon = weapon;
 }
 
+/*void Player::SetSmartWeapon(std::shared_ptr<Weapon> smartWeapon)
+{
+	this->_smartWeapon = smartWeapon;
+} */
+
 void Player::SetArmor(Armor* armor)
 {
 	this->_armor = armor;
 }
+
+/*void Player::SetSmartArmor(std::shared_ptr<Armor> smartArmor)
+{
+	this->_smartArmor = smartArmor;
+} */
 
 Inventory Player::UpdatePlayerInventory(Inventory gameInventory)
 {
@@ -238,10 +268,30 @@ Inventory Player::UpdatePlayerInventory(Inventory gameInventory)
 	if (index >= 0)
 	{
 		tmp.AddItem(gameInventory[index]);
+		//tmp.AddSmartItem(gameInventory.GetVector()[index]);
 		SetInventory(tmp);
 		gameInventory.RemoveItem(index);
+		//gameInventory.RemoveSmartItem(index);
 		this->_canEquip = true;
 		return gameInventory;
+	}
+}
+
+Inventory Player::UpdateSmartPlayerInventory(Inventory smartGameInventory)
+{
+	this->SetPickedFlag(false);
+	Inventory tmp = this->GetInventory();
+	int index = smartGameInventory.GetItemIndex(this->GetPosX(), this->GetPosY());
+	if (index >= 0)
+	{
+		tmp.AddItem(smartGameInventory[index]);
+		//tmp.AddSmartItem(smartGameInventory.GetVector()[index]);
+		SetInventory(tmp);
+		//SetSmartInventory(tmp);
+		smartGameInventory.RemoveItem(index);
+		//smartGameInventory.RemoveSmartItem(index);
+		this->_canEquip = true;
+		return smartGameInventory;
 	}
 }
 
@@ -273,6 +323,35 @@ void Player::EquipItem(const int index)
 		this->SetCanEquip(true);
 	}
 }
+/*void Player::EquipSmartItem(const int index)
+{
+	std::shared_ptr<Item> tmp_i = std::make_shared<Item>(&this->GetSmartInventory().AtSmart(index));
+	std::shared_ptr<Weapon> tmp_w = std::dynamic_pointer_cast<Weapon>(tmp_i);
+	std::shared_ptr<Armor> tmp_a = std::dynamic_pointer_cast<Armor>(tmp_i);
+	std::shared_ptr<HealthPotion> tmp_p = std::dynamic_pointer_cast<HealthPotion>(tmp_i);
+
+	if (tmp_w)
+	{
+		tmp_w = std::static_pointer_cast<Weapon>(this->GetSmartInventory().SmartReplace(index, this->GetSmartWeapon()));
+		this->AddDamage(tmp_w->GetDamageValue());
+		this->SetSmartWeapon(tmp_w);
+
+	}
+	else if (tmp_a)
+	{
+		tmp_a = std::static_pointer_cast<Armor>(this->GetSmartInventory().SmartReplace(index, this->GetSmartArmor()));
+		this->AddDefence(tmp_a->GetArmorValue());
+		this->SetSmartArmor(tmp_a);
+	}
+	else if (tmp_p)
+	{
+		this->AddHealth(tmp_p->GetHealthValue());
+		this->GetSmartInventory().RemoveSmartItem(index);
+	}
+	if (this->GetSmartInventory().GetVector().size() > 0) {
+		this->SetCanEquip(true);
+	}
+} */
 const std::string Player::toString() const
 {
 	std::stringstream ss;

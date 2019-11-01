@@ -23,6 +23,9 @@ void Profile::NewGame()
 	this->_gameItems.AddItem(Weapon("Sword", WEAPON, 3, 5, 10));
 	this->_gameItems.AddItem(Armor("Shield", ARMOR, 1, 8, 20));
 	this->_gameItems.AddItem(HealthPotion("Heal", HEAL, 4, 2, 50));
+	//this->_smartGameItems.AddItem(Weapon("Sword", WEAPON, 3, 5, 10));
+	//this->_smartGameItems.AddItem(Armor("Shield", ARMOR, 1, 8, 20));
+	//this->_smartGameItems.AddItem(HealthPotion("Heal", HEAL, 4, 2, 50));
 }
 
 Player Profile::GetPlayer() const
@@ -34,6 +37,11 @@ Inventory Profile::GetGameItems() const
 {
 	return this->_gameItems;
 }
+
+/*Inventory Profile::GetSmartGameItems() const
+{
+	return this->_smartGameItems;
+}*/
 
 Board Profile::GetBoard() const
 {
@@ -54,6 +62,11 @@ void Profile::SetGameItems(const Inventory& inv)
 {
 	this->_gameItems = inv;
 }
+
+/*void Profile::SetSmartGameItems(const Inventory& inv)
+{
+	this->_smartGameItems = inv;
+} */
 
 void Profile::SetBoard(const Board& board)
 {

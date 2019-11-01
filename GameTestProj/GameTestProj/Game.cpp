@@ -44,6 +44,7 @@ void Game::HandleEvents()
 	else if (tmpInput == 10)
 	{
 		this->_saver.SaveSmartGameState(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems());
+		//this->_saver.SaveSmartGameState(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetSmartGameItems());
 	}
 	else if (tmpInput == 11)
 	{
@@ -51,6 +52,7 @@ void Game::HandleEvents()
 		this->_profile.SetPlayer(this->_loader.GetPlayer());
 		this->_profile.SetSmartEnemies(this->_loader.GetSmartEnemies());
 		this->_profile.SetGameItems(this->_loader.GetGameInventory());
+		//this->_profile.SetSmartGameItems(this->_loader.GetGameInventory());
 		this->_profile.SetBoard(this->_loader.GetBoard());
 	}
 }
@@ -60,9 +62,11 @@ void Game::Update()
 	if (_unitMover.GetDirection() > 0)
 	{
 		this->_unitMover.SmartUnitMove(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems());
+		//this->_unitMover.SmartUnitMove(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetSmartGameItems());
 		this->_profile.SetPlayer(this->_unitMover.GetPlayer());
 		this->_profile.SetSmartEnemies(this->_unitMover.GetSmartEnemies());
 		this->_profile.SetGameItems(this->_unitMover.GetGameInv());
+		//this->_profile.SetSmartGameItems(this->_unitMover.GetGameInv());
 	}
 	Player tmpPlayer = this->_profile.GetPlayer();
 
@@ -71,6 +75,7 @@ void Game::Update()
 		tmpPlayer.SetEquipAction(false);
 		this->_profile.SetPlayer(tmpPlayer);
 		if (this->_profile.GetPlayer().GetEquipInd() < this->_profile.GetPlayer().GetInventory().Size())
+		//if (this->_profile.GetPlayer().GetEquipInd() < this->_profile.GetPlayer().GetSmartInventory().Size())
 		{
 			Player tmpPlayer = this->_profile.GetPlayer();
 			tmpPlayer.EquipItem(_profile.GetPlayer().GetEquipInd());
@@ -79,6 +84,7 @@ void Game::Update()
 		else
 		{
 			if (this->_profile.GetPlayer().GetInventory().Size() > 0)
+			//if (this->_profile.GetPlayer().GetSmartInventory().Size() > 0)
 			{
 				Player tmpPlayer = this->_profile.GetPlayer();
 				tmpPlayer.SetCanEquip(true);
@@ -99,6 +105,7 @@ void Game::Render()
 		this->_profile.SetBoard(this->_profile.GetPlayer().GetBoard());
 		this->_profile.GetBoard().Display();
 		if (this->_profile.GetPlayer().GetInventory().Size() > 0)
+		//if (this->_profile.GetPlayer().GetSmartInventory().Size() > 0)
 		{
 			this->_renderer.RenderPlayerInventory(this->_profile.GetPlayer());
 		}

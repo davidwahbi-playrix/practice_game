@@ -53,6 +53,7 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 					case 0:
 						std::cout << "Enemy dropped a wepon!" << '\n';
 						player.GetInventory().AddItem(Weapon("Spear", WEAPON, 8));
+
 						break;
 					case 1:
 						std::cout << "Enemy dropped an aromor!" << '\n';

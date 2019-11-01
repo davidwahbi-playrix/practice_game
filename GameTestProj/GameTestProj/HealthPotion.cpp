@@ -29,6 +29,11 @@ HealthPotion* HealthPotion::Clone()
 	return new HealthPotion(*this);
 }
 
+std::shared_ptr<Item> HealthPotion::SmartClone()
+{
+	return std::make_shared<HealthPotion>(*this);
+}
+
 const std::string HealthPotion::toString() const
 {
 	std::stringstream ss;

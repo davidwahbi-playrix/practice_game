@@ -3,17 +3,18 @@
 class Armor :
 	public EquipableItem
 {
-private:
-	int _armor;
 public:
 	Armor(std::string name, unsigned int subType, int armor);
-	Armor(std::string name,unsigned int subType, int x, int y, int armor);
+	Armor(std::string name, unsigned int subType, int x, int y, int armor);
 	~Armor();
 
 	const int GetDamageValue() const;
 	const int GetArmorValue() const;
 
 	Armor* Clone();
+	std::shared_ptr<Item> SmartClone() override;
 	const std::string toString() const;
+private:
+	int _armor;
 };
 
