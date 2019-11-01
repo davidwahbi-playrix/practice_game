@@ -12,7 +12,6 @@ public:
 	const int GetArmorValue() const;
 
 	Weapon* Clone();
-	std::shared_ptr<Item> SmartClone() override;
 	const std::string toString() const;
 private:
 	int _damage;

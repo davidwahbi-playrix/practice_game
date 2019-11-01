@@ -29,11 +29,6 @@ Armor* Armor::Clone()
 	return new Armor(*this);
 } 
 
-std::shared_ptr<Item> Armor::SmartClone()
-{
-	return std::make_shared<Armor>(*this);
-}
-
 const std::string Armor::toString() const
 {
 	std::stringstream ss;

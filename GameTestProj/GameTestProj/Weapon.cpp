@@ -29,11 +29,6 @@ Weapon* Weapon::Clone()
 	return new Weapon(*this);
 } 
 
-std::shared_ptr<Item> Weapon::SmartClone()
-{
-	return std::make_shared<Weapon>(*this);
-}
-
 const std::string Weapon::toString() const
 {
 	std::stringstream ss;

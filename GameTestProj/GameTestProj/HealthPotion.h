@@ -12,7 +12,6 @@ public:
 	const int GetPoisonValue() const;
 
 	HealthPotion* Clone();
-	std::shared_ptr<Item> SmartClone() override;
 	const std::string toString() const;
 private:
 	int _heal;

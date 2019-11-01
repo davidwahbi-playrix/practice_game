@@ -129,6 +129,12 @@
     <ClCompile Include="Profile.cpp">
       <Filter>Profile</Filter>
     </ClCompile>
+    <ClCompile Include="SmartInventory.cpp">
+      <Filter>Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="SmartPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h">
@@ -190,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="Profile.h">
       <Filter>Profile</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartInventory.h">
+      <Filter>Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartPlayer.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

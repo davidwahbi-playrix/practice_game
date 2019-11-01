@@ -72,8 +72,8 @@ private:
 	int _equipInd;
 	int _defence;
 	Weapon* _weapon;
-	std::shared_ptr<Weapon> _smartWeapon;
+	//std::shared_ptr<Weapon> _smartWeapon;
 	Armor* _armor;
-	std::shared_ptr<Armor> _smartArmor;
+	//std::shared_ptr<Armor> _smartArmor;
 };
 
