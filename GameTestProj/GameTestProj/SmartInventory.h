@@ -29,5 +29,5 @@ public:
 
 private:
 	std::vector<std::shared_ptr<Item>> _smartItems;
-};*/
+}; */
 

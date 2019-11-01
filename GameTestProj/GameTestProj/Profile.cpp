@@ -23,9 +23,9 @@ void Profile::NewGame()
 	this->_gameItems.AddItem(Weapon("Sword", WEAPON, 3, 5, 10));
 	this->_gameItems.AddItem(Armor("Shield", ARMOR, 1, 8, 20));
 	this->_gameItems.AddItem(HealthPotion("Heal", HEAL, 4, 2, 50));
-	//this->_smartGameItems.AddItem(Weapon("Sword", WEAPON, 3, 5, 10));
-	//this->_smartGameItems.AddItem(Armor("Shield", ARMOR, 1, 8, 20));
-	//this->_smartGameItems.AddItem(HealthPotion("Heal", HEAL, 4, 2, 50));
+	//this->_smartGameItems.AddSmartItem(Item("Sword", WEAPON, 3, 5, 10));
+	//this->_smartGameItems.AddSmartItem(Item("Shield", ARMOR, 1, 8, 20));
+	//this->_smartGameItems.AddSmartItem(Item("Heal", HEAL, 4, 2, 50));
 }
 
 Player Profile::GetPlayer() const

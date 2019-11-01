@@ -33,7 +33,7 @@ public:
 	bool GetCanEquip() const;
 	bool GetEquipAction() const;
 
-	int GetEquipInd() const;
+	unsigned int GetEquipInd() const;
 
 	Inventory& GetInventory();
 	Inventory& GetSmartInventory();
@@ -69,7 +69,7 @@ private:
 	bool _enemyEncounter;
 	bool _canEquip;
 	bool _equipAction;
-	int _equipInd;
+	unsigned int _equipInd;
 	int _defence;
 	Weapon* _weapon;
 	//std::shared_ptr<Weapon> _smartWeapon;

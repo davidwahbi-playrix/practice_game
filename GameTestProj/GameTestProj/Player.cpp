@@ -170,7 +170,7 @@ bool Player::GetEquipAction() const
 	return this->_equipAction;
 }
 
-int Player::GetEquipInd() const
+unsigned int Player::GetEquipInd() const
 {
 	return _equipInd;
 }

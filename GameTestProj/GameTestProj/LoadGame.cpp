@@ -109,7 +109,7 @@ void LoadGame::LoadSmartGameState()
 	}
 }
 
-void LoadGame::LoadGameItems(std::ifstream& file, const int size)
+void LoadGame::LoadGameItems(std::ifstream& file, const unsigned int size)
 {
 	std::string tmp_string;
 	std::stringstream tmp_stream;
@@ -166,7 +166,7 @@ void LoadGame::LoadPlayer(std::ifstream& file)
 
 }
 
-void LoadGame::LoadPlayerIneventory(std::ifstream& file, const int size)
+void LoadGame::LoadPlayerIneventory(std::ifstream& file, const unsigned int size)
 {
 	std::string tmp_string;
 	std::stringstream tmp_stream;
@@ -238,7 +238,7 @@ void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
 
 }
 
-void LoadGame::LoadSmartEnemy(std::ifstream& file, const int size)
+void LoadGame::LoadSmartEnemy(std::ifstream& file, const unsigned int size)
 {
 	size_t index = 0;
 	this->_smartEnemies.clear();

@@ -61,6 +61,6 @@ private:
 	bool _equipAction;
 	int _equipInd;
 	int _defence;
-	std::shared_ptr<Weapon> _smartWeapon;
-	std::shared_ptr<Armor> _smartArmor;
+	std::shared_ptr<Item> _smartWeapon;
+	std::shared_ptr<Item> _smartArmor;
 };*/
