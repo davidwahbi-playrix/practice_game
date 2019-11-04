@@ -49,38 +49,12 @@ int EventHandler::HandleEvent()
 	}
 	if (GetAsyncKeyState(0x53))
 	{
-		//this->_saver.SaveGameState(player, enemy, gameInv);
 		tmp = 10;
 	}
 	if (GetAsyncKeyState(0x4C))
 	{
-		/*this->_loader.LoadGameState();
-		this->_player = this->_loader.GetPlayer();
-		this->_enemy = this->_loader.GetEnemy();
-		this->_gameInv= this->_loader.GetGameInventory();
-		this->_board = this->_loader.GetBoard(); */
 		tmp = 11;
 	}
 	return tmp;
 }
-
-/*Player EventHandler::GetPlayer() const
-{
-	return this->_player;
-}
-
-Enemy* EventHandler::GetEnemy() const
-{
-	return this->_enemy;
-}
-
-Inventory EventHandler::GetInv() const
-{
-	return this->_gameInv;
-}
-
-Board EventHandler::GetBoard() const
-{
-	return this->_board;
-}*/
 		

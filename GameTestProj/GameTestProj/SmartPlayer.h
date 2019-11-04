@@ -10,12 +10,11 @@ class SmartPlayer : public Unit
 public:
 	SmartPlayer();
 	~SmartPlayer();
-	SmartPlayer(const int x, const int y, int health, int damage, int defence, std::string name, Board board);
-	void MoveObject(int vertical, int horizontal);
+	SmartPlayer(const int x, const int y, int health, int damage, int defence, std::string name);
+	Board MoveObject(int vertical, int horizontal, Board board);
 
 	void SetSmartInventory(const SmartInventory& inventory);
 
-	void SetBoard(const Board& board);
 	void SetPickedFlag(const bool& flag);
 	void SetEnemyFlag(const bool& flag);
 	void SetName(const std::string& name);
@@ -33,7 +32,6 @@ public:
 	int GetEquipInd() const;
 
 	SmartInventory& GetSmartInventory();
-	Board GetBoard() const;
 	const std::string& GetName() const;
 	std::shared_ptr<Weapon> GetSmartWeapon() const;
 	std::shared_ptr<Armor> GetSmartArmor() const;
@@ -53,7 +51,6 @@ public:
 	const std::string toString() const;
 private:
 	std::string _playerName;
-	Board _playerBoard;
 	SmartInventory _smartInventory;
 	bool _itemPickedFlag;
 	bool _enemyEncounter;

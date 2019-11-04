@@ -10,10 +10,9 @@ SmartPlayer::SmartPlayer()
 	this->_equipInd = 0;
 }
 
-SmartPlayer::SmartPlayer(const int x, const int y, int health, int damage, int defence, std::string name, Board board) : Unit(x, y, health, damage)
+SmartPlayer::SmartPlayer(const int x, const int y, int health, int damage, int defence, std::string name) : Unit(x, y, health, damage)
 {
 	this->_playerName = name;
-	this->_playerBoard = board;
 	this->_defence = defence;
 	this->_itemPickedFlag = false;
 	this->_enemyEncounter = false;
@@ -26,7 +25,7 @@ SmartPlayer::~SmartPlayer()
 {
 }
 
-void SmartPlayer::MoveObject(int vertical, int horizontal)
+Board SmartPlayer::MoveObject(int vertical, int horizontal, Board board)
 {
 	int x = GetPosX();
 	int x2 = x + horizontal;
@@ -34,65 +33,62 @@ void SmartPlayer::MoveObject(int vertical, int horizontal)
 	int y = GetPosY();
 	int y2 = y + vertical;
 
-	char nextElem1 = _playerBoard.GetElem(x2, y);
-	char nextElem2 = _playerBoard.GetElem(x, y2);
+	char nextElem1 = board.GetElem(x2, y);
+	char nextElem2 = board.GetElem(x, y2);
 
 	if (nextElem1 == ' ') {
-		_playerBoard.SetElem(x, y, ' ');
+		board.SetElem(x, y, ' ');
 		x += horizontal;
-		SetPosX(x);
-		_playerBoard.SetElem(x, y, '@');
+		this->SetPosX(x);
+		board.SetElem(x, y, '@');
 	}
 
 	if (nextElem2 == ' ') {
-		_playerBoard.SetElem(x, y, ' ');
+		board.SetElem(x, y, ' ');
 		y += vertical;
-		SetPosY(y);
-		_playerBoard.SetElem(x, y, '@');
+		this->SetPosY(y);
+		board.SetElem(x, y, '@');
 	}
 
 	if (nextElem1 == 'i') {
-		_playerBoard.SetElem(x, y, ' ');
+		board.SetElem(x, y, ' ');
 		x += horizontal;
-		SetPosX(x);
-		_playerBoard.SetElem(x, y, '@');
-		_itemPickedFlag = true;
+		this->SetPosX(x);
+		board.SetElem(x, y, '@');
+		this->_itemPickedFlag = true;
 
 	}
 
 	if (nextElem2 == 'i') {
-		_playerBoard.SetElem(x, y, ' ');
+		board.SetElem(x, y, ' ');
 		y += vertical;
-		SetPosY(y);
-		_playerBoard.SetElem(x, y, '@');
-		_itemPickedFlag = true;
+		this->SetPosY(y);
+		board.SetElem(x, y, '@');
+		this->_itemPickedFlag = true;
 	}
 	if (nextElem1 == 'e') {
-		_playerBoard.SetElem(x, y, ' ');
+		board.SetElem(x, y, ' ');
 		x += horizontal;
-		SetPosX(x);
-		_playerBoard.SetElem(x, y, '@');
-		_enemyEncounter = true;
+		this->SetPosX(x);
+		board.SetElem(x, y, '@');
+		this->_enemyEncounter = true;
 
 	}
 
 	if (nextElem2 == 'e') {
-		_playerBoard.SetElem(x, y, ' ');
+		board.SetElem(x, y, ' ');
 		y += vertical;
-		SetPosY(y);
-		_playerBoard.SetElem(x, y, '@');
-		_enemyEncounter = true;
+		this->SetPosY(y);
+		board.SetElem(x, y, '@');
+		this->_enemyEncounter = true;
 	}
+
+	return this->board;
 }
 
 void SmartPlayer::SetSmartInventory(const SmartInventory& inventory)
 {
 	this->_smartInventory = inventory;
-}
-
-void SmartPlayer::SetBoard(const Board& board)
-{
-	this->_playerBoard = board;
 }
 
 void SmartPlayer::SetPickedFlag(const bool& flag)
@@ -128,11 +124,6 @@ void SmartPlayer::SetEquipAction(const bool& value)
 void SmartPlayer::SetEquipInd(const int value)
 {
 	this->_equipInd = value;
-}
-
-Board SmartPlayer::GetBoard() const
-{
-	return this->_playerBoard;
 }
 
 SmartInventory& SmartPlayer::GetSmartInventory()
