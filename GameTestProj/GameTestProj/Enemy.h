@@ -10,7 +10,6 @@ class Enemy : public Unit
 public:
 	Enemy();
 	Enemy(const int x, const int y, int health, int damage, int dropChance);
-	Enemy(const int x, const int y, int health, int damage, Board board, int dropChance);
 	~Enemy();
 
 	Board MoveObject(int vertical, int horizontal, Board board);

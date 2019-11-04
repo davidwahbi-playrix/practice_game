@@ -244,7 +244,7 @@ void LoadGame::LoadSmartEnemy(std::ifstream& file, const unsigned int size)
 	this->_smartEnemies.clear();
 	while (!file.eof() && index < size)
 	{
-		this->_smartEnemies.emplace_back(std::make_shared<Enemy>(1, 1, 0, 0, this->_board, 0));
+		this->_smartEnemies.emplace_back(std::make_shared<Enemy>(1, 1, 0, 0, 0));
 		this->_smartEnemies[index]->SetPosX(this->ReadIntFromFile(file));
 
 		this->_smartEnemies[index]->SetPosY(this->ReadIntFromFile(file));

@@ -28,19 +28,6 @@ Player::Player(const int x, const int y, int health, int damage, int defence, st
 	this->_armor = nullptr;
 }
 
-/*Player::Player( const int x, const int y, int health, int damage, int defence, std::string name, Board board) : Unit( x, y, health, damage)
-{
-	this->_playerName = name;
-	this->_defence = defence;
-	this->_itemPickedFlag = false;
-	this->_enemyEncounter = false;
-	this->_canEquip = false;
-	this->_equipAction = false;
-	this->_equipInd = 0;
-	this->_weapon = nullptr;
-	this->_armor = nullptr;
-} delete */
-
 Board Player::MoveObject(int vertical, int horizontal, Board board)
 {
 	int x = GetPosX();

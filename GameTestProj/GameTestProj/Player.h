@@ -12,7 +12,6 @@ public:
 	Player();
 	~Player();
 	Player(const int x, const int y, int health, int damage, int defence, std::string name);
-	//Player(const int x, const int y, int health, int damage, int defence, std::string name, Board board); delete
 	Board MoveObject(int vertical, int horizontal, Board board);
 
 

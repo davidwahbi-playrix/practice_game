@@ -12,13 +12,6 @@ Enemy::Enemy(const int x, const int y, int health, int damage, int dropChance) :
 	this->_playerEncounter = false;
 }
 
-Enemy::Enemy(const int x, const int y, int health, int damage, Board board, int dropChance) : Unit(x, y, health, damage)
-{
-	//this->_enemyBoard = board;
-	this->_dorpChance = dropChance;
-	this->_playerEncounter = false;
-}
-
 Enemy::~Enemy()
 {
 }
