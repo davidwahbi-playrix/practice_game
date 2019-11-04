@@ -2,6 +2,7 @@
 
 Combat::Combat()
 {
+	this->_continue = true;
 }
 
 Combat::~Combat()
@@ -10,7 +11,14 @@ Combat::~Combat()
 
 void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 {
-	player.SetEnemyFlag(false);
+	if (player.GetEnemyFlag())
+	{
+		player.SetEnemyFlag(false);
+	}
+	else
+	{
+		smartEnemy->SetPlayerEncounter(false);
+	}
 	bool exit = false;
 	std::cout << "Battle started!" << '\n';
 	while (!exit)
@@ -41,7 +49,8 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 				std::cout << smartEnemy->toString() << '\n';
 				system("pause");
 			}
-			else {
+			else
+			{
 				std::cout << "Enemy KILLED!" << '\n';
 				exit = true;
 				int drop = rand() % 100 + 1;
@@ -73,14 +82,26 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 			}
 		}
 		else {
-			std::cout << "You are DEAD!" << '\n';
+			system("cls");
+			std::cout << "GAME OVER!" << '\n';
+			std::cout << "You are Dead!" << '\n';
+			this->_continue = false;
 			exit = true;
 			system("pause");
-			system("cls");
 		}
 	}
 	this->_player = player;
 	this->_smartEnemy = smartEnemy;
+}
+
+void Combat::SetContinue(const bool & value)
+{
+	this->_continue = value;
+}
+
+bool Combat::GetContinue() const
+{
+	return this->_continue;
 }
 
 Player Combat::GetPlayer() const

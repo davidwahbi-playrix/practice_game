@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include <Windows.h>
 
 Renderer::Renderer()
 {
@@ -37,6 +38,11 @@ void Renderer::SaveLoadMenu()
 void Renderer::SetDraw(const bool& value)
 {
 	this->_draw = value;
+}
+
+void Renderer::ClearView()
+{
+	system("cls");
 }
 
 bool Renderer::GetDraw() const

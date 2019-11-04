@@ -18,6 +18,7 @@ public:
 	void Clean();
 
 	bool Running() const;
+	void SetRunning(const bool& value);
 	Renderer GetRenderer() const;
 private:
 	bool _isRunning;

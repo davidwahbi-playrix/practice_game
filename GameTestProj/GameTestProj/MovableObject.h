@@ -1,4 +1,5 @@
 #pragma once
+#include "Board.h"
 class MovableObject
 {
 public:
@@ -11,7 +12,7 @@ public:
 
 	void CheckPosX(const int x);
 	void CheckPosY(const int y);
-	virtual void MoveObject(int vertical, int horizontal) = 0;
+	virtual Board MoveObject(int vertical, int horizontal, Board board) = 0;
 	virtual ~MovableObject();
 private:
 	int _posX;

@@ -11,14 +11,14 @@ class Player : public Unit
 public:
 	Player();
 	~Player();
-	Player(const int x, const int y, int health, int damage, int defence, std::string name, Board board);
-	void MoveObject(int vertical, int horizontal);
+	Player(const int x, const int y, int health, int damage, int defence, std::string name);
+	//Player(const int x, const int y, int health, int damage, int defence, std::string name, Board board); delete
+	Board MoveObject(int vertical, int horizontal, Board board);
 
 
 	void SetInventory(const Inventory& inventory);
 	//void SetSmartInventory(const Inventory& inventory);
 
-	void SetBoard(const Board& board);
 	void SetPickedFlag(const bool& flag);
 	void SetEnemyFlag(const bool& flag);
 	void SetName(const std::string& name);
@@ -37,7 +37,6 @@ public:
 
 	Inventory& GetInventory();
 	Inventory& GetSmartInventory();
-	Board GetBoard() const;
 	const std::string& GetName() const;
 	Weapon* GetWeapon() const;
 	//std::shared_ptr<Weapon> GetSmartWeapon() const;
@@ -62,7 +61,6 @@ public:
 	const std::string toString() const;
 private:
 	std::string _playerName;
-	Board _playerBoard;
 	Inventory _inventory;
 	Inventory _smartInventory;
 	bool _itemPickedFlag;

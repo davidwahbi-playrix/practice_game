@@ -1,6 +1,4 @@
 #include "Game.h"
-#include <Windows.h>
-#include <iostream>
 
 Game::Game()
 {
@@ -24,7 +22,7 @@ void Game::HandleEvents()
 	Player tmpPlayer = this->_profile.GetPlayer();
 	if (tmpInput < 5)
 	{
-		system("cls");
+		this->_renderer.ClearView();
 		this->_unitMover.SetDir(tmpInput);
 		this->_renderer.SetDraw(true);
 	}
@@ -32,7 +30,7 @@ void Game::HandleEvents()
 	{
 		if (this->_profile.GetPlayer().GetCanEquip())
 		{
-			system("cls");
+			this->_renderer.ClearView();
 			tmpPlayer.SetCanEquip(false);
 			tmpPlayer.SetEquipInd(tmpInput - 5);
 			tmpPlayer.SetEquipAction(true);
@@ -61,8 +59,13 @@ void Game::Update()
 {
 	if (_unitMover.GetDirection() > 0)
 	{
-		this->_unitMover.SmartUnitMove(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems());
+		this->_profile.SetBoard(this->_unitMover.SmartUnitMove2(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems(), this->_profile.GetBoard()));
 		//this->_unitMover.SmartUnitMove(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetSmartGameItems());
+		this->SetRunning(_unitMover.GetContinue());
+		if (!this->Running())
+		{
+			this->_renderer.SetDraw(false);
+		}
 		this->_profile.SetPlayer(this->_unitMover.GetPlayer());
 		this->_profile.SetSmartEnemies(this->_unitMover.GetSmartEnemies());
 		this->_profile.SetGameItems(this->_unitMover.GetGameInv());
@@ -102,7 +105,7 @@ void Game::Render()
 	{
 		this->_renderer.SetDraw(false);
 		this->_renderer.SaveLoadMenu();
-		this->_profile.SetBoard(this->_profile.GetPlayer().GetBoard());
+		//this->_profile.SetBoard(this->_profile.GetPlayer().GetBoard());
 		this->_profile.GetBoard().Display();
 		if (this->_profile.GetPlayer().GetInventory().Size() > 0)
 		//if (this->_profile.GetPlayer().GetSmartInventory().Size() > 0)
@@ -120,6 +123,10 @@ void Game::Clean()
 bool Game::Running() const
 {
 	return this->_isRunning;
+}
+void Game::SetRunning(const bool & value)
+{
+	this->_isRunning = value;
 }
 Renderer Game::GetRenderer() const
 {

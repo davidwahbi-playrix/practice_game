@@ -283,14 +283,6 @@ void LoadGame::LoadBoard()
 	}
 
 	this->_board = board;
-	this->_player.SetBoard(board);
-	if (this->_smartEnemies.size() > 0)
-	{
-		for (size_t i = 0; i < this->_smartEnemies.size(); i++)
-		{
-			this->_smartEnemies[i]->SetBoard(board);
-		}
-	}
 	this->_board.Display();
 
 }

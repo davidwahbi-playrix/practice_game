@@ -13,6 +13,7 @@ public:
 	void RenderPlayer(Player player) const;
 	void SaveLoadMenu();
 	void SetDraw(const bool& value);
+	void ClearView();
 
 	bool GetDraw() const;
 	bool GetFlag() const;

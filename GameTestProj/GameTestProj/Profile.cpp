@@ -12,13 +12,12 @@ void Profile::NewGame()
 {
 	Board board;
 	board.Load("Map.txt");
-	Player newPlayer(1, 1, 100, 10, 0, "David", board);
-	this->_smartEnemies.emplace_back(std::make_shared<Enemy>(2, 12, 50, 5, board, 100));
-	this->_smartEnemies.emplace_back(std::make_shared<Enemy>(6, 41, 100, 3, board, 100));
+	this->_board = board;
+	Player newPlayer(1, 1, 100, 10, 0, "David");
+	this->_smartEnemies.emplace_back(std::make_shared<Enemy>(2, 12, 50, 10, 100));
+	this->_smartEnemies.emplace_back(std::make_shared<Enemy>(6, 41, 100, 3, 100));
 	this->_player = newPlayer;
-	Board plBoard = newPlayer.GetBoard();
-	this->_board = plBoard;
-	plBoard.Display();
+	this->_board.Display();
 
 	this->_gameItems.AddItem(Weapon("Sword", WEAPON, 3, 5, 10));
 	this->_gameItems.AddItem(Armor("Shield", ARMOR, 1, 8, 20));
