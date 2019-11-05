@@ -24,6 +24,11 @@ const int Armor::GetArmorValue() const
 	return this->_armor;
 }
 
+void Armor::SetArmorValue(const int value)
+{
+	this->_armor = value;
+}
+
 Armor* Armor::Clone()
 {
 	return new Armor(*this);

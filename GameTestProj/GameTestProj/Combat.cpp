@@ -90,6 +90,12 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 			system("pause");
 		}
 	}
+	if (player.GetArmor() && player.GetDefence() == 0)
+	{
+		Armor* tmpArmor = player.GetArmor();
+		tmpArmor->SetArmorValue(0);
+		player.SetArmor(tmpArmor);
+	}
 	this->_player = player;
 	this->_smartEnemy = smartEnemy;
 }

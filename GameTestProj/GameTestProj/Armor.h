@@ -11,6 +11,8 @@ public:
 	const int GetDamageValue() const;
 	const int GetArmorValue() const;
 
+	void SetArmorValue(const int value);
+
 	Armor* Clone();
 	const std::string toString() const;
 private:

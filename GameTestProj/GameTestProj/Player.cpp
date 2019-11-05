@@ -219,7 +219,7 @@ void Player::AddDefence(int value)
 	int defence = 0;
 	if (this->GetArmor() != nullptr)
 	{
-		defence = this->GetDefence() + value - this->GetArmor()->GetArmorValue();
+		defence = value;
 	}
 	else
 	{
