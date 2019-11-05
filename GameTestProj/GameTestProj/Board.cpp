@@ -58,7 +58,10 @@ void Board::ClearBoard()
 	{
 		for (size_t j = 1; j < this->_mColCount - 2; j++)
 		{
-			this->SetElem(i,j, ' ');
+			if (this->GetElem(i, j) != 'R')
+			{
+				this->SetElem(i, j, ' ');
+			}
 		}
 	}
 }
