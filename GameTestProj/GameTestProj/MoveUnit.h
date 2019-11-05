@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Combat.h"
+#include "RepairCenter.h"
 #include <vector>
 #include <memory>
 class MoveUnit
@@ -29,6 +30,7 @@ private:
 	Player _player;
 	Combat _bettle;
 	Inventory _gameInv;
+	RepairCenter _repairCenter;
 	bool _continue;
 	std::vector<std::shared_ptr<Enemy>> _smartEnemies;
 	int _dir;

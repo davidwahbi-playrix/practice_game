@@ -62,15 +62,17 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 					case 0:
 						std::cout << "Enemy dropped a wepon!" << '\n';
 						player.GetInventory().AddItem(Weapon("Spear", WEAPON, 8));
-
+						player.SetCanEquip(true);
 						break;
 					case 1:
 						std::cout << "Enemy dropped an aromor!" << '\n';
 						player.GetInventory().AddItem(Armor("Vest", ARMOR, 5));
+						player.SetCanEquip(true);
 						break;
 					case 2:
 						std::cout << "Enemy dropped a potion!" << '\n';
 						player.GetInventory().AddItem(HealthPotion("Spirit", HEAL, 15));
+						player.SetCanEquip(true);
 						break;
 					default:
 						break;

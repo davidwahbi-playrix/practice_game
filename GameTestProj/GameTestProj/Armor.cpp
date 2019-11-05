@@ -3,11 +3,13 @@
 Armor::Armor(std::string name, unsigned int subType, int armor) :EquipableItem(name, item_types::EQUIPABLE, subType, 0, 0)
 {
 	this->_armor = armor;
+	this->_startArmor = armor;
 }
 
 Armor::Armor(std::string name, unsigned int subType, int x, int y, int armor) :EquipableItem(name,item_types::EQUIPABLE, subType, x, y)
 {
 	this->_armor = armor;
+	this->_startArmor = armor;
 }
 
 Armor::~Armor()
@@ -22,6 +24,11 @@ const int Armor::GetDamageValue() const
 const int Armor::GetArmorValue() const
 {
 	return this->_armor;
+}
+
+const int Armor::GetStartArmorValue() const
+{
+	return this->_startArmor;
 }
 
 void Armor::SetArmorValue(const int value)

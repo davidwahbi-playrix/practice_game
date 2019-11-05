@@ -6,6 +6,7 @@ Player::Player()
 	this->_enemyEncounter = false;
 	this->_canEquip = false;
 	this->_equipAction = false;
+	this->_repairEntered = false;
 	this->_defence = 0;
 	this->_equipInd = 0;
 	this->_weapon = nullptr;
@@ -23,6 +24,7 @@ Player::Player(const int x, const int y, int health, int damage, int defence, st
 	this->_enemyEncounter = false;
 	this->_canEquip = false;
 	this->_equipAction = false;
+	this->_repairEntered = false;
 	this->_equipInd = 0;
 	this->_weapon = nullptr;
 	this->_armor = nullptr;
@@ -69,6 +71,7 @@ Board Player::MoveObject(int vertical, int horizontal, Board board)
 		board.SetElem(x, y, '@');
 		this->_itemPickedFlag = true;
 	}
+
 	if (nextElem1 == 'e') {
 		board.SetElem(x, y, ' ');
 		x += horizontal;
@@ -84,6 +87,14 @@ Board Player::MoveObject(int vertical, int horizontal, Board board)
 		SetPosY(y);
 		board.SetElem(x, y, '@');
 		this->_enemyEncounter = true;
+	}
+
+	if (nextElem1 == 'R') {
+		this->_repairEntered = true;
+	}
+
+	if (nextElem2 == 'R') {
+		this->_repairEntered = true;
 	}
 
 	return board;
@@ -134,6 +145,11 @@ void Player::SetEquipInd(const int value)
 	this->_equipInd = value;
 }
 
+void Player::SetRepairEntered(const bool & value)
+{
+	this->_repairEntered = value;
+}
+
 Inventory& Player::GetInventory()
 {
 	return this->_inventory;
@@ -162,6 +178,11 @@ bool Player::GetCanEquip() const
 bool Player::GetEquipAction() const
 {
 	return this->_equipAction;
+}
+
+bool Player::GetRepairEntered() const
+{
+	return this->_repairEntered;
 }
 
 unsigned int Player::GetEquipInd() const

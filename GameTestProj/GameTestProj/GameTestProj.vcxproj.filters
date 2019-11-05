@@ -64,6 +64,9 @@
     <Filter Include="Profile">
       <UniqueIdentifier>{c8976fde-3e4c-4d42-ae59-cb3de1fa8331}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RepairCenter">
+      <UniqueIdentifier>{beaa670f-f42c-4945-8b83-00d96378b2b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -135,6 +138,9 @@
     <ClCompile Include="SmartPlayer.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="RepairCenter.cpp">
+      <Filter>RepairCenter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h">
@@ -202,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="SmartPlayer.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="RepairCenter.h">
+      <Filter>RepairCenter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

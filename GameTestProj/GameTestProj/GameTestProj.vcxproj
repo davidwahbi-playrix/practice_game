@@ -128,6 +128,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Profile.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RepairCenter.cpp" />
     <ClCompile Include="SaveGame.cpp" />
     <ClCompile Include="SmartInventory.cpp" />
     <ClCompile Include="SmartPlayer.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Profile.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="RepairCenter.h" />
     <ClInclude Include="SaveGame.h" />
     <ClInclude Include="SmartInventory.h" />
     <ClInclude Include="SmartPlayer.h" />

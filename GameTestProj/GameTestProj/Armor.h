@@ -11,11 +11,14 @@ public:
 	const int GetDamageValue() const;
 	const int GetArmorValue() const;
 
+	const int GetStartArmorValue() const;
+
 	void SetArmorValue(const int value);
 
 	Armor* Clone();
 	const std::string toString() const;
 private:
 	int _armor;
+	int _startArmor;
 };
 

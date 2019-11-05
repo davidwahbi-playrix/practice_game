@@ -26,11 +26,13 @@ public:
 	void SetCanEquip(const bool& value);
 	void SetEquipAction(const bool& value);
 	void SetEquipInd(const int value);
+	void SetRepairEntered(const bool& value);
 
 	bool GetPickedFlag() const;
 	bool GetEnemyFlag() const;
 	bool GetCanEquip() const;
 	bool GetEquipAction() const;
+	bool GetRepairEntered() const;
 
 	unsigned int GetEquipInd() const;
 
@@ -66,6 +68,7 @@ private:
 	bool _enemyEncounter;
 	bool _canEquip;
 	bool _equipAction;
+	bool _repairEntered;
 	unsigned int _equipInd;
 	int _defence;
 	Weapon* _weapon;

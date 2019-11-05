@@ -58,6 +58,19 @@ Board MoveUnit::SmartUnitMove2(Player player, std::vector<std::shared_ptr<Enemy>
 	{
 		tmpInv = gameInv;
 	}
+	if (player.GetRepairEntered())
+	{
+		int tmpValue = this->_repairCenter.ReapirEquipment(player);
+		this->_repairCenter.SetExit(false);
+		player.SetRepairEntered(false);
+		if (player.GetArmor())
+		{
+			Armor* tmpArmor = player.GetArmor();
+			tmpArmor->SetArmorValue(tmpValue);
+			player.SetArmor(tmpArmor);
+			player.SetDefence(tmpArmor->GetArmorValue());
+		}
+	}
 	for (size_t i = 0; i < smartEnemies.size(); i++)
 	{
 		if (smartEnemies[i])
