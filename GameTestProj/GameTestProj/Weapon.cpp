@@ -3,11 +3,13 @@
 Weapon::Weapon(std::string name, unsigned int subType, int damage):EquipableItem(name, item_types::EQUIPABLE,subType,0,0)
 {
 	this->_damage = damage;
+	this->_startDamage = damage;
 }
 
 Weapon::Weapon(std::string name, unsigned int subType, int x, int y, int damage):EquipableItem(name,item_types::EQUIPABLE, subType,x,y)
 {
 	this->_damage = damage;
+	this->_startDamage = damage;
 }
 
 Weapon::~Weapon()
@@ -22,6 +24,16 @@ const int Weapon::GetDamageValue() const
 const int Weapon::GetArmorValue() const
 {
 	return 0;
+}
+
+const int Weapon::GetStartDamageValue() const
+{
+	return this->_startDamage;
+}
+
+void Weapon::SetDamageValue(const int value)
+{
+	this->_damage = value;
 }
 
 Weapon* Weapon::Clone()

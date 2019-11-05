@@ -11,6 +11,8 @@ Player::Player()
 	this->_equipInd = 0;
 	this->_weapon = nullptr;
 	this->_armor = nullptr;
+	this->_battleCnt = 0;
+	this->_startDamage = 0;
 }
 Player::~Player()
 {
@@ -28,6 +30,8 @@ Player::Player(const int x, const int y, int health, int damage, int defence, st
 	this->_equipInd = 0;
 	this->_weapon = nullptr;
 	this->_armor = nullptr;
+	this->_battleCnt = 0;
+	this->_startDamage = damage;
 }
 
 Board Player::MoveObject(int vertical, int horizontal, Board board)
@@ -190,6 +194,16 @@ unsigned int Player::GetEquipInd() const
 	return _equipInd;
 }
 
+int Player::GetBattleCnt() const
+{
+	return this->_battleCnt;
+}
+
+int Player::GetStartDamage() const
+{
+	return this->_startDamage;
+}
+
 const std::string& Player::GetName() const
 {
 	return this->_playerName;
@@ -255,6 +269,11 @@ void Player::AddHealth(int value)
 	this->SetHealth(health);
 }
 
+void Player::IncreseBattleCnt()
+{
+	this->_battleCnt++;
+}
+
 void Player::SetWeapon(Weapon* weapon)
 {
 	this->_weapon = weapon;
@@ -307,6 +326,22 @@ Inventory Player::UpdateSmartPlayerInventory(Inventory smartGameInventory)
 		//smartGameInventory.RemoveSmartItem(index);
 		this->_canEquip = true;
 		return smartGameInventory;
+	}
+}
+
+void Player::UpdatePlayerWeapon()
+{
+	if (this->_battleCnt > 0 && this->_battleCnt % 2 == 0)
+	{
+		Weapon* tmpWeapon = this->GetWeapon();
+		int tmpValue = 0;
+		if (tmpWeapon->GetDamageValue() > 1)
+		{
+			tmpValue = tmpWeapon->GetDamageValue() - 2;
+		}
+		tmpWeapon->SetDamageValue(tmpValue);
+		this->SetWeapon(tmpWeapon);
+		this->SetDamage(this->GetWeapon()->GetDamageValue() + this->GetStartDamage());
 	}
 }
 

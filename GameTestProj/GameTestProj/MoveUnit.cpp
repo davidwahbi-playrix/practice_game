@@ -44,6 +44,7 @@ Board MoveUnit::SmartUnitMove2(Player player, std::vector<std::shared_ptr<Enemy>
 		this->_bettle.SmartBattle(player, smartEnemies[index]);
 		status = _bettle.GetContinue();
 		player = this->_bettle.GetPlayer();
+
 		smartEnemies[index] = std::move(this->_bettle.GetSmartEnemy());
 		if (smartEnemies[index] == nullptr)
 		{
@@ -63,12 +64,11 @@ Board MoveUnit::SmartUnitMove2(Player player, std::vector<std::shared_ptr<Enemy>
 		int tmpValue = this->_repairCenter.ReapirEquipment(player);
 		this->_repairCenter.SetExit(false);
 		player.SetRepairEntered(false);
-		if (player.GetArmor())
+		if (tmpValue == 1)
 		{
-			Armor* tmpArmor = player.GetArmor();
-			tmpArmor->SetArmorValue(tmpValue);
-			player.SetArmor(tmpArmor);
-			player.SetDefence(tmpArmor->GetArmorValue());
+			Player tmpPlayer = this->_repairCenter.GetPlayer();
+			player.SetDefence(tmpPlayer.GetArmor()->GetArmorValue());
+			player.SetDamage(tmpPlayer.GetWeapon()->GetDamageValue() + tmpPlayer.GetStartDamage());
 		}
 	}
 	for (size_t i = 0; i < smartEnemies.size(); i++)

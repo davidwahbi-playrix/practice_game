@@ -78,6 +78,11 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 						break;
 					}
 				}
+				if (player.GetWeapon())
+				{
+					player.IncreseBattleCnt();
+					player.UpdatePlayerWeapon();
+				}
 				system("pause");
 				system("cls");
 				smartEnemy = nullptr;

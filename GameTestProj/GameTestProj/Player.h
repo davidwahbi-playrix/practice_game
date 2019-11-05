@@ -35,6 +35,8 @@ public:
 	bool GetRepairEntered() const;
 
 	unsigned int GetEquipInd() const;
+	int GetBattleCnt() const;
+	int GetStartDamage() const;
 
 	Inventory& GetInventory();
 	Inventory& GetSmartInventory();
@@ -48,6 +50,7 @@ public:
 	void AddDamage(int value);
 	void AddDefence(int value);
 	void AddHealth(int value);
+	void IncreseBattleCnt();
 	void SetWeapon(Weapon* weapon);
 	//void SetSmartWeapon(std::shared_ptr<Weapon> smartWeapon);
 	void SetArmor(Armor* armor);
@@ -55,6 +58,7 @@ public:
 
 	Inventory UpdatePlayerInventory(Inventory gameInventory);
 	Inventory UpdateSmartPlayerInventory(Inventory smartGameInventory);
+	void UpdatePlayerWeapon();
 
 	void EquipItem(const int index);
 	//void EquipSmartItem(const int index);
@@ -71,6 +75,8 @@ private:
 	bool _repairEntered;
 	unsigned int _equipInd;
 	int _defence;
+	int _battleCnt;
+	int _startDamage;
 	Weapon* _weapon;
 	//std::shared_ptr<Weapon> _smartWeapon;
 	Armor* _armor;
