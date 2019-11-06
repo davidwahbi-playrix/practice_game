@@ -23,7 +23,7 @@ public:
 	const unsigned int& Capacity() const;
 	const unsigned int& Size() const;
 
-	Item& At(const unsigned int index);
+	Item& At(const size_t index);
 
 	void operator = (const Inventory& other);
 	Item& operator[](const unsigned int index);

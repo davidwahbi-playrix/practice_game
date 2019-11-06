@@ -103,7 +103,7 @@ const unsigned int& Inventory::Size() const
 	return this->_numOfItems;
 }
 
-Item& Inventory::At(const unsigned int index)
+Item& Inventory::At(const size_t index)
 {
 	if (index < 0 || index >= this->_numOfItems)
 	{
@@ -170,8 +170,8 @@ Item* Inventory::Replace(const unsigned index, Item* item)
 
 unsigned int Inventory::GetItemIndex(const int x, const int y) const
 {
-	int index = -1;
-	for (size_t i = 0; i < _numOfItems; i++)
+	unsigned int index = -1;
+	for (unsigned int i = 0; i < _numOfItems; i++)
 	{
 		if (this->_items[i]->GetPosX() == x && this->_items[i]->GetPosY() == y)
 		{

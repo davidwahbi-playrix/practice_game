@@ -8,7 +8,7 @@ class Item
 {
 public:
 	Item(std::string name, unsigned int type, unsigned int subType, int x, int y);
-	~Item();
+	virtual ~Item();
 
 	const std::string& GetName() const;
 	const unsigned int& GetType() const;

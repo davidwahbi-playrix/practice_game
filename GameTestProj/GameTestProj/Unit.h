@@ -5,7 +5,7 @@ class Unit : public MovableObject
 public:
 	Unit();
 	Unit(const int x, const int y, const int health, const int damage);
-	~Unit();
+	virtual ~Unit();
 
 	const int GetHealth() const;
 	const int GetDamage() const;
