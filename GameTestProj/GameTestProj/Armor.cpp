@@ -1,12 +1,12 @@
 #include "Armor.h"
 
-Armor::Armor(std::string name, unsigned int subType, int armor) :EquipableItem(name, item_types::EQUIPABLE, subType, 0, 0)
+Armor::Armor(std::string name, unsigned int subType, int armor) :EquipableItem(name, item_types::EQUIPABLE, subType, 0, 0, 0)
 {
 	this->_armor = armor;
 	this->_startArmor = armor;
 }
 
-Armor::Armor(std::string name, unsigned int subType, int x, int y, int armor, int startArmor) :EquipableItem(name,item_types::EQUIPABLE, subType, x, y)
+Armor::Armor(std::string name, unsigned int subType, int x, int y, int armor, int startArmor, int battleCnt) :EquipableItem(name,item_types::EQUIPABLE, subType, x, y, battleCnt)
 {
 	this->_armor = armor;
 	this->_startArmor = startArmor;

@@ -80,8 +80,16 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 				}
 				if (player.GetWeapon())
 				{
-					player.IncreseBattleCnt();
+					Weapon* tmpWeapon = player.GetWeapon();
+					tmpWeapon->IncreseBattleCnt();
+					player.SetWeapon(tmpWeapon);
 					player.UpdatePlayerWeapon();
+				}
+				if (player.GetArmor())
+				{
+					Armor* tmpArmor = player.GetArmor();
+					tmpArmor->IncreseBattleCnt();
+					player.SetArmor(tmpArmor);
 				}
 				system("pause");
 				system("cls");

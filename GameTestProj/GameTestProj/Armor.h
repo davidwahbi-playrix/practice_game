@@ -5,7 +5,7 @@ class Armor :
 {
 public:
 	Armor(std::string name, unsigned int subType, int armor);
-	Armor(std::string name, unsigned int subType, int x, int y, int armor, int startArmor);
+	Armor(std::string name, unsigned int subType, int x, int y, int armor, int startArmor, int battleCnt);
 	~Armor();
 
 	const int GetDamageValue() const;

@@ -29,6 +29,7 @@ int RepairCenter::ReapirEquipment(Player player)
 				std::cout << std::endl;
 				Armor* tmpArmor = player.GetArmor();
 				tmpArmor->SetArmorValue(tmpArmor->GetStartArmorValue());
+				tmpArmor->ResetBattleCnt();
 				player.SetArmor(tmpArmor);
 				std::cout << "Armor repaired!" << std::endl;
 				std::cout << player.GetArmor()->toString() << std::endl;
@@ -60,6 +61,7 @@ int RepairCenter::ReapirEquipment(Player player)
 				system("pause");
 				std::cout << std::endl;
 				Weapon* tmpWeapon = player.GetWeapon();
+				tmpWeapon->ResetBattleCnt();
 				tmpWeapon->SetDamageValue(tmpWeapon->GetStartDamageValue());
 				player.SetWeapon(tmpWeapon);
 				std::cout << "Weapon repaired!" << std::endl;

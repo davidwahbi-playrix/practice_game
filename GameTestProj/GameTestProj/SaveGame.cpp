@@ -54,15 +54,15 @@ void SaveGame::SavePlayerInventory(std::ofstream& file, Player player)
 
 			if (tmp_w)
 			{
-				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';' << tmp_w->GetStartDamageValue() << ';';
+				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';' << tmp_w->GetStartDamageValue() << ';' << tmp_w->GetBattleCnt() << ';';
 			}
 			if (tmp_a)
 			{
-				file << tmp_a->GetName() << ';' << tmp_a->GetSubTypeAsString() << ';' << tmp_a->GetPosX() << ';' << tmp_a->GetPosY() << ';' << tmp_a->GetArmorValue() << ';' << tmp_a->GetStartArmorValue() << ';';
+				file << tmp_a->GetName() << ';' << tmp_a->GetSubTypeAsString() << ';' << tmp_a->GetPosX() << ';' << tmp_a->GetPosY() << ';' << tmp_a->GetArmorValue() << ';' << tmp_a->GetStartArmorValue() << ';' << tmp_a->GetBattleCnt() << ';';
 			}
 			if (tmp_p)
 			{
-				file << tmp_p->GetName() << ';' << tmp_p->GetSubTypeAsString() << ';' << tmp_p->GetPosX() << ';' << tmp_p->GetPosY() << ';' << tmp_p->GetHealthValue() << ';' << healConst << ';';
+				file << tmp_p->GetName() << ';' << tmp_p->GetSubTypeAsString() << ';' << tmp_p->GetPosX() << ';' << tmp_p->GetPosY() << ';' << tmp_p->GetHealthValue() << ';' << healConst << ';' << healConst << ';';
 			}
 		}
 		file << std::endl;
@@ -111,7 +111,7 @@ void SaveGame::SavePlayerEquipment(std::ofstream& file, Player player)
 	file << "Weapon" << std::endl;
 	if (player.GetWeapon()) {
 		file << "Yes" << std::endl;
-		file << player.GetWeapon()->GetName() << ';' << player.GetWeapon()->GetSubTypeAsString() << ';' << player.GetWeapon()->GetPosX() << ';' << player.GetWeapon()->GetPosY() << ';' << player.GetWeapon()->GetDamageValue() << ';' << player.GetWeapon()->GetStartDamageValue() << ';';
+		file << player.GetWeapon()->GetName() << ';' << player.GetWeapon()->GetSubTypeAsString() << ';' << player.GetWeapon()->GetPosX() << ';' << player.GetWeapon()->GetPosY() << ';' << player.GetWeapon()->GetDamageValue() << ';' << player.GetWeapon()->GetStartDamageValue() << ';' << player.GetWeapon()->GetBattleCnt() << ';';
 		file << std::endl;
 	}
 	else
@@ -121,7 +121,7 @@ void SaveGame::SavePlayerEquipment(std::ofstream& file, Player player)
 	file << "Armor" << std::endl;
 	if (player.GetArmor()) {
 		file << "Yes" << std::endl;
-		file << player.GetArmor()->GetName() << ';' << player.GetArmor()->GetSubTypeAsString() << ';' << player.GetArmor()->GetPosX() << ';' << player.GetArmor()->GetPosY() << ';' << player.GetArmor()->GetDamageValue() << ';' << player.GetArmor()->GetStartArmorValue() << ';';
+		file << player.GetArmor()->GetName() << ';' << player.GetArmor()->GetSubTypeAsString() << ';' << player.GetArmor()->GetPosX() << ';' << player.GetArmor()->GetPosY() << ';' << player.GetArmor()->GetDamageValue() << ';' << player.GetArmor()->GetStartArmorValue() << ';' << player.GetArmor()->GetBattleCnt() << ';';
 		file << std::endl;
 	}
 	else
@@ -167,15 +167,15 @@ void SaveGame::SaveGameItems(std::ofstream& file, Inventory gameItems)
 
 			if (tmp_w)
 			{
-				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';' << tmp_w->GetStartDamageValue() << ';';
+				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';' << tmp_w->GetStartDamageValue() << tmp_w->GetBattleCnt() <<';';
 			}
 			if (tmp_a)
 			{
-				file << tmp_a->GetName() << ';' << tmp_a->GetSubTypeAsString() << ';' << tmp_a->GetPosX() << ';' << tmp_a->GetPosY() << ';' << tmp_a->GetArmorValue() << ';' << tmp_a->GetStartArmorValue() << ';';
+				file << tmp_a->GetName() << ';' << tmp_a->GetSubTypeAsString() << ';' << tmp_a->GetPosX() << ';' << tmp_a->GetPosY() << ';' << tmp_a->GetArmorValue() << ';' << tmp_a->GetStartArmorValue() << ';' << tmp_a->GetBattleCnt() << ';';
 			}
 			if (tmp_p)
 			{
-				file << tmp_p->GetName() << ';' << tmp_p->GetSubTypeAsString() << ';' << tmp_p->GetPosX() << ';' << tmp_p->GetPosY() << ';' << tmp_p->GetHealthValue() << ';' << healConst << ';';
+				file << tmp_p->GetName() << ';' << tmp_p->GetSubTypeAsString() << ';' << tmp_p->GetPosX() << ';' << tmp_p->GetPosY() << ';' << tmp_p->GetHealthValue() << ';' << healConst << ';' << healConst << ';';
 			}
 		}
 		file << std::endl;

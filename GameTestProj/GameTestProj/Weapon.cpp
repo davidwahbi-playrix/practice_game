@@ -1,12 +1,12 @@
 #include "Weapon.h"
 
-Weapon::Weapon(std::string name, unsigned int subType, int damage):EquipableItem(name, item_types::EQUIPABLE,subType,0,0)
+Weapon::Weapon(std::string name, unsigned int subType, int damage):EquipableItem(name, item_types::EQUIPABLE,subType,0,0,0)
 {
 	this->_damage = damage;
 	this->_startDamage = damage;
 }
 
-Weapon::Weapon(std::string name, unsigned int subType, int x, int y, int damage, int startDamage):EquipableItem(name,item_types::EQUIPABLE, subType,x,y)
+Weapon::Weapon(std::string name, unsigned int subType, int x, int y, int damage, int startDamage, int battleCnt):EquipableItem(name,item_types::EQUIPABLE, subType,x,y, battleCnt)
 {
 	this->_damage = damage;
 	this->_startDamage = startDamage;
