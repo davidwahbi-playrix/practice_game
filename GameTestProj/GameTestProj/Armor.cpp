@@ -6,10 +6,10 @@ Armor::Armor(std::string name, unsigned int subType, int armor) :EquipableItem(n
 	this->_startArmor = armor;
 }
 
-Armor::Armor(std::string name, unsigned int subType, int x, int y, int armor) :EquipableItem(name,item_types::EQUIPABLE, subType, x, y)
+Armor::Armor(std::string name, unsigned int subType, int x, int y, int armor, int startArmor) :EquipableItem(name,item_types::EQUIPABLE, subType, x, y)
 {
 	this->_armor = armor;
-	this->_startArmor = armor;
+	this->_startArmor = startArmor;
 }
 
 Armor::~Armor()

@@ -26,5 +26,6 @@ private:
 	Player _player;
 	std::vector<std::shared_ptr<Enemy>> _smartEnemies;
 	Inventory _gameItems;
+	const int healConst = 1;
 };
 

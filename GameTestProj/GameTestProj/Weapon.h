@@ -5,7 +5,7 @@ class Weapon :
 {
 public:
 	Weapon(std::string name, unsigned int subType, int damage);
-	Weapon(std::string name, unsigned int subType, int x, int y, int damage);
+	Weapon(std::string name, unsigned int subType, int x, int y, int damage, int startDamage);
 	~Weapon();
 
 	const int GetDamageValue() const;

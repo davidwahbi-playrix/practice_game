@@ -6,10 +6,10 @@ Weapon::Weapon(std::string name, unsigned int subType, int damage):EquipableItem
 	this->_startDamage = damage;
 }
 
-Weapon::Weapon(std::string name, unsigned int subType, int x, int y, int damage):EquipableItem(name,item_types::EQUIPABLE, subType,x,y)
+Weapon::Weapon(std::string name, unsigned int subType, int x, int y, int damage, int startDamage):EquipableItem(name,item_types::EQUIPABLE, subType,x,y)
 {
 	this->_damage = damage;
-	this->_startDamage = damage;
+	this->_startDamage = startDamage;
 }
 
 Weapon::~Weapon()

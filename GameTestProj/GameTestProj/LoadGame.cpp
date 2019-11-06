@@ -131,14 +131,16 @@ void LoadGame::LoadGameItems(std::ifstream& file, const unsigned int size)
 
 		int item_atribut = this->ReadIntFromFile(file);
 
+		int item_start_atribut = this->ReadIntFromFile(file);
+
 		if (item_type == "WEAPON")
 		{
-			_gameItems.AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
+			_gameItems.AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut));
 			//_gameItems.AddSmartItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
 		}
 		else if (item_type == "ARMOR")
 		{
-			_gameItems.AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
+			_gameItems.AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut));
 			//_gameItems.AddSmartItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
 		}
 		else if (item_type == "HEAL")
@@ -188,14 +190,16 @@ void LoadGame::LoadPlayerIneventory(std::ifstream& file, const unsigned int size
 
 		int item_atribut = this->ReadIntFromFile(file);
 
+		int item_start_atribut = this->ReadIntFromFile(file);
+
 		if (item_type == "WEAPON")
 		{
-			this->_player.GetInventory().AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
+			this->_player.GetInventory().AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut));
 			//this->_player.GetSmartInventory().AddSmartItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
 		}
 		else if (item_type == "ARMOR")
 		{
-			this->_player.GetInventory().AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
+			this->_player.GetInventory().AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut));
 			//this->_player.GetSmartInventory().AddSmartItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
 		}
 		else if (item_type == "HEAL")
@@ -228,7 +232,7 @@ void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
 
 	if (state == 1)
 	{
-		this->_player.SetWeapon(new Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
+		this->_player.SetWeapon(new Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut));
 		//this->_player.SetSmartWeapon(std::make_shared<Weapon>(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
 		Weapon* tmpWeapon = this->_player.GetWeapon();
 		tmpWeapon->SetStartDamage(item_start_atribut);
@@ -237,7 +241,7 @@ void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
 	}
 	else if (state == 2)
 	{
-		this->_player.SetArmor(new Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
+		this->_player.SetArmor(new Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut));
 		//this->_player.SetSmartArmor(std::make_shared<Armor>(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
 		Armor* tmpArmor = this->_player.GetArmor();
 		tmpArmor->SetStartArmor(item_start_atribut);
