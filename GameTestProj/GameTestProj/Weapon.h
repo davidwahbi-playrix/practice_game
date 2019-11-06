@@ -14,6 +14,7 @@ public:
 	const int GetStartDamageValue() const;
 
 	void SetDamageValue(const int value);
+	void SetStartDamage(const int value);
 	Weapon* Clone();
 	const std::string toString() const;
 private:

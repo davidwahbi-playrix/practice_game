@@ -36,6 +36,11 @@ void Weapon::SetDamageValue(const int value)
 	this->_damage = value;
 }
 
+void Weapon::SetStartDamage(const int value)
+{
+	this->_startDamage = value;
+}
+
 Weapon* Weapon::Clone()
 {
 	return new Weapon(*this);

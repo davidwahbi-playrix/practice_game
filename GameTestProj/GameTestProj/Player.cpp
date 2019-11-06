@@ -134,6 +134,11 @@ void Player::SetDefence(const int defence)
 	this->_defence = defence;
 }
 
+void Player::SetStartDamage(const int value)
+{
+	this->_startDamage = value;
+}
+
 void Player::SetCanEquip(const bool& value)
 {
 	this->_canEquip = value;

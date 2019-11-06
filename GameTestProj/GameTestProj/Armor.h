@@ -14,6 +14,7 @@ public:
 	const int GetStartArmorValue() const;
 
 	void SetArmorValue(const int value);
+	void SetStartArmor(const int value);
 
 	Armor* Clone();
 	const std::string toString() const;

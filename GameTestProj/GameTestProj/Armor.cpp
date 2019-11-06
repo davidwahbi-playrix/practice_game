@@ -36,6 +36,11 @@ void Armor::SetArmorValue(const int value)
 	this->_armor = value;
 }
 
+void Armor::SetStartArmor(const int value)
+{
+	this->_startArmor = value;
+}
+
 Armor* Armor::Clone()
 {
 	return new Armor(*this);

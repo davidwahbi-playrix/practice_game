@@ -17,7 +17,7 @@ void SaveGame::SaveSmartGameState(Player player, std::vector<std::shared_ptr<Ene
 		this->SaveGameItems(newFile, gameItems);
 		//this->SaveSmartGameItems(newFile, gameItems);
 		newFile << "Player" << std::endl;
-		newFile << player.GetPosX() << ';' << player.GetPosY() << ';' << player.GetHealth() << ';' << player.GetDamage() << ';' << player.GetDefence() << ';' << player.GetName() << ';' << std::endl;;
+		newFile << player.GetPosX() << ';' << player.GetPosY() << ';' << player.GetHealth() << ';' << player.GetDamage() << ';' << player.GetDefence() << ';' << player.GetName() << ';' << player.GetStartDamage() << ';' << std::endl;;
 		newFile << "PlayerInventory" << std::endl;
 		this->SavePlayerInventory(newFile, player);
 		newFile << "PlayerEquipment" << std::endl;
@@ -111,7 +111,7 @@ void SaveGame::SavePlayerEquipment(std::ofstream& file, Player player)
 	file << "Weapon" << std::endl;
 	if (player.GetWeapon()) {
 		file << "Yes" << std::endl;
-		file << player.GetWeapon()->GetName() << ';' << player.GetWeapon()->GetSubTypeAsString() << ';' << player.GetWeapon()->GetPosX() << ';' << player.GetWeapon()->GetPosY() << ';' << player.GetWeapon()->GetDamageValue() << ';';
+		file << player.GetWeapon()->GetName() << ';' << player.GetWeapon()->GetSubTypeAsString() << ';' << player.GetWeapon()->GetPosX() << ';' << player.GetWeapon()->GetPosY() << ';' << player.GetWeapon()->GetDamageValue() << ';' << player.GetWeapon()->GetStartDamageValue() << ';';
 		file << std::endl;
 	}
 	else
@@ -121,7 +121,7 @@ void SaveGame::SavePlayerEquipment(std::ofstream& file, Player player)
 	file << "Armor" << std::endl;
 	if (player.GetArmor()) {
 		file << "Yes" << std::endl;
-		file << player.GetArmor()->GetName() << ';' << player.GetArmor()->GetSubTypeAsString() << ';' << player.GetArmor()->GetPosX() << ';' << player.GetArmor()->GetPosY() << ';' << player.GetArmor()->GetDamageValue() << ';';
+		file << player.GetArmor()->GetName() << ';' << player.GetArmor()->GetSubTypeAsString() << ';' << player.GetArmor()->GetPosX() << ';' << player.GetArmor()->GetPosY() << ';' << player.GetArmor()->GetDamageValue() << ';' << player.GetArmor()->GetStartArmorValue() << ';';
 		file << std::endl;
 	}
 	else

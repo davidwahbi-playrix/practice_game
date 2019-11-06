@@ -22,6 +22,7 @@ public:
 	void SetEnemyFlag(const bool& flag);
 	void SetName(const std::string& name);
 	void SetDefence(const int defence);
+	void SetStartDamage(const int value);
 
 	void SetCanEquip(const bool& value);
 	void SetEquipAction(const bool& value);
