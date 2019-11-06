@@ -27,7 +27,7 @@ void LoadGame::LoadSmartGameState()
 		tmp_stream >> num_of_gameItems;
 		if (num_of_gameItems != -1)
 		{
-			this->LoadGameItems(loadedFile, num_of_gameItems);
+			this->LoadInventory(loadedFile, num_of_gameItems, this->_gameItems);
 			std::cout << this->_gameItems.toString() << std::endl;
 			getline(loadedFile, tmp_string); // empty
 		}
@@ -49,7 +49,7 @@ void LoadGame::LoadSmartGameState()
 		tmp_stream >> num_of_playerItems;
 		if (num_of_playerItems != -1)
 		{
-			this->LoadPlayerIneventory(loadedFile, num_of_playerItems);
+			this->LoadInventory(loadedFile, num_of_playerItems, this->_player.GetInventory());
 			std::cout << this->_player.GetInventory().toString() << std::endl;
 			getline(loadedFile, tmp_string); // empty
 		}
@@ -109,51 +109,6 @@ void LoadGame::LoadSmartGameState()
 	}
 }
 
-void LoadGame::LoadGameItems(std::ifstream& file, const unsigned int size)
-{
-	std::string tmp_string;
-	std::stringstream tmp_stream;
-	size_t index_gameInv = 0;
-
-	this->_gameItems.ClearInventory();
-
-	while (!file.eof() && index_gameInv < size)
-	{
-		getline(file, tmp_string, ';');
-		std::string item_name = tmp_string;
-
-		getline(file, tmp_string, ';');
-		std::string item_type = tmp_string;
-
-		int item_pos_x = this->ReadIntFromFile(file);
-
-		int item_pos_y = this->ReadIntFromFile(file);
-
-		int item_atribut = this->ReadIntFromFile(file);
-
-		int item_start_atribut = this->ReadIntFromFile(file);
-
-		int item_battle_cnt = this->ReadIntFromFile(file);
-
-		if (item_type == "WEAPON")
-		{
-			_gameItems.AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-			//_gameItems.AddSmartItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
-		}
-		else if (item_type == "ARMOR")
-		{
-			_gameItems.AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-			//_gameItems.AddSmartItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
-		}
-		else if (item_type == "HEAL")
-		{
-			_gameItems.AddItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
-			//_gameItems.AddSmartItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
-		}
-		index_gameInv++;
-	}
-}
-
 void LoadGame::LoadPlayer(std::ifstream& file)
 {
 	std::string tmp_string;
@@ -169,50 +124,6 @@ void LoadGame::LoadPlayer(std::ifstream& file)
 	this->_player.SetName(tmp_string);
 	this->_player.SetStartDamage(this->ReadIntFromFile(file));
 
-}
-
-void LoadGame::LoadPlayerIneventory(std::ifstream& file, const unsigned int size)
-{
-	std::string tmp_string;
-	std::stringstream tmp_stream;
-	size_t index_playerInv = 0;
-	this->_player.GetInventory().ClearInventory();
-
-	while (!file.eof() && index_playerInv < size)
-	{
-		getline(file, tmp_string, ';');
-		std::string item_name = tmp_string;
-
-		getline(file, tmp_string, ';');
-		std::string item_type = tmp_string;
-
-		int item_pos_x = this->ReadIntFromFile(file);
-
-		int item_pos_y = this->ReadIntFromFile(file);
-
-		int item_atribut = this->ReadIntFromFile(file);
-
-		int item_start_atribut = this->ReadIntFromFile(file);
-
-		int item_battle_cnt = this->ReadIntFromFile(file);
-
-		if (item_type == "WEAPON")
-		{
-			this->_player.GetInventory().AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-			//this->_player.GetSmartInventory().AddSmartItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
-		}
-		else if (item_type == "ARMOR")
-		{
-			this->_player.GetInventory().AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-			//this->_player.GetSmartInventory().AddSmartItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
-		}
-		else if (item_type == "HEAL")
-		{
-			this->_player.GetInventory().AddItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
-			//this->_player.GetSmartInventory().AddSmartItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
-		}
-		index_playerInv++;
-	}
 }
 
 void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
@@ -271,6 +182,51 @@ void LoadGame::LoadSmartEnemy(std::ifstream& file, const unsigned int size)
 
 		std::cout << this->_smartEnemies[index]->toString() << std::endl;
 		index++;
+	}
+}
+
+void LoadGame::LoadInventory(std::ifstream & file, const unsigned int size, Inventory& inventory)
+{
+	std::string tmp_string;
+	std::stringstream tmp_stream;
+	size_t index_Inv = 0;
+
+	inventory.ClearInventory();
+
+	while (!file.eof() && index_Inv < size)
+	{
+		getline(file, tmp_string, ';');
+		std::string item_name = tmp_string;
+
+		getline(file, tmp_string, ';');
+		std::string item_type = tmp_string;
+
+		int item_pos_x = this->ReadIntFromFile(file);
+
+		int item_pos_y = this->ReadIntFromFile(file);
+
+		int item_atribut = this->ReadIntFromFile(file);
+
+		int item_start_atribut = this->ReadIntFromFile(file);
+
+		int item_battle_cnt = this->ReadIntFromFile(file);
+
+		if (item_type == "WEAPON")
+		{
+			inventory.AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+			//_gameItems.AddSmartItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
+		}
+		else if (item_type == "ARMOR")
+		{
+			inventory.AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+			//_gameItems.AddSmartItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
+		}
+		else if (item_type == "HEAL")
+		{
+			inventory.AddItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
+			//_gameItems.AddSmartItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
+		}
+		index_Inv++;
 	}
 }
 

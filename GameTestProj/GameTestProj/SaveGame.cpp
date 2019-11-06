@@ -14,12 +14,13 @@ void SaveGame::SaveSmartGameState(Player player, std::vector<std::shared_ptr<Ene
 	newFile.open("SaveGame.txt");
 	if (newFile.is_open()) {
 		newFile << "Game" << std::endl;
-		this->SaveGameItems(newFile, gameItems);
-		//this->SaveSmartGameItems(newFile, gameItems);
+		this->SaveInventory(newFile, gameItems);
+		//this->SaveSmartInventory(newFile, gameItems);
 		newFile << "Player" << std::endl;
 		newFile << player.GetPosX() << ';' << player.GetPosY() << ';' << player.GetHealth() << ';' << player.GetDamage() << ';' << player.GetDefence() << ';' << player.GetName() << ';' << player.GetStartDamage() << ';' << std::endl;;
 		newFile << "PlayerInventory" << std::endl;
-		this->SavePlayerInventory(newFile, player);
+		this->SaveInventory(newFile, player.GetInventory());
+		//this->SaveSmartInventory(newFile, player.GetInventory());
 		newFile << "PlayerEquipment" << std::endl;
 		this->SavePlayerEquipment(newFile, player);
 		newFile << "Enemy" << std::endl;
@@ -40,71 +41,6 @@ void SaveGame::SaveSmartGameState(Player player, std::vector<std::shared_ptr<Ene
 		std::cout << '\n' << "Game is saved!" << '\n';
 	}
 }
-
-void SaveGame::SavePlayerInventory(std::ofstream& file, Player player)
-{
-	if (player.GetInventory().Size() > 0)
-	{
-		file << player.GetInventory().Size() << std::endl;
-		for (size_t i = 0; i < player.GetInventory().Size(); i++)
-		{
-			Weapon* tmp_w = dynamic_cast<Weapon*>(&player.GetInventory().At(i));
-			Armor* tmp_a = dynamic_cast<Armor*>(&player.GetInventory().At(i));
-			HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&player.GetInventory().At(i));
-
-			if (tmp_w)
-			{
-				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';' << tmp_w->GetStartDamageValue() << ';' << tmp_w->GetBattleCnt() << ';';
-			}
-			if (tmp_a)
-			{
-				file << tmp_a->GetName() << ';' << tmp_a->GetSubTypeAsString() << ';' << tmp_a->GetPosX() << ';' << tmp_a->GetPosY() << ';' << tmp_a->GetArmorValue() << ';' << tmp_a->GetStartArmorValue() << ';' << tmp_a->GetBattleCnt() << ';';
-			}
-			if (tmp_p)
-			{
-				file << tmp_p->GetName() << ';' << tmp_p->GetSubTypeAsString() << ';' << tmp_p->GetPosX() << ';' << tmp_p->GetPosY() << ';' << tmp_p->GetHealthValue() << ';' << healConst << ';' << healConst << ';';
-			}
-		}
-		file << std::endl;
-	}
-	else
-	{
-		file << -1 << std::endl;
-	}
-}
-
-/*void SaveGame::SaveSmartPlayerInventory(std::ofstream& file, Player player)
-{
-	if (player.GetInventory().Size() > 0)
-	{
-		file << player.GetInventory().Size() << std::endl;
-		for (size_t i = 0; i < player.GetSmartInventory().Size(); i++)
-		{
-			std::shared_ptr<Item> tmp_i = std::make_shared<Item>(&player.GetSmartInventory().At(i));
-			std::shared_ptr<Weapon> tmp_w = std::dynamic_pointer_cast<Weapon>(tmp_i);
-			std::shared_ptr<Armor> tmp_a = std::dynamic_pointer_cast<Armor>(tmp_i);
-			std::shared_ptr<HealthPotion> tmp_p = std::dynamic_pointer_cast<HealthPotion>(tmp_i);
-
-			if (tmp_w)
-			{
-				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';';
-			}
-			if (tmp_a)
-			{
-				file << tmp_a->GetName() << ';' << tmp_a->GetSubTypeAsString() << ';' << tmp_a->GetPosX() << ';' << tmp_a->GetPosY() << ';' << tmp_a->GetArmorValue() << ';';
-			}
-			if (tmp_p)
-			{
-				file << tmp_p->GetName() << ';' << tmp_p->GetSubTypeAsString() << ';' << tmp_p->GetPosX() << ';' << tmp_p->GetPosY() << ';' << tmp_p->GetHealthValue() << ';';
-			}
-		}
-		file << std::endl;
-	}
-	else
-	{
-		file << -1 << std::endl;
-	}
-} */
 
 void SaveGame::SavePlayerEquipment(std::ofstream& file, Player player)
 {
@@ -154,20 +90,20 @@ void SaveGame::SavePlayerEquipment(std::ofstream& file, Player player)
 	}
 } */
 
-void SaveGame::SaveGameItems(std::ofstream& file, Inventory gameItems)
+void SaveGame::SaveInventory(std::ofstream & file, Inventory & inaventory)
 {
-	if (gameItems.Size() > 0)
+	if (inaventory.Size() > 0)
 	{
-		file << gameItems.Size() << std::endl;
-		for (size_t i = 0; i < gameItems.Size(); i++)
+		file << inaventory.Size() << std::endl;
+		for (size_t i = 0; i < inaventory.Size(); i++)
 		{
-			Weapon* tmp_w = dynamic_cast<Weapon*>(&gameItems.At(i));
-			Armor* tmp_a = dynamic_cast<Armor*>(&gameItems.At(i));
-			HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&gameItems.At(i));
+			Weapon* tmp_w = dynamic_cast<Weapon*>(&inaventory.At(i));
+			Armor* tmp_a = dynamic_cast<Armor*>(&inaventory.At(i));
+			HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&inaventory.At(i));
 
 			if (tmp_w)
 			{
-				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';' << tmp_w->GetStartDamageValue() << tmp_w->GetBattleCnt() <<';';
+				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';' << tmp_w->GetStartDamageValue() << tmp_w->GetBattleCnt() << ';';
 			}
 			if (tmp_a)
 			{
@@ -186,14 +122,14 @@ void SaveGame::SaveGameItems(std::ofstream& file, Inventory gameItems)
 	}
 }
 
-/*void SaveGame::SaveSmartGameItems(std::ofstream& file, Inventory gameItems)
+/*void SaveGame::SaveSmartInventory(std::ofstream& file, Inventory inventory)
 {
-	if (gameItems.Size() > 0)
+	if (inaventory.Size() > 0)
 	{
-		file << gameItems.Size() << std::endl;
-		for (size_t i = 0; i < gameItems.Size(); i++)
+		file << inventory.Size() << std::endl;
+		for (size_t i = 0; i < inventory.Size(); i++)
 		{
-			std::shared_ptr<Item> tmp_i = std::make_shared<Item>(&gameItems.At(i));
+			std::shared_ptr<Item> tmp_i = std::make_shared<Item>(&inventory.At(i));
 			std::shared_ptr<Weapon> tmp_w = std::dynamic_pointer_cast<Weapon>(tmp_i);
 			std::shared_ptr<Armor> tmp_a = std::dynamic_pointer_cast<Armor>(tmp_i);
 			std::shared_ptr<HealthPotion> tmp_p = std::dynamic_pointer_cast<HealthPotion>(tmp_i);
