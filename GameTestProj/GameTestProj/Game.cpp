@@ -119,6 +119,11 @@ void Game::Render()
 			this->_renderer.NextLevel(this->_profile.GetLevel());
 			this->_profile.NewGame();
 		}
+		this->SetRunning(this->_profile.GetLevelLoader().GetFinishStatus());
+		if (!this->Running())
+		{
+			this->_renderer.SetDraw(false);
+		}
 	}
 }
 

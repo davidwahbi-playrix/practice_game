@@ -18,6 +18,7 @@ public:
 	//SmartInventory GetSmartGameItems() const;
 	Board GetBoard() const;
 	std::vector<std::shared_ptr<Enemy>> GetSmartEnemies() const;
+	LevelLoader GetLevelLoader() const;
 
 	void IncreseLevel();
 	void SetPlayer(const Player& player);

@@ -20,11 +20,13 @@ public:
 	Board GetBoard() const;
 	Inventory GetGameItems() const;
 	std::vector<std::shared_ptr<Enemy>> GetSmartEnemies() const;
+	bool GetFinishStatus() const;
 
 	int ReadIntFromFile(std::ifstream& file);
 private:
 	std::vector<std::shared_ptr<Enemy>> _smartEnemies;
 	Inventory _gameItems;
 	Board _board;
+	bool _gameContinue;
 };
 

@@ -56,6 +56,11 @@ std::vector<std::shared_ptr<Enemy>> Profile::GetSmartEnemies() const
 	return this->_smartEnemies;
 }
 
+LevelLoader Profile::GetLevelLoader() const
+{
+	return this->_levelLoader;
+}
+
 void Profile::IncreseLevel()
 {
 	this->_currentLevel++;
