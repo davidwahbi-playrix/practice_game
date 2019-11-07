@@ -121,6 +121,7 @@
     <ClCompile Include="HealthPotion.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="LevelLoader.cpp" />
     <ClCompile Include="LoadGame.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovableObject.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="HealthPotion.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="LevelLoader.h" />
     <ClInclude Include="LoadGame.h" />
     <ClInclude Include="MovableObject.h" />
     <ClInclude Include="MoveUnit.h" />
@@ -161,7 +163,12 @@
     <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Map.txt" />
+    <Text Include="Level1.txt" />
+    <Text Include="Level2.txt" />
+    <Text Include="Level3.txt" />
+    <Text Include="LevelInfo1.txt" />
+    <Text Include="LevelInfo2.txt" />
+    <Text Include="LevelInfo3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

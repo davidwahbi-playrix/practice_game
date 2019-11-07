@@ -41,7 +41,7 @@ void Game::HandleEvents()
 	}
 	else if (tmpInput == 10)
 	{
-		this->_saver.SaveSmartGameState(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems());
+		this->_saver.SaveSmartGameState(this->_profile.GetLevel(), this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems());
 		//this->_saver.SaveSmartGameState(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetSmartGameItems());
 	}
 	else if (tmpInput == 11)
@@ -106,13 +106,19 @@ void Game::Render()
 		this->_renderer.SetDraw(false);
 		this->_renderer.SaveLoadMenu();
 		//this->_profile.SetBoard(this->_profile.GetPlayer().GetBoard());
-		this->_profile.GetBoard().Display();
+		this->_profile.GetBoard().Display2();
 		if (this->_profile.GetPlayer().GetInventory().Size() > 0)
 		//if (this->_profile.GetPlayer().GetSmartInventory().Size() > 0)
 		{
 			this->_renderer.RenderPlayerInventory(this->_profile.GetPlayer());
 		}
 		this->_renderer.RenderPlayer(this->_profile.GetPlayer());
+		if (this->_profile.GetSmartEnemies().size() == 0)
+		{
+			this->_profile.IncreseLevel();
+			this->_renderer.NextLevel(this->_profile.GetLevel());
+			this->_profile.NewGame();
+		}
 	}
 }
 

@@ -13,6 +13,7 @@ public:
 	void SaveLoadMenu();
 	void SetDraw(const bool& value);
 	void ClearView();
+	void NextLevel(int level);
 
 	bool GetDraw() const;
 	bool GetFlag() const;

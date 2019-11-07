@@ -17,6 +17,13 @@ void LoadGame::LoadSmartGameState()
 	if (!loadedFile.fail())
 	{
 		system("cls");
+		getline(loadedFile, tmp_string); // Level
+		getline(loadedFile, tmp_string); // Level No.
+		int level;
+		tmp_stream.str("");
+		tmp_stream.clear();
+		tmp_stream << tmp_string;
+		tmp_stream >> level;
 
 		getline(loadedFile, tmp_string); // Game
 		getline(loadedFile, tmp_string); // Game inventory size or None
@@ -98,7 +105,7 @@ void LoadGame::LoadSmartGameState()
 		}
 		system("pause");
 		system("cls");
-		this->LoadBoard();
+		this->LoadBoard(level);
 
 		std::cout << "Game loaded!" << std::endl;
 	}
@@ -230,30 +237,47 @@ void LoadGame::LoadInventory(std::ifstream & file, const unsigned int size, Inve
 	}
 }
 
-void LoadGame::LoadBoard()
+void LoadGame::LoadBoard(int currLevel)
 {
+	std::string level = "Level";
+	level += std::to_string(currLevel);
+	level = level + ".txt";
+	std::string levelInfo = "LevelInfo";
+	levelInfo += std::to_string(currLevel);
+	levelInfo = levelInfo + ".txt";
+	std::ifstream levelFile(level);
+	std::ifstream levelInfoFile(levelInfo);
+	std::string tmp_string;
+	std::stringstream tmp_stream;
+	getline(levelInfoFile, tmp_string); // Board
+	int numRow = this->ReadIntFromFile(levelInfoFile);
+	int numCol = this->ReadIntFromFile(levelInfoFile);
 	Board board;
-	board.Load("Map.txt");
+	board.InitBoard(numRow, numCol);
+	this->_board.InitBoard(numRow, numCol);
+	board.Load2(level);
 
 	board.ClearBoard();
-	board.SetElem(_player.GetPosX(), _player.GetPosY(), '@');
+	board.SetElem2(this->_player.GetPosX(), this->_player.GetPosY(), '@');
 	if (this->_gameItems.Size() > 0)
 	{
 		for (size_t i = 0; i < this->_gameItems.Size(); i++)
 		{
-			board.SetElem(this->_gameItems[i].GetPosX(), this->_gameItems[i].GetPosY(), 'i');
+			//board.SetElem(this->_gameItems[i].GetPosX(), this->_gameItems[i].GetPosY(), 'i');
+			board.SetElem2(this->_gameItems[i].GetPosX(), this->_gameItems[i].GetPosY(), 'i');
 		}
 	}
 	if (this->_smartEnemies.size() > 0)
 	{
 		for (size_t i = 0; i < this->_smartEnemies.size(); i++)
 		{
-			board.SetElem(this->_smartEnemies[i]->GetPosX(), this->_smartEnemies[i]->GetPosY(), 'e');
+			//board.SetElem(this->_smartEnemies[i]->GetPosX(), this->_smartEnemies[i]->GetPosY(), 'e');
+			board.SetElem2(this->_smartEnemies[i]->GetPosX(), this->_smartEnemies[i]->GetPosY(), 'e');
 		}
 	}
 
 	this->_board = board;
-	this->_board.Display();
+	this->_board.Display2();
 
 }
 

@@ -12,7 +12,7 @@ public:
 	SaveGame();
 	~SaveGame();
 
-	void SaveSmartGameState(Player player, std::vector<std::shared_ptr<Enemy>> smartEnemies, Inventory gameItems);
+	void SaveSmartGameState(int level, Player player, std::vector<std::shared_ptr<Enemy>> smartEnemies, Inventory gameItems);
 	void SaveInventory(std::ofstream& file, Inventory& inaventory);
 	//void SaveSmartInventory(std::ofstream& file, Inventory& inventory);
 

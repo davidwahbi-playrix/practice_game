@@ -8,11 +8,13 @@ SaveGame::~SaveGame()
 {
 }
 
-void SaveGame::SaveSmartGameState(Player player, std::vector<std::shared_ptr<Enemy>> smartEnemies, Inventory gameItems)
+void SaveGame::SaveSmartGameState(int level, Player player, std::vector<std::shared_ptr<Enemy>> smartEnemies, Inventory gameItems)
 {
 	std::ofstream newFile;
 	newFile.open("SaveGame.txt");
 	if (newFile.is_open()) {
+		newFile << "Level" << std::endl;
+		newFile << level << std::endl;
 		newFile << "Game" << std::endl;
 		this->SaveInventory(newFile, gameItems);
 		//this->SaveSmartInventory(newFile, gameItems);
@@ -103,7 +105,7 @@ void SaveGame::SaveInventory(std::ofstream & file, Inventory & inaventory)
 
 			if (tmp_w)
 			{
-				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';' << tmp_w->GetStartDamageValue() << tmp_w->GetBattleCnt() << ';';
+				file << tmp_w->GetName() << ';' << tmp_w->GetSubTypeAsString() << ';' << tmp_w->GetPosX() << ';' << tmp_w->GetPosY() << ';' << tmp_w->GetDamageValue() << ';' << tmp_w->GetStartDamageValue() << ';' << tmp_w->GetBattleCnt() << ';';
 			}
 			if (tmp_a)
 			{

@@ -67,6 +67,9 @@
     <Filter Include="RepairCenter">
       <UniqueIdentifier>{beaa670f-f42c-4945-8b83-00d96378b2b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LevelLoader">
+      <UniqueIdentifier>{b1255e79-4ebf-42e3-b588-1277c1692927}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -141,6 +144,9 @@
     <ClCompile Include="RepairCenter.cpp">
       <Filter>RepairCenter</Filter>
     </ClCompile>
+    <ClCompile Include="LevelLoader.cpp">
+      <Filter>LevelLoader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsumableItem.h">
@@ -212,9 +218,27 @@
     <ClInclude Include="RepairCenter.h">
       <Filter>RepairCenter</Filter>
     </ClInclude>
+    <ClInclude Include="LevelLoader.h">
+      <Filter>LevelLoader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Map.txt">
+    <Text Include="LevelInfo3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Level3.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LevelInfo1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LevelInfo2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Level1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Level2.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

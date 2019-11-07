@@ -45,6 +45,18 @@ void Renderer::ClearView()
 	system("cls");
 }
 
+void Renderer::NextLevel(int level)
+{
+	std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << "***CONGRATULATIONS***" << std::endl;
+	std::cout << std::endl;
+	std::cout << "Level completed!" << std::endl;
+	std::cout << std::endl;
+	std::cout << "Next level: " << "LEVEL " << std::to_string(level) << "!" << std::endl;
+	system("pause");
+}
+
 bool Renderer::GetDraw() const
 {
 	return this->_draw;

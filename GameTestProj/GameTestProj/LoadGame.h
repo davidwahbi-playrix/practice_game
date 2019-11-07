@@ -17,7 +17,7 @@ public:
 	void LoadPlayerEquipment(std::ifstream& file, const int state);
 	void LoadSmartEnemy(std::ifstream& file, const unsigned int size);
 	void LoadInventory(std::ifstream& file, const unsigned int size, Inventory& inventory);
-	void LoadBoard();
+	void LoadBoard(int currLevel);
 
 	Player GetPlayer() const;
 	std::vector<std::shared_ptr<Enemy>> GetSmartEnemies() const;

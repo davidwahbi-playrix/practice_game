@@ -1,26 +1,29 @@
 #pragma once
+#include <vector>
 class Board
 {
 public:
 	Board();
-	int GetRowCount() const;
-	int GetColCount() const;
-	char GetElem(const int row, const int col) const;
-	void SetElem(const int row, const int col, const char& elem);
+	~Board();
+	int GetRowCount2() const;
+	int GetColCount2() const;
 
-	void CheckRow(const int row) const;
-	void CheckCol(const int col) const;
+	char GetElem2(const int row, const int col) const;
+	void SetElem2(const int row, const int col, const char& elem);
+
+	void CheckRow2(const int row) const;
+	void CheckCol2(const int col) const;
 
 	void ClearBoard();
-
+	void InitBoard(const int numRow, const int numCol);
 	void operator = (const Board& other);
 
-	void Load(const char* filename);
-	void Display();
-	~Board();
+	void Load2(std::string filename);
+	void Display2();
+
 private:
-	static const int _mRowCount = 10;
-	static const int _mColCount = 50;
-	char _mFields[_mRowCount][_mColCount];
+	int _mRowCount2 = 0;
+	int _mColCount2 = 0;
+	std::vector<std::vector<char>> _mFields2;
 };
 
