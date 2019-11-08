@@ -40,7 +40,6 @@ void Game::HandleEvents()
 	else if (tmpInput == 10)
 	{
 		_saver.SaveSmartGameState(_profile.GetLevel(), _profile.GetPlayer(), _profile.GetSmartEnemies(), _profile.GetGameItems());
-		//_saver.SaveSmartGameState(_profile.GetPlayer(), _profile.GetSmartEnemies(), _profile.GetSmartGameItems());
 	}
 	else if (tmpInput == 11)
 	{
@@ -48,7 +47,6 @@ void Game::HandleEvents()
 		_profile.SetPlayer(_loader.GetPlayer());
 		_profile.SetSmartEnemies(_loader.GetSmartEnemies());
 		_profile.SetGameItems(_loader.GetGameInventory());
-		//_profile.SetSmartGameItems(_loader.GetGameInventory());
 		_profile.SetBoard(_loader.GetBoard());
 	}
 }
@@ -58,7 +56,6 @@ void Game::Update()
 	if (_unitMover.GetDirection() > 0)
 	{
 		_unitMover.SmartUnitMove3(_profile.GetPlayer2(), _profile.GetSmartEnemies2(), _profile.GetGameItems2(), _profile.GetBoard2());
-		//_unitMover.SmartUnitMove(_profile.GetPlayer(), _profile.GetSmartEnemies(), _profile.GetSmartGameItems());
 		SetRunning(_unitMover.GetContinue());
 		if (!Running())
 		{
@@ -68,16 +65,13 @@ void Game::Update()
 	if (_profile.GetPlayer2().GetEquipAction())
 	{
 		_profile.GetPlayer2().SetEquipAction(false);
-		if (_profile.GetPlayer().GetEquipInd() < _profile.GetPlayer().GetInventory().Size())
-		//if (_profile.GetPlayer().GetEquipInd() < _profile.GetPlayer().GetSmartInventory().Size())
+		if (_profile.CanPlayerEquip())
 		{
 			_profile.GetPlayer2().EquipItem(_profile.GetPlayer().GetEquipInd());
-
 		}
 		else
 		{
 			if (_profile.GetPlayer().GetInventory().Size() > 0)
-			//if (_profile.GetPlayer().GetSmartInventory().Size() > 0)
 			{
 				_profile.GetPlayer2().SetCanEquip(true);
 			}
@@ -93,10 +87,8 @@ void Game::Render()
 	{
 		_renderer.SetDraw(false);
 		_renderer.SaveLoadMenu();
-		//_profile.SetBoard(_profile.GetPlayer().GetBoard());
 		_profile.GetBoard().Display2();
 		if (_profile.GetPlayer().GetInventory().Size() > 0)
-		//if (_profile.GetPlayer().GetSmartInventory().Size() > 0)
 		{
 			_renderer.RenderPlayerInventory(_profile.GetPlayer());
 		}

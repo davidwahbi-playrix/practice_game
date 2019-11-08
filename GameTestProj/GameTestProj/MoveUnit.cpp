@@ -57,6 +57,7 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 			}
 		}
 	}
+	_dir = 0;
 }
 
 

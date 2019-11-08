@@ -13,15 +13,22 @@ public:
 	void NewGame();
 
 	int GetLevel() const;
+
+	bool CanPlayerEquip() const;
+
 	Player GetPlayer() const;
 	Player& GetPlayer2();
+
 	Inventory GetGameItems() const;
 	Inventory& GetGameItems2();
+
 	//SmartInventory GetSmartGameItems() const;
 	Board GetBoard() const;
 	Board& GetBoard2();
+
 	std::vector<std::shared_ptr<Enemy>> GetSmartEnemies() const;
 	std::vector<std::shared_ptr<Enemy>>& GetSmartEnemies2();
+
 	LevelLoader GetLevelLoader() const;
 
 	void IncreseLevel();

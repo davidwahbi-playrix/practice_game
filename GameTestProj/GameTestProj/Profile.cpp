@@ -31,6 +31,11 @@ int Profile::GetLevel() const
 	return _currentLevel;
 }
 
+bool Profile::CanPlayerEquip() const
+{
+	return (GetPlayer().GetEquipInd() < GetPlayer().GetInventory().Size());
+}
+
 Player Profile::GetPlayer() const
 {
 	return _player;

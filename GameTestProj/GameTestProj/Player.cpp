@@ -160,6 +160,10 @@ void Player::ReceiveHit(const int enemyDamage)
 	if (GetDefence() - enemyDamage < 0)
 	{
 		SetDefence(0);
+		if (GetArmor())
+		{
+			GetArmor2().SetArmorValue(0);
+		}
 		SetHealth(GetHealth() + GetDefence() - enemyDamage);
 	}
 	else
