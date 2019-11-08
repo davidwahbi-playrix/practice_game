@@ -157,13 +157,11 @@ void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
 	if (state == 1)
 	{
 		_player.SetWeapon(new Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-		//_player.SetSmartWeapon(std::make_shared<Weapon>(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
 
 	}
 	else if (state == 2)
 	{
 		_player.SetArmor(new Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-		//_player.SetSmartArmor(std::make_shared<Armor>(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
 
 	}
 
@@ -221,17 +219,14 @@ void LoadGame::LoadInventory(std::ifstream & file, const unsigned int size, Inve
 		if (item_type == "WEAPON")
 		{
 			inventory.AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-			//_gameItems.AddSmartItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
 		}
 		else if (item_type == "ARMOR")
 		{
 			inventory.AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-			//_gameItems.AddSmartItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
 		}
 		else if (item_type == "HEAL")
 		{
 			inventory.AddItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
-			//_gameItems.AddSmartItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
 		}
 		index_Inv++;
 	}
@@ -263,7 +258,6 @@ void LoadGame::LoadBoard(int currLevel)
 	{
 		for (size_t i = 0; i < _gameItems.Size(); i++)
 		{
-			//board.SetElem(_gameItems[i].GetPosX(), _gameItems[i].GetPosY(), 'i');
 			board.SetElem2(_gameItems[i].GetPosX(), _gameItems[i].GetPosY(), 'i');
 		}
 	}
@@ -271,7 +265,6 @@ void LoadGame::LoadBoard(int currLevel)
 	{
 		for (size_t i = 0; i < _smartEnemies.size(); i++)
 		{
-			//board.SetElem(_smartEnemies[i]->GetPosX(), _smartEnemies[i]->GetPosY(), 'e');
 			board.SetElem2(_smartEnemies[i]->GetPosX(), _smartEnemies[i]->GetPosY(), 'e');
 		}
 	}

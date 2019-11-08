@@ -15,7 +15,6 @@ void Profile::NewGame()
 	{
 		_player = LoadPlayer();
 	}
-	//_player = LoadPlayer();
 	_levelLoader.LoadLevel(_currentLevel);
 	_board.InitBoard(_levelLoader.GetBoard().GetRowCount2(), _levelLoader.GetBoard().GetColCount2());
 	SetBoard(_levelLoader.GetBoard());

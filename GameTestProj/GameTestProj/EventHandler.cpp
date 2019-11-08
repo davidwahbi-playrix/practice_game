@@ -59,6 +59,26 @@ void EventHandler::HandleEvent()
 	//return _key;
 }
 
+int EventHandler::HandleArrowEvent()
+{
+	if (GetAsyncKeyState(VK_UP))
+	{
+		return UP;
+	}
+	if (GetAsyncKeyState(VK_DOWN))
+	{
+		return DOWN;
+	}
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+		return LEFT;
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		return RIGHT;
+	}
+}
+
 int EventHandler::HandleEvent2()
 {
 	if (_kbhit())

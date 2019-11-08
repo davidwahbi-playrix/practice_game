@@ -101,17 +101,14 @@ void LevelLoader::LoadInventory(std::ifstream & file, const unsigned int size, I
 		if (item_type == "WEAPON")
 		{
 			inventory.AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-			//_gameItems.AddSmartItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut));
 		}
 		else if (item_type == "ARMOR")
 		{
 			inventory.AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
-			//_gameItems.AddSmartItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut));
 		}
 		else if (item_type == "HEAL")
 		{
 			inventory.AddItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
-			//_gameItems.AddSmartItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
 		}
 		index_Inv++;
 	}
