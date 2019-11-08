@@ -16,15 +16,24 @@ constexpr auto NUM_KEY_4 = 52;
 constexpr auto KEY_S = 83;
 constexpr auto KEY_L = 76;
 
-enum eDirection { STOP = 0, UP, RIGHT, DOWN, LEFT, NUMKEY0, NUMKEY1, NUMKEY2, NUMKEY3, NUMKEY4, SAVE, LOAD};
+enum eDirection { NOTHING = 0, UP, RIGHT, DOWN, LEFT, NUMKEY0, NUMKEY1, NUMKEY2, NUMKEY3, NUMKEY4, SAVE, LOAD};
 
 class EventHandler
 {
 public:
 	EventHandler();
 	~EventHandler();
-	int HandleEvent();
+	void HandleEvent();
 	int HandleEvent2();
+
+	int GetKey() const;
+	int GetNumKey() const;
+	void ResetKey();
+	bool ArrowKeyClicked();
+	bool EquipKeyClicked();
+	bool SaveKeyClicked();
+	bool LoadKeyClicked();
 private:
+	int _key;
 };
 

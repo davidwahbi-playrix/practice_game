@@ -2,60 +2,61 @@
 
 EventHandler::EventHandler()
 {
+	_key = NOTHING;
 }
 
 EventHandler::~EventHandler()
 {
 }
 
-int EventHandler::HandleEvent()
+void EventHandler::HandleEvent()
 {
-	int tmp = 100;
+	//_key = NOTHING;
 	if (GetAsyncKeyState(VK_UP))
 	{
-		tmp = UP;
+		_key = UP;
 	}
 	if (GetAsyncKeyState(VK_DOWN))
 	{
-		tmp = DOWN;
+		_key = DOWN;
 	}
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		tmp = LEFT;
+		_key = LEFT;
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
-		tmp = RIGHT;
+		_key = RIGHT;
 	}
 	if (GetAsyncKeyState(NUM_KEY_0))
 	{
-		tmp = NUMKEY0;
+		_key = NUMKEY0;
 	}
 	if (GetAsyncKeyState(NUM_KEY_1))
 	{
-		tmp = NUMKEY1;
+		_key = NUMKEY1;
 	}
 	if (GetAsyncKeyState(NUM_KEY_2))
 	{
-		tmp = NUMKEY2;
+		_key = NUMKEY2;
 	}
 	if (GetAsyncKeyState(NUM_KEY_3))
 	{
-		tmp = NUMKEY3;
+		_key = NUMKEY3;
 	}
 	if (GetAsyncKeyState(NUM_KEY_4))
 	{
-		tmp = NUMKEY4;
+		_key = NUMKEY4;
 	}
 	if (GetAsyncKeyState(KEY_S))
 	{
-		tmp = SAVE;
+		_key = SAVE;
 	}
 	if (GetAsyncKeyState(KEY_L))
 	{
-		tmp = LOAD;
+		_key = LOAD;
 	}
-	return tmp;
+	//return _key;
 }
 
 int EventHandler::HandleEvent2()
@@ -98,8 +99,43 @@ int EventHandler::HandleEvent2()
 			return LOAD;
 			break;
 		default:
+			return NOTHING;
 			break;
 		}
 	}
 }
-		
+
+int EventHandler::GetKey() const
+{
+	return _key;
+}
+
+int EventHandler::GetNumKey() const
+{
+	return _key - NUMKEY0;
+}
+
+void EventHandler::ResetKey()
+{
+	_key = NOTHING;
+}
+
+bool EventHandler::ArrowKeyClicked()
+{
+	return (_key > NOTHING && _key < NUMKEY0);
+}
+
+bool EventHandler::EquipKeyClicked()
+{
+	return (_key > LEFT && _key < SAVE);
+}
+
+bool EventHandler::SaveKeyClicked()
+{
+	return (_key == SAVE);
+}
+
+bool EventHandler::LoadKeyClicked()
+{
+	return (_key == LOAD);
+}

@@ -18,31 +18,35 @@ void Game::Init()
 
 void Game::HandleEvents()
 {
-	int tmpInput = _eventHandler.HandleEvent();
-	if (tmpInput < 5)
+	 _eventHandler.HandleEvent();
+	if (_eventHandler.ArrowKeyClicked())
 	{
 		_renderer.ClearView();
-		_unitMover.SetDir(tmpInput);
+		_unitMover.SetDir(_eventHandler.GetKey());
+		_eventHandler.ResetKey();
 		_renderer.SetDraw(true);
 	}
-	else if (tmpInput > 4 && tmpInput < 10)
+	else if (_eventHandler.EquipKeyClicked())
 	{
 		if (_profile.GetPlayer().GetCanEquip())
 		{
 			_renderer.ClearView();
 			_profile.GetPlayer2().SetCanEquip(false);
-			_profile.GetPlayer2().SetEquipInd(tmpInput - 5);
+			_profile.GetPlayer2().SetEquipInd(_eventHandler.GetNumKey());
 			_profile.GetPlayer2().SetEquipAction(true);
 			_renderer.SetDraw(true);
 		}
+		_eventHandler.ResetKey();
 
 	}
-	else if (tmpInput == 10)
+	else if (_eventHandler.SaveKeyClicked())
 	{
+		_eventHandler.ResetKey();
 		_saver.SaveSmartGameState(_profile.GetLevel(), _profile.GetPlayer(), _profile.GetSmartEnemies(), _profile.GetGameItems());
 	}
-	else if (tmpInput == 11)
+	else if (_eventHandler.LoadKeyClicked())
 	{
+		_eventHandler.ResetKey();
 		_loader.LoadSmartGameState();
 		_profile.SetPlayer(_loader.GetPlayer());
 		_profile.SetSmartEnemies(_loader.GetSmartEnemies());
