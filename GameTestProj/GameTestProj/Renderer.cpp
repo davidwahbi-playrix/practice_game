@@ -3,8 +3,8 @@
 
 Renderer::Renderer()
 {
-	this->_canEnter = true;
-	this->_draw = false;
+	_canEnter = true;
+	_draw = false;
 }
 
 Renderer::~Renderer()
@@ -37,7 +37,7 @@ void Renderer::SaveLoadMenu()
 
 void Renderer::SetDraw(const bool& value)
 {
-	this->_draw = value;
+	_draw = value;
 }
 
 void Renderer::ClearView()
@@ -59,10 +59,10 @@ void Renderer::NextLevel(int level)
 
 bool Renderer::GetDraw() const
 {
-	return this->_draw;
+	return _draw;
 }
 
 bool Renderer::GetFlag() const
 {
-	return this->_canEnter;
+	return _canEnter;
 }

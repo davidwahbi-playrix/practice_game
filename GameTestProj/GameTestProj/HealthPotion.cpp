@@ -2,14 +2,14 @@
 
 HealthPotion::HealthPotion(std::string name, unsigned int subType, int heal) :ConsumableItem(name, item_types::CONSUMABLE, subType, 0, 0)
 {
-	this->_heal = heal;
-	this->_startCap = heal;
+	_heal = heal;
+	_startCap = heal;
 }
 
 HealthPotion::HealthPotion(std::string name, unsigned int subType, int x, int y, int heal):ConsumableItem(name,item_types::CONSUMABLE,subType,x,y)
 {
-	this->_heal = heal;
-	this->_startCap = heal;
+	_heal = heal;
+	_startCap = heal;
 }
 
 HealthPotion::~HealthPotion()
@@ -18,7 +18,7 @@ HealthPotion::~HealthPotion()
 
 const int HealthPotion::GetHealthValue() const
 {
-	return this->_heal;
+	return _heal;
 }
 
 const int HealthPotion::GetPoisonValue() const
@@ -28,12 +28,12 @@ const int HealthPotion::GetPoisonValue() const
 
 const int HealthPotion::GetHealCap() const
 {
-	return this->_startCap;
+	return _startCap;
 }
 
 void HealthPotion::SetStartCap(const int value)
 {
-	this->_startCap = value;
+	_startCap = value;
 }
 
 HealthPotion* HealthPotion::Clone()
@@ -44,6 +44,6 @@ HealthPotion* HealthPotion::Clone()
 const std::string HealthPotion::toString() const
 {
 	std::stringstream ss;
-	ss << "Health potion: " << this->GetName() << " | Type: " << this->GetTypeAsString() << " | SubType: " << this->GetSubTypeAsString() << " | Heal value: " << this->_heal;
+	ss << "Health potion: " << GetName() << " | Type: " << GetTypeAsString() << " | SubType: " << GetSubTypeAsString() << " | Heal value: " << _heal;
 	return ss.str();
 }

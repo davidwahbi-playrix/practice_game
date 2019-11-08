@@ -5,133 +5,133 @@ using namespace std;
 
 void Inventory::Init(const unsigned from)
 {
-	for (size_t i = 0; i < this->_cap; i++)
+	for (size_t i = 0; i < _cap; i++)
 	{
-		this->_items[i] = nullptr;
+		_items[i] = nullptr;
 	} 
 }
 
 void Inventory::Expand()
 {
-	this->_cap *= 2;
+	_cap *= 2;
 
-	Item** temp = new Item * [this->_cap];
+	Item** temp = new Item * [_cap];
 
-	for (size_t i = 0; i < this->_numOfItems; i++)
+	for (size_t i = 0; i < _numOfItems; i++)
 	{
-		temp[i] = this->_items[i];
+		temp[i] = _items[i];
 	}
-	delete[] this->_items;
+	delete[] _items;
 
-	this->_items = temp;
+	_items = temp;
 
-	this->Init(this->_numOfItems);
+	Init(_numOfItems);
 }
 
 Inventory::Inventory(unsigned int cap)
 {
-	this->_cap = cap;
-	this->_numOfItems = 0;
-	this->_items = new Item * [cap];
+	_cap = cap;
+	_numOfItems = 0;
+	_items = new Item * [cap];
 
-	this->Init();
+	Init();
 }
 
 Inventory::Inventory(const Inventory& other)
 {
-	this->_cap = other._cap;
-	this->_numOfItems = other._numOfItems;
+	_cap = other._cap;
+	_numOfItems = other._numOfItems;
 
-	this->_items = new Item * [this->_cap];
-	//this->_smartItems = std::vector<std::shared_ptr<Item>>(this->_cap);
-	this->Init();
+	_items = new Item * [_cap];
+	//_smartItems = std::vector<std::shared_ptr<Item>>(_cap);
+	Init();
 
-	for (size_t i = 0; i < this->_numOfItems; i++)
+	for (size_t i = 0; i < _numOfItems; i++)
 	//for (size_t i = 0; i < other.GetVector().size(); i++)
 	{
-		this->_items[i] = other._items[i]->Clone();
-		//this->_smartItems.emplace_back(other.GetVector().at(i));
+		_items[i] = other._items[i]->Clone();
+		//_smartItems.emplace_back(other.GetVector().at(i));
 	}
 }
 
 Inventory::~Inventory()
 {
-	for (size_t i = 0; i < this->_numOfItems; i++)
+	for (size_t i = 0; i < _numOfItems; i++)
 	{
-		delete this->_items[i];
+		delete _items[i];
 	}
 
-	delete [] this->_items;
+	delete [] _items;
 } 
 
 void Inventory::AddItem( Item& item)
 {
-	if (this->_numOfItems >= this->_cap)
+	if (_numOfItems >= _cap)
 	{
-		this->Expand();
+		Expand();
 	}
 
-	this->_items[this->_numOfItems++] = item.Clone();
+	_items[_numOfItems++] = item.Clone();
 }
 
 void Inventory::RemoveItem(const unsigned index)
 {
-	if (index < 0 || index >= this->_numOfItems)
+	if (index < 0 || index >= _numOfItems)
 	{
 		cout << "OUT OF BOUNDS!" << endl;
 	}
-	delete this->_items[index];
-	this->_items[index] = this->_items[--this->_numOfItems];
+	delete _items[index];
+	_items[index] = _items[--_numOfItems];
 }
 
 void Inventory::ClearInventory()
 {
-	for (size_t i = 0; i < this->_numOfItems; i++)
+	for (size_t i = 0; i < _numOfItems; i++)
 	{
-		delete this->_items[i];
+		delete _items[i];
 	}
-	this->_numOfItems = 0;
+	_numOfItems = 0;
 }
 
 const unsigned int& Inventory::Capacity() const
 {
-	return this->_cap;
+	return _cap;
 }
 
 const unsigned int& Inventory::Size() const
 {
-	return this->_numOfItems;
+	return _numOfItems;
 }
 
 Item& Inventory::At(const size_t index)
 {
-	if (index < 0 || index >= this->_numOfItems)
+	if (index < 0 || index >= _numOfItems)
 	{
 		cout << "OUT OF BOUNDS!" << endl;
 	}
 	else
 	{
-		return *(this->_items[index]);
+		return *(_items[index]);
 	}
 }
 
 void Inventory::operator=(const Inventory& other)
 {
 	if (this != &other) {
-		for (size_t i = 0; i < this->_numOfItems; i++)
+		for (size_t i = 0; i < _numOfItems; i++)
 		{
-			delete this->_items[i];
+			delete _items[i];
 		}
-		delete[] this->_items;
+		delete[] _items;
 
-		this->_cap = other._cap;
-		this->_numOfItems = other._numOfItems;
-		this->_items = new Item * [this->_cap];
-		this->Init();
+		_cap = other._cap;
+		_numOfItems = other._numOfItems;
+		_items = new Item * [_cap];
+		Init();
 
-		for (size_t i = 0; i < this->_numOfItems; i++)
+		for (size_t i = 0; i < _numOfItems; i++)
 		{
-			this->_items[i] = other._items[i]->Clone();
+			_items[i] = other._items[i]->Clone();
 		}
 	}
 
@@ -139,31 +139,31 @@ void Inventory::operator=(const Inventory& other)
 
 Item& Inventory::operator[](const unsigned int index)
 {
-	if (index < 0 || index >= this->_numOfItems)
+	if (index < 0 || index >= _numOfItems)
 	{
 		cout << "OUT OF BOUNDS!" << endl;
 	}
 	else
 	{
-		return *(this->_items[index]);
+		return *(_items[index]);
 	}
 } 
 
 Item* Inventory::Replace(const unsigned index, Item* item)
 {
-	if (index < 0 || index >= this->_numOfItems)
+	if (index < 0 || index >= _numOfItems)
 	{
 		cout << "OUT OF BOUNDS!" << endl;
 	}
-	Item* tmp_item = this->_items[index]->Clone();
-	delete this->_items[index];
+	Item* tmp_item = _items[index]->Clone();
+	delete _items[index];
 	if (item)
 	{
-		this->_items[index] = item->Clone();
+		_items[index] = item->Clone();
 	}
 	else 
 	{
-		this->_items[index] = this->_items[--this->_numOfItems];
+		_items[index] = _items[--_numOfItems];
 	}
 	return tmp_item;
 }
@@ -173,7 +173,7 @@ unsigned int Inventory::GetItemIndex(const int x, const int y) const
 	unsigned int index = -1;
 	for (unsigned int i = 0; i < _numOfItems; i++)
 	{
-		if (this->_items[i]->GetPosX() == x && this->_items[i]->GetPosY() == y)
+		if (_items[i]->GetPosX() == x && _items[i]->GetPosY() == y)
 		{
 			index = i;
 		}
@@ -185,9 +185,9 @@ std::string Inventory::toString() const
 {	
 	std::stringstream ss;
 
-	for (size_t i = 0; i < this->_numOfItems; i++)
+	for (size_t i = 0; i < _numOfItems; i++)
 	{
-		ss << i << ": " << this->_items[i]->toString() << " " << "\n";
+		ss << i << ": " << _items[i]->toString() << " " << "\n";
 	}
 
 	return ss.str();

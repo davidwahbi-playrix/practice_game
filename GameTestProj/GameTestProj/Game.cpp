@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-	this->_isRunning = false;
+	_isRunning = false;
 }
 
 Game::~Game()
@@ -11,47 +11,45 @@ Game::~Game()
 
 void Game::Init()
 {	
-	this->_renderer.SaveLoadMenu();
-	this->_profile.NewGame();
-	this->_isRunning = true;
+	_renderer.SaveLoadMenu();
+	_profile.NewGame();
+	_isRunning = true;
 }
 
 void Game::HandleEvents()
 {
-	int tmpInput = this->_eventHandler.HandleEvent();
-	Player tmpPlayer = this->_profile.GetPlayer();
+	int tmpInput = _eventHandler.HandleEvent();
 	if (tmpInput < 5)
 	{
-		this->_renderer.ClearView();
-		this->_unitMover.SetDir(tmpInput);
-		this->_renderer.SetDraw(true);
+		_renderer.ClearView();
+		_unitMover.SetDir(tmpInput);
+		_renderer.SetDraw(true);
 	}
 	else if (tmpInput > 4 && tmpInput < 10)
 	{
-		if (this->_profile.GetPlayer().GetCanEquip())
+		if (_profile.GetPlayer().GetCanEquip())
 		{
-			this->_renderer.ClearView();
-			tmpPlayer.SetCanEquip(false);
-			tmpPlayer.SetEquipInd(tmpInput - 5);
-			tmpPlayer.SetEquipAction(true);
-			this->_profile.SetPlayer(tmpPlayer);
-			this->_renderer.SetDraw(true);
+			_renderer.ClearView();
+			_profile.GetPlayer2().SetCanEquip(false);
+			_profile.GetPlayer2().SetEquipInd(tmpInput - 5);
+			_profile.GetPlayer2().SetEquipAction(true);
+			_renderer.SetDraw(true);
 		}
 
 	}
 	else if (tmpInput == 10)
 	{
-		this->_saver.SaveSmartGameState(this->_profile.GetLevel(), this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems());
-		//this->_saver.SaveSmartGameState(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetSmartGameItems());
+		_saver.SaveSmartGameState(_profile.GetLevel(), _profile.GetPlayer(), _profile.GetSmartEnemies(), _profile.GetGameItems());
+		//_saver.SaveSmartGameState(_profile.GetPlayer(), _profile.GetSmartEnemies(), _profile.GetSmartGameItems());
 	}
 	else if (tmpInput == 11)
 	{
-		this->_loader.LoadSmartGameState();
-		this->_profile.SetPlayer(this->_loader.GetPlayer());
-		this->_profile.SetSmartEnemies(this->_loader.GetSmartEnemies());
-		this->_profile.SetGameItems(this->_loader.GetGameInventory());
-		//this->_profile.SetSmartGameItems(this->_loader.GetGameInventory());
-		this->_profile.SetBoard(this->_loader.GetBoard());
+		_loader.LoadSmartGameState();
+		_profile.SetPlayer(_loader.GetPlayer());
+		_profile.SetSmartEnemies(_loader.GetSmartEnemies());
+		_profile.SetGameItems(_loader.GetGameInventory());
+		//_profile.SetSmartGameItems(_loader.GetGameInventory());
+		_profile.SetBoard(_loader.GetBoard());
 	}
 }
 
@@ -59,39 +57,29 @@ void Game::Update()
 {
 	if (_unitMover.GetDirection() > 0)
 	{
-		this->_profile.SetBoard(this->_unitMover.SmartUnitMove2(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetGameItems(), this->_profile.GetBoard()));
-		//this->_unitMover.SmartUnitMove(this->_profile.GetPlayer(), this->_profile.GetSmartEnemies(), this->_profile.GetSmartGameItems());
-		this->SetRunning(_unitMover.GetContinue());
-		if (!this->Running())
+		_unitMover.SmartUnitMove3(_profile.GetPlayer2(), _profile.GetSmartEnemies2(), _profile.GetGameItems2(), _profile.GetBoard2());
+		//_unitMover.SmartUnitMove(_profile.GetPlayer(), _profile.GetSmartEnemies(), _profile.GetSmartGameItems());
+		SetRunning(_unitMover.GetContinue());
+		if (!Running())
 		{
-			this->_renderer.SetDraw(false);
+			_renderer.SetDraw(false);
 		}
-		this->_profile.SetPlayer(this->_unitMover.GetPlayer());
-		this->_profile.SetSmartEnemies(this->_unitMover.GetSmartEnemies());
-		this->_profile.SetGameItems(this->_unitMover.GetGameInv());
-		//this->_profile.SetSmartGameItems(this->_unitMover.GetGameInv());
 	}
-	Player tmpPlayer = this->_profile.GetPlayer();
-
-	if (tmpPlayer.GetEquipAction())
+	if (_profile.GetPlayer2().GetEquipAction())
 	{
-		tmpPlayer.SetEquipAction(false);
-		this->_profile.SetPlayer(tmpPlayer);
-		if (this->_profile.GetPlayer().GetEquipInd() < this->_profile.GetPlayer().GetInventory().Size())
-		//if (this->_profile.GetPlayer().GetEquipInd() < this->_profile.GetPlayer().GetSmartInventory().Size())
+		_profile.GetPlayer2().SetEquipAction(false);
+		if (_profile.GetPlayer().GetEquipInd() < _profile.GetPlayer().GetInventory().Size())
+		//if (_profile.GetPlayer().GetEquipInd() < _profile.GetPlayer().GetSmartInventory().Size())
 		{
-			Player tmpPlayer = this->_profile.GetPlayer();
-			tmpPlayer.EquipItem(_profile.GetPlayer().GetEquipInd());
-			this->_profile.SetPlayer(tmpPlayer);
+			_profile.GetPlayer2().EquipItem(_profile.GetPlayer().GetEquipInd());
+
 		}
 		else
 		{
-			if (this->_profile.GetPlayer().GetInventory().Size() > 0)
-			//if (this->_profile.GetPlayer().GetSmartInventory().Size() > 0)
+			if (_profile.GetPlayer().GetInventory().Size() > 0)
+			//if (_profile.GetPlayer().GetSmartInventory().Size() > 0)
 			{
-				Player tmpPlayer = this->_profile.GetPlayer();
-				tmpPlayer.SetCanEquip(true);
-				this->_profile.SetPlayer(tmpPlayer);
+				_profile.GetPlayer2().SetCanEquip(true);
 			}
 		}
 	}
@@ -101,28 +89,28 @@ void Game::Update()
 void Game::Render()
 {
 
-	if (this->_renderer.GetDraw())
+	if (_renderer.GetDraw())
 	{
-		this->_renderer.SetDraw(false);
-		this->_renderer.SaveLoadMenu();
-		//this->_profile.SetBoard(this->_profile.GetPlayer().GetBoard());
-		this->_profile.GetBoard().Display2();
-		if (this->_profile.GetPlayer().GetInventory().Size() > 0)
-		//if (this->_profile.GetPlayer().GetSmartInventory().Size() > 0)
+		_renderer.SetDraw(false);
+		_renderer.SaveLoadMenu();
+		//_profile.SetBoard(_profile.GetPlayer().GetBoard());
+		_profile.GetBoard().Display2();
+		if (_profile.GetPlayer().GetInventory().Size() > 0)
+		//if (_profile.GetPlayer().GetSmartInventory().Size() > 0)
 		{
-			this->_renderer.RenderPlayerInventory(this->_profile.GetPlayer());
+			_renderer.RenderPlayerInventory(_profile.GetPlayer());
 		}
-		this->_renderer.RenderPlayer(this->_profile.GetPlayer());
-		if (this->_profile.GetSmartEnemies().size() == 0)
+		_renderer.RenderPlayer(_profile.GetPlayer());
+		if (_profile.GetSmartEnemies().size() == 0)
 		{
-			this->_profile.IncreseLevel();
-			this->_renderer.NextLevel(this->_profile.GetLevel());
-			this->_profile.NewGame();
+			_profile.IncreseLevel();
+			_renderer.NextLevel(_profile.GetLevel());
+			_profile.NewGame();
 		}
-		this->SetRunning(this->_profile.GetLevelLoader().GetFinishStatus());
-		if (!this->Running())
+		SetRunning(_profile.GetLevelLoader().GetFinishStatus());
+		if (!Running())
 		{
-			this->_renderer.SetDraw(false);
+			_renderer.SetDraw(false);
 		}
 	}
 }
@@ -133,14 +121,14 @@ void Game::Clean()
 
 bool Game::Running() const
 {
-	return this->_isRunning;
+	return _isRunning;
 }
 void Game::SetRunning(const bool & value)
 {
-	this->_isRunning = value;
+	_isRunning = value;
 }
 Renderer Game::GetRenderer() const
 {
-	return this->_renderer;
+	return _renderer;
 }
 

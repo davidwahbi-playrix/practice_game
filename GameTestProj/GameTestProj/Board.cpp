@@ -12,12 +12,12 @@ Board::Board()
 
 int Board::GetRowCount2() const
 {
-	return this->_mRowCount2;
+	return _mRowCount2;
 }
 
 int Board::GetColCount2() const
 {
-	return this->_mColCount2;
+	return _mColCount2;
 }
 
 char Board::GetElem2(const int row, const int col) const
@@ -25,15 +25,15 @@ char Board::GetElem2(const int row, const int col) const
 	CheckRow2(row);
 	CheckCol2(col);
 
-	return this->_mFields2[row][col];
+	return _mFields2[row][col];
 }
 
 void Board::SetElem2(const int row, const int col, const char & elem)
 {
 	CheckRow2(row);
 	CheckCol2(col);
-	this->_mFields2[row].erase(this->_mFields2[row].begin() + col);
-	this->_mFields2[row].insert(this->_mFields2[row].begin() + col, elem);
+	_mFields2[row].erase(_mFields2[row].begin() + col);
+	_mFields2[row].insert(_mFields2[row].begin() + col, elem);
 }
 
 void Board::CheckRow2(const int row) const
@@ -46,7 +46,7 @@ void Board::CheckRow2(const int row) const
 
 void Board::CheckCol2(const int col) const
 {
-	if (col < 0 || col > this->_mColCount2)
+	if (col < 0 || col > _mColCount2)
 	{
 		cout << "Column out of range!";
 	}
@@ -54,13 +54,13 @@ void Board::CheckCol2(const int col) const
 
 void Board::ClearBoard()
 {
-	for (size_t i = 1; i < this->_mRowCount2 - 2; i++)
+	for (size_t i = 1; i < _mRowCount2 - 2; i++)
 	{
-		for (size_t j = 1; j < this->_mColCount2 - 2; j++)
+		for (size_t j = 1; j < _mColCount2 - 2; j++)
 		{
-			if (this->GetElem2(i, j) != 'R')
+			if (GetElem2(i, j) != 'R')
 			{
-				this->SetElem2(i, j, ' ');
+				SetElem2(i, j, ' ');
 			}
 		}
 	}
@@ -69,18 +69,18 @@ void Board::ClearBoard()
 void Board::InitBoard(const int numRow, const int numCol)
 {
 	std::vector<std::vector<char>> tmpVector(numRow, vector<char>(numCol));
-	this->_mFields2 = tmpVector;
-	this->_mRowCount2 = numRow;
-	this->_mColCount2 = numCol;
+	_mFields2 = tmpVector;
+	_mRowCount2 = numRow;
+	_mColCount2 = numCol;
 }
 
 void Board::operator=(const Board& other)
 {
-	for (size_t i = 0; i < this->_mRowCount2 - 1; i++)
+	for (size_t i = 0; i < _mRowCount2 - 1; i++)
 	{
-		for (size_t j = 0; j < this->_mColCount2 - 1; j++)
+		for (size_t j = 0; j < _mColCount2 - 1; j++)
 		{
-			this->_mFields2[i][j] = other._mFields2[i][j];
+			_mFields2[i][j] = other._mFields2[i][j];
 		}
 	}
 }
@@ -95,10 +95,10 @@ void Board::Load2(string filename)
 	int line = 0;
 	string input;
 
-	while (src && line < this->_mRowCount2 - 1)
+	while (src && line < _mRowCount2 - 1)
 	{
 		getline(src, input);
-		if (input.size() > this->_mColCount2)
+		if (input.size() > _mColCount2)
 		{
 			cout << "Line larger then column size";
 		}
@@ -116,7 +116,7 @@ void Board::Display2()
 	{
 		for (int col = 0; col < _mColCount2 - 1; col++)
 		{
-			cout << this->_mFields2[row][col];
+			cout << _mFields2[row][col];
 		}
 		cout << '\n';
 	}

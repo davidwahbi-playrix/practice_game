@@ -7,12 +7,10 @@ public:
 	RepairCenter();
 	~RepairCenter();
 
-	int ReapirEquipment(Player player);
+	void ReapirEquipment2(Player& player);
 
-	void SetExit(const bool& value);
-	Player GetPlayer() const;
+	void SetExit(const bool& value);;
 private:
 	bool _exit;
-	Player _player;
 };
 

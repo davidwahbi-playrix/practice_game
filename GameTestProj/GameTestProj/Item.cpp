@@ -6,11 +6,11 @@ void Item::Generate()
 
 Item::Item(std::string name, unsigned int type, unsigned int subType,  int x, int y)
 {
-	this->_name = name;
-	this->_type = type;
-	this->_subType = subType;
-	this->_posX = x;
-	this->_posY = y;
+	_name = name;
+	_type = type;
+	_subType = subType;
+	_posX = x;
+	_posY = y;
 }
 
 Item::~Item()
@@ -20,23 +20,23 @@ Item::~Item()
 
 const std::string& Item::GetName() const
 {
-	return this->_name;
+	return _name;
 }
 
 const unsigned int& Item::GetType() const
 {
-	return this->_type;
+	return _type;
 }
 
 const unsigned int& Item::GetSubType() const
 {
-	return this->_subType;
+	return _subType;
 }
 
 const std::string Item::GetTypeAsString() const
 {
 	std::string typestr = "NONE";
-	switch (this->_type)
+	switch (_type)
 	{
 	case EQUIPABLE:
 		typestr = "EQUIPABLE";
@@ -53,7 +53,7 @@ const std::string Item::GetTypeAsString() const
 const std::string Item::GetSubTypeAsString() const
 {
 	std::string typestr = "NONE";
-	switch (this->_subType)
+	switch (_subType)
 	{
 	case ARMOR:
 		typestr = "ARMOR";

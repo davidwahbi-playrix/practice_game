@@ -12,8 +12,7 @@ public:
 	Player();
 	~Player();
 	Player(const int x, const int y, int health, int damage, int defence, std::string name);
-	Board MoveObject(int vertical, int horizontal, Board board);
-
+	void MoveObject2(int vertical, int horizontal, Board& board);
 
 	void SetInventory(const Inventory& inventory);
 	//void SetSmartInventory(const Inventory& inventory);
@@ -29,6 +28,9 @@ public:
 	void SetEquipInd(const int value);
 	void SetRepairEntered(const bool& value);
 
+	void ReceiveHit(const int enemyDamage);
+	bool CanBattle(const int enemyDamage) const;
+
 	bool GetPickedFlag() const;
 	bool GetEnemyFlag() const;
 	bool GetCanEquip() const;
@@ -42,8 +44,10 @@ public:
 	Inventory& GetSmartInventory();
 	const std::string& GetName() const;
 	Weapon* GetWeapon() const;
+	Weapon& GetWeapon2();
 	//std::shared_ptr<Weapon> GetSmartWeapon() const;
 	Armor* GetArmor() const;
+	Armor& GetArmor2();
 	//std::shared_ptr<Armor> GetSmartArmor() const;
 	const int GetDefence() const;
 
@@ -56,6 +60,7 @@ public:
 	//void SetSmartArmor(std::shared_ptr<Armor> smartArmor);
 
 	Inventory UpdatePlayerInventory(Inventory gameInventory);
+	void UpdatePlayerInventory2(Inventory& gameInventory);
 	Inventory UpdateSmartPlayerInventory(Inventory smartGameInventory);
 	void UpdatePlayerWeapon();
 

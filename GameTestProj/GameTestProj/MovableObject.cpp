@@ -5,36 +5,36 @@ using namespace std;
 
 MovableObject::MovableObject()
 {
-	this->_posX = 1;
-	this->_posY = 1;
+	_posX = 1;
+	_posY = 1;
 }
 
 MovableObject::MovableObject( const int x, const int y)
 {
 	CheckPosX(x);
 	CheckPosX(y);
-	this->_posX = x;
-	this->_posY = y;
+	_posX = x;
+	_posY = y;
 }
 
 int MovableObject::GetPosX() const
 {
-	return this->_posX;
+	return _posX;
 }
 
 int MovableObject::GetPosY() const
 {
-	return this->_posY;
+	return _posY;
 }
 
 void MovableObject::SetPosX(const int x)
 {
-	this->_posX = x;
+	_posX = x;
 }
 
 void MovableObject::SetPosY(const int y)
 {
-	this->_posY = y;
+	_posY = y;
 }
 
 void MovableObject::CheckPosX(const int x)
@@ -49,6 +49,12 @@ void MovableObject::CheckPosY(const int y)
 	if (y < 0) {
 		cout << "Position out of bounds.";
 	}
+}
+
+MovePos MovableObject::GetMovePos(const int index)
+{
+	map<int, MovePos>::iterator itr;
+	return _directions.at(index);
 }
 
 MovableObject::~MovableObject()

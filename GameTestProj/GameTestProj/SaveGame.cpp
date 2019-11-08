@@ -16,15 +16,15 @@ void SaveGame::SaveSmartGameState(int level, Player player, std::vector<std::sha
 		newFile << "Level" << std::endl;
 		newFile << level << std::endl;
 		newFile << "Game" << std::endl;
-		this->SaveInventory(newFile, gameItems);
-		//this->SaveSmartInventory(newFile, gameItems);
+		SaveInventory(newFile, gameItems);
+		//SaveSmartInventory(newFile, gameItems);
 		newFile << "Player" << std::endl;
 		newFile << player.GetPosX() << ';' << player.GetPosY() << ';' << player.GetHealth() << ';' << player.GetDamage() << ';' << player.GetDefence() << ';' << player.GetName() << ';' << player.GetStartDamage() << ';' << std::endl;;
 		newFile << "PlayerInventory" << std::endl;
-		this->SaveInventory(newFile, player.GetInventory());
-		//this->SaveSmartInventory(newFile, player.GetInventory());
+		SaveInventory(newFile, player.GetInventory());
+		//SaveSmartInventory(newFile, player.GetInventory());
 		newFile << "PlayerEquipment" << std::endl;
-		this->SavePlayerEquipment(newFile, player);
+		SavePlayerEquipment(newFile, player);
 		newFile << "Enemy" << std::endl;
 		if (smartEnemies.size() > 0)
 		{

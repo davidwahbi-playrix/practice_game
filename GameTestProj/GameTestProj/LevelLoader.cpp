@@ -4,7 +4,7 @@
 
 LevelLoader::LevelLoader()
 {
-	this->_gameContinue = true;
+	_gameContinue = true;
 }
 
 
@@ -27,16 +27,16 @@ void LevelLoader::LoadLevel(int currLevel)
 
 	if (currLevel == 3)
 	{
-		this->_gameContinue = false;
+		_gameContinue = false;
 	}
 
 	if (!levelInfoFile.fail())
 	{
 		getline(levelInfoFile, tmp_string); // Board
-		int numRow = this->ReadIntFromFile(levelInfoFile);
-		int numCol = this->ReadIntFromFile(levelInfoFile);
-		this->_board.InitBoard(numRow, numCol);
-		this->_board.Load2(level);
+		int numRow = ReadIntFromFile(levelInfoFile);
+		int numCol = ReadIntFromFile(levelInfoFile);
+		_board.InitBoard(numRow, numCol);
+		_board.Load2(level);
 
 		getline(levelInfoFile, tmp_string); // empty
 		getline(levelInfoFile, tmp_string); // Game
@@ -48,7 +48,7 @@ void LevelLoader::LoadLevel(int currLevel)
 		tmp_stream >> num_of_gameItems;
 		if (num_of_gameItems != -1)
 		{
-			this->LoadInventory(levelInfoFile, num_of_gameItems, this->_gameItems);
+			LoadInventory(levelInfoFile, num_of_gameItems, _gameItems);
 			getline(levelInfoFile, tmp_string); // empty
 		}
 		else
@@ -64,7 +64,7 @@ void LevelLoader::LoadLevel(int currLevel)
 		tmp_stream >> num_of_enemies;
 		if (num_of_enemies != -1)
 		{
-			this->LoadSmartEnemy(levelInfoFile, num_of_enemies);
+			LoadSmartEnemy(levelInfoFile, num_of_enemies);
 		}
 		else {
 			std::cout << "No enemies left!" << std::endl;
@@ -88,15 +88,15 @@ void LevelLoader::LoadInventory(std::ifstream & file, const unsigned int size, I
 		getline(file, tmp_string, ';');
 		std::string item_type = tmp_string;
 
-		int item_pos_x = this->ReadIntFromFile(file);
+		int item_pos_x = ReadIntFromFile(file);
 
-		int item_pos_y = this->ReadIntFromFile(file);
+		int item_pos_y = ReadIntFromFile(file);
 
-		int item_atribut = this->ReadIntFromFile(file);
+		int item_atribut = ReadIntFromFile(file);
 
-		int item_start_atribut = this->ReadIntFromFile(file);
+		int item_start_atribut = ReadIntFromFile(file);
 
-		int item_battle_cnt = this->ReadIntFromFile(file);
+		int item_battle_cnt = ReadIntFromFile(file);
 
 		if (item_type == "WEAPON")
 		{
@@ -120,19 +120,19 @@ void LevelLoader::LoadInventory(std::ifstream & file, const unsigned int size, I
 void LevelLoader::LoadSmartEnemy(std::ifstream& file, const unsigned int size)
 {
 	size_t index = 0;
-	this->_smartEnemies.clear();
+	_smartEnemies.clear();
 	while (!file.eof() && index < size)
 	{
-		this->_smartEnemies.emplace_back(std::make_shared<Enemy>(1, 1, 0, 0, 0));
-		this->_smartEnemies[index]->SetPosX(this->ReadIntFromFile(file));
+		_smartEnemies.emplace_back(std::make_shared<Enemy>(1, 1, 0, 0, 0));
+		_smartEnemies[index]->SetPosX(ReadIntFromFile(file));
 
-		this->_smartEnemies[index]->SetPosY(this->ReadIntFromFile(file));
+		_smartEnemies[index]->SetPosY(ReadIntFromFile(file));
 
-		this->_smartEnemies[index]->SetHealth(this->ReadIntFromFile(file));
+		_smartEnemies[index]->SetHealth(ReadIntFromFile(file));
 
-		this->_smartEnemies[index]->SetDamage(this->ReadIntFromFile(file));
+		_smartEnemies[index]->SetDamage(ReadIntFromFile(file));
 
-		this->_smartEnemies[index]->SetDropChance(this->ReadIntFromFile(file));
+		_smartEnemies[index]->SetDropChance(ReadIntFromFile(file));
 
 		index++;
 	}
@@ -140,22 +140,22 @@ void LevelLoader::LoadSmartEnemy(std::ifstream& file, const unsigned int size)
 
 Board LevelLoader::GetBoard() const
 {
-	return this->_board;
+	return _board;
 }
 
 Inventory LevelLoader::GetGameItems() const
 {
-	return this->_gameItems;
+	return _gameItems;
 }
 
 std::vector<std::shared_ptr<Enemy>> LevelLoader::GetSmartEnemies() const
 {
-	return this->_smartEnemies;
+	return _smartEnemies;
 }
 
 bool LevelLoader::GetFinishStatus() const
 {
-	return this->_gameContinue;
+	return _gameContinue;
 }
 
 int LevelLoader::ReadIntFromFile(std::ifstream& file)

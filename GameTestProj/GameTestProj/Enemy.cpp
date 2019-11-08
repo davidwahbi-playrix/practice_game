@@ -2,21 +2,21 @@
 
 Enemy::Enemy()
 {
-	this->_dorpChance = 50;
-	this->_playerEncounter = false;
+	_dorpChance = 50;
+	_playerEncounter = false;
 }
 
 Enemy::Enemy(const int x, const int y, int health, int damage, int dropChance) : Unit(x, y, health, damage)
 {
-	this->_dorpChance = dropChance;
-	this->_playerEncounter = false;
+	_dorpChance = dropChance;
+	_playerEncounter = false;
 }
 
 Enemy::~Enemy()
 {
 }
 
-Board Enemy::MoveObject(int vertical, int horizontal, Board board)
+void Enemy::MoveObject2(int vertical, int horizontal, Board & board)
 {
 	int x = GetPosX();
 	int x2 = x + horizontal;
@@ -46,7 +46,7 @@ Board Enemy::MoveObject(int vertical, int horizontal, Board board)
 		x += horizontal;
 		SetPosX(x);
 		board.SetElem2(x, y, '@');
-		this->_playerEncounter = true;
+		_playerEncounter = true;
 	}
 
 	if (nextElem2 == '@') {
@@ -54,35 +54,50 @@ Board Enemy::MoveObject(int vertical, int horizontal, Board board)
 		y += vertical;
 		SetPosY(y);
 		board.SetElem2(x, y, '@');
-		this->_playerEncounter = true;
+		_playerEncounter = true;
 	}
-
-	return board;
 }
 
 void Enemy::SetDropChance(const int dropChance)
 {
-	this->_dorpChance = dropChance;
+	_dorpChance = dropChance;
+}
+
+void Enemy::ReceiveHit(const int playerDamage, const int playerHealth, const int playerDefence)
+{
+	if (playerHealth + playerDefence - GetDamage() > 0)
+	{
+		if (GetHealth() - playerDamage > 0)
+		{
+			SetHealth(GetHealth() - playerDamage);
+		}
+	}
+
+}
+
+bool Enemy::CanBattle(const int polayerDamage) const
+{
+	return (GetHealth() - polayerDamage > 0);
 }
 
 void Enemy::SetPlayerEncounter(const bool & value)
 {
-	this->_playerEncounter = value;
+	_playerEncounter = value;
 }
 
 bool Enemy::GetPlayerEncounter() const
 {
-	return this->_playerEncounter;
+	return _playerEncounter;
 }
 
 const int Enemy::GetDropChance() const
 {
-	return this->_dorpChance;
+	return _dorpChance;
 }
 
 const std::string Enemy::toString()
 {
 	std::stringstream ss;
-	ss << "Enemy: | Health: " << this->GetHealth() << " | Damage: " << this->GetDamage() << " | Drop chance: " << this->GetDropChance();
+	ss << "Enemy: | Health: " << GetHealth() << " | Damage: " << GetDamage() << " | Drop chance: " << GetDropChance();
 	return ss.str();
 }

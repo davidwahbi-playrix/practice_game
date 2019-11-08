@@ -12,8 +12,11 @@ public:
 	Enemy(const int x, const int y, int health, int damage, int dropChance);
 	~Enemy();
 
-	Board MoveObject(int vertical, int horizontal, Board board);
+	void MoveObject2(int vertical, int horizontal, Board& board);
 	void SetDropChance(const int dropChance);
+
+	void ReceiveHit(const int playerDamage, const int playerHealth, const int playerDefence);
+	bool CanBattle(const int polayerDamage) const;
 
 	void SetPlayerEncounter(const bool& value);
 	bool GetPlayerEncounter() const;

@@ -4,7 +4,7 @@
 
 RepairCenter::RepairCenter()
 {
-	this->_exit = false;
+	_exit = false;
 }
 
 
@@ -12,13 +12,13 @@ RepairCenter::~RepairCenter()
 {
 }
 
-int RepairCenter::ReapirEquipment(Player player)
+void RepairCenter::ReapirEquipment2(Player & player)
 {
 	int state = 0;
 	std::cout << "Welcome to repair center!" << std::endl;
 	std::cout << "Here you can repair any damaged equipment." << std::endl;
 
-	while (!this->_exit)
+	while (!_exit)
 	{
 		if (player.GetArmor()) {
 			if (player.GetArmor()->GetArmorValue() < player.GetArmor()->GetStartArmorValue())
@@ -27,21 +27,18 @@ int RepairCenter::ReapirEquipment(Player player)
 				std::cout << "Your Armor is damaged! We can repair it right away." << std::endl;
 				system("pause");
 				std::cout << std::endl;
-				Armor* tmpArmor = player.GetArmor();
-				tmpArmor->SetArmorValue(tmpArmor->GetStartArmorValue());
-				tmpArmor->ResetBattleCnt();
-				player.SetArmor(tmpArmor);
+				player.GetArmor2().SetArmorValue(player.GetArmor()->GetStartArmorValue());
+				player.GetArmor2().ResetBattleCnt();
 				std::cout << "Armor repaired!" << std::endl;
 				std::cout << player.GetArmor()->toString() << std::endl;
-				this->_exit = true;
-				state = 1;
+				player.SetDefence(player.GetArmor()->GetArmorValue());
+				_exit = true;
 				system("pause");
 				system("cls");
 			}
 			else
 			{
 				std::cout << "Your Armor is in perfect shape!" << std::endl;
-				state = 1;
 				system("pause");
 				system("cls");
 			}
@@ -49,7 +46,6 @@ int RepairCenter::ReapirEquipment(Player player)
 		else
 		{
 			std::cout << "You have no Armor equipped!" << std::endl;
-			state = 2;
 			system("pause");
 			system("cls");
 		}
@@ -60,12 +56,11 @@ int RepairCenter::ReapirEquipment(Player player)
 				std::cout << "Your Weapon is damaged! We can repair it right away." << std::endl;
 				system("pause");
 				std::cout << std::endl;
-				Weapon* tmpWeapon = player.GetWeapon();
-				tmpWeapon->ResetBattleCnt();
-				tmpWeapon->SetDamageValue(tmpWeapon->GetStartDamageValue());
-				player.SetWeapon(tmpWeapon);
+				player.GetWeapon2().SetDamageValue(player.GetWeapon()->GetStartDamageValue());
+				player.GetWeapon2().ResetBattleCnt();
 				std::cout << "Weapon repaired!" << std::endl;
 				std::cout << player.GetWeapon()->toString() << std::endl;
+				player.SetDamage(player.GetWeapon()->GetDamageValue() + player.GetStartDamage());
 				state = 1;
 				system("pause");
 				system("cls");
@@ -73,7 +68,6 @@ int RepairCenter::ReapirEquipment(Player player)
 			else
 			{
 				std::cout << "Your Weapon is in perfect shape!" << std::endl;
-				state = 1;
 				system("pause");
 				system("cls");
 			}
@@ -81,26 +75,14 @@ int RepairCenter::ReapirEquipment(Player player)
 		else
 		{
 			std::cout << "You have no Weapon equipped!" << std::endl;
-			state = 2;
 			system("pause");
 			system("cls");
 		}
-		this->_exit = true;
+		_exit = true;
 	}
-
-	if (state == 1)
-	{
-		this->_player = player;
-	}
-	return state;
 }
 
 void RepairCenter::SetExit(const bool & value)
 {
-	this->_exit = value;
-}
-
-Player RepairCenter::GetPlayer() const
-{
-	return this->_player;
+	_exit = value;
 }

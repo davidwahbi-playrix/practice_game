@@ -2,14 +2,14 @@
 
 Unit::Unit()
 {
-	this->_health = 50;
-	this->_damage = 1;
+	_health = 50;
+	_damage = 1;
 }
 
 Unit::Unit(const int x, const int y, const int health, const int damage) : MovableObject(x,y)
 {
-	this->_health = health;
-	this->_damage = damage;
+	_health = health;
+	_damage = damage;
 }
 
 Unit::~Unit()
@@ -18,7 +18,7 @@ Unit::~Unit()
 
 const int Unit::GetHealth() const
 {
-	return this->_health;
+	return _health;
 }
 
 const int Unit::GetDamage() const
@@ -28,10 +28,10 @@ const int Unit::GetDamage() const
 
 void Unit::SetHealth(const int health)
 {
-	this->_health = health;
+	_health = health;
 }
 
 void Unit::SetDamage(const int damage)
 {
-	this->_damage = damage;
+	_damage = damage;
 }

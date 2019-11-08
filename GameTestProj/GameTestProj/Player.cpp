@@ -2,16 +2,16 @@
 
 Player::Player()
 {
-	this->_itemPickedFlag = false;
-	this->_enemyEncounter = false;
-	this->_canEquip = false;
-	this->_equipAction = false;
-	this->_repairEntered = false;
-	this->_defence = 0;
-	this->_equipInd = 0;
-	this->_weapon = nullptr;
-	this->_armor = nullptr;
-	this->_startDamage = 0;
+	_itemPickedFlag = false;
+	_enemyEncounter = false;
+	_canEquip = false;
+	_equipAction = false;
+	_repairEntered = false;
+	_defence = 0;
+	_equipInd = 0;
+	_weapon = nullptr;
+	_armor = nullptr;
+	_startDamage = 0;
 }
 Player::~Player()
 {
@@ -19,20 +19,20 @@ Player::~Player()
 
 Player::Player(const int x, const int y, int health, int damage, int defence, std::string name) : Unit(x, y, health, damage)
 {
-	this->_playerName = name;
-	this->_defence = defence;
-	this->_itemPickedFlag = false;
-	this->_enemyEncounter = false;
-	this->_canEquip = false;
-	this->_equipAction = false;
-	this->_repairEntered = false;
-	this->_equipInd = 0;
-	this->_weapon = nullptr;
-	this->_armor = nullptr;
-	this->_startDamage = damage;
+	_playerName = name;
+	_defence = defence;
+	_itemPickedFlag = false;
+	_enemyEncounter = false;
+	_canEquip = false;
+	_equipAction = false;
+	_repairEntered = false;
+	_equipInd = 0;
+	_weapon = nullptr;
+	_armor = nullptr;
+	_startDamage = damage;
 }
 
-Board Player::MoveObject(int vertical, int horizontal, Board board)
+void Player::MoveObject2(int vertical, int horizontal, Board & board)
 {
 	int x = GetPosX();
 	int x2 = x + horizontal;
@@ -62,7 +62,7 @@ Board Player::MoveObject(int vertical, int horizontal, Board board)
 		x += horizontal;
 		SetPosX(x);
 		board.SetElem2(x, y, '@');
-		this->_itemPickedFlag = true;
+		_itemPickedFlag = true;
 
 	}
 
@@ -71,7 +71,7 @@ Board Player::MoveObject(int vertical, int horizontal, Board board)
 		y += vertical;
 		SetPosY(y);
 		board.SetElem2(x, y, '@');
-		this->_itemPickedFlag = true;
+		_itemPickedFlag = true;
 	}
 
 	if (nextElem1 == 'e') {
@@ -79,7 +79,7 @@ Board Player::MoveObject(int vertical, int horizontal, Board board)
 		x += horizontal;
 		SetPosX(x);
 		board.SetElem2(x, y, '@');
-		this->_enemyEncounter = true;
+		_enemyEncounter = true;
 
 	}
 
@@ -88,108 +88,124 @@ Board Player::MoveObject(int vertical, int horizontal, Board board)
 		y += vertical;
 		SetPosY(y);
 		board.SetElem2(x, y, '@');
-		this->_enemyEncounter = true;
+		_enemyEncounter = true;
 	}
 
 	if (nextElem1 == 'R') {
-		this->_repairEntered = true;
+		_repairEntered = true;
 	}
 
 	if (nextElem2 == 'R') {
-		this->_repairEntered = true;
+		_repairEntered = true;
 	}
-
-	return board;
 }
 
 void Player::SetInventory(const Inventory& inventory)
 {
-	this->_inventory = inventory;
+	_inventory = inventory;
 }
 
 /*void Player::SetSmartInventory(const Inventory& inventory)
 {
-	this->_smartInventory = inventory;
+	_smartInventory = inventory;
 } */
 
 void Player::SetPickedFlag(const bool& flag)
 {
-	this->_itemPickedFlag = flag;
+	_itemPickedFlag = flag;
 }
 
 void Player::SetEnemyFlag(const bool& flag)
 {
-	this->_enemyEncounter = flag;
+	_enemyEncounter = flag;
 }
 
 void Player::SetName(const std::string& name)
 {
-	this->_playerName = name;
+	_playerName = name;
 }
 
 void Player::SetDefence(const int defence)
 {
-	this->_defence = defence;
+	_defence = defence;
 }
 
 void Player::SetStartDamage(const int value)
 {
-	this->_startDamage = value;
+	_startDamage = value;
 }
 
 void Player::SetCanEquip(const bool& value)
 {
-	this->_canEquip = value;
+	_canEquip = value;
 }
 
 void Player::SetEquipAction(const bool& value)
 {
-	this->_equipAction = value;
+	_equipAction = value;
 }
 
 void Player::SetEquipInd(const int value)
 {
-	this->_equipInd = value;
+	_equipInd = value;
 }
 
 void Player::SetRepairEntered(const bool & value)
 {
-	this->_repairEntered = value;
+	_repairEntered = value;
+}
+
+void Player::ReceiveHit(const int enemyDamage)
+{
+	if (GetDefence() - enemyDamage < 0)
+	{
+		SetDefence(0);
+		SetHealth(GetHealth() + GetDefence() - enemyDamage);
+	}
+	else
+	{
+		SetDefence(GetDefence() - enemyDamage);
+	}
+}
+
+bool Player::CanBattle(const int enemyDamage) const
+{
+	return (GetHealth() + GetDefence() - enemyDamage > 0);
 }
 
 Inventory& Player::GetInventory()
 {
-	return this->_inventory;
+	return _inventory;
 }
 
 Inventory& Player::GetSmartInventory()
 {
-	return this->_smartInventory;
+	return _smartInventory;
 }
 
 bool Player::GetPickedFlag() const
 {
-	return this->_itemPickedFlag;
+	return _itemPickedFlag;
 }
 
 bool Player::GetEnemyFlag() const
 {
-	return this->_enemyEncounter;
+	return _enemyEncounter;
 }
 
 bool Player::GetCanEquip() const
 {
-	return this->_canEquip;
+	return _canEquip;
 }
 
 bool Player::GetEquipAction() const
 {
-	return this->_equipAction;
+	return _equipAction;
 }
 
 bool Player::GetRepairEntered() const
 {
-	return this->_repairEntered;
+	return _repairEntered;
 }
 
 unsigned int Player::GetEquipInd() const
@@ -199,99 +215,111 @@ unsigned int Player::GetEquipInd() const
 
 int Player::GetStartDamage() const
 {
-	return this->_startDamage;
+	return _startDamage;
 }
 
 const std::string& Player::GetName() const
 {
-	return this->_playerName;
+	return _playerName;
 }
 
 Weapon* Player::GetWeapon() const
 {
-	return this->_weapon;
+	return _weapon;
+}
+
+Weapon & Player::GetWeapon2()
+{
+	// TODO: insert return statement here
+	return *(_weapon);
 }
 
 /*std::shared_ptr<Weapon> Player::GetSmartWeapon() const
 {
-	return this->_smartWeapon;
+	return _smartWeapon;
 } */
 
 Armor* Player::GetArmor() const
 {
-	return this->_armor;
+	return _armor;
+}
+
+Armor & Player::GetArmor2()
+{
+	// TODO: insert return statement here
+	return *(_armor);
 }
 
 /*std::shared_ptr<Armor> Player::GetSmartArmor() const
 {
-	return this->_smartArmor;
+	return _smartArmor;
 } */
 
 const int Player::GetDefence() const
 {
-	return this->_defence;
+	return _defence;
 }
 
 void Player::AddDamage(int value)
 {
 	int damage = 0;
-	if (this->GetWeapon() != nullptr)
+	if (GetWeapon() != nullptr)
 	{
-		damage = this->GetDamage() + value - this->GetWeapon()->GetDamageValue();
+		damage = GetDamage() + value - GetWeapon()->GetDamageValue();
 	}
 	else
 	{
-		damage = this->GetDamage() + value;
+		damage = GetDamage() + value;
 	}
 	
-	this->SetDamage(damage);
+	SetDamage(damage);
 }
 
 void Player::AddDefence(int value)
 {
 	int defence = 0;
-	if (this->GetArmor() != nullptr)
+	if (GetArmor() != nullptr)
 	{
 		defence = value;
 	}
 	else
 	{
-		defence = this->GetDefence() + value;
+		defence = GetDefence() + value;
 	}
-	this->SetDefence(defence);
+	SetDefence(defence);
 }
 
 void Player::AddHealth(int value)
 {
-	int health = this->GetHealth() + value;
-	this->SetHealth(health);
+	int health = GetHealth() + value;
+	SetHealth(health);
 }
 
 void Player::SetWeapon(Weapon* weapon)
 {
-	this->_weapon = weapon;
+	_weapon = weapon;
 }
 
 /*void Player::SetSmartWeapon(std::shared_ptr<Weapon> smartWeapon)
 {
-	this->_smartWeapon = smartWeapon;
+	_smartWeapon = smartWeapon;
 } */
 
 void Player::SetArmor(Armor* armor)
 {
-	this->_armor = armor;
+	_armor = armor;
 }
 
 /*void Player::SetSmartArmor(std::shared_ptr<Armor> smartArmor)
 {
-	this->_smartArmor = smartArmor;
+	_smartArmor = smartArmor;
 } */
 
 Inventory Player::UpdatePlayerInventory(Inventory gameInventory)
 {
-	this->SetPickedFlag(false);
-	Inventory tmp = this->GetInventory();
-	int index = gameInventory.GetItemIndex(this->GetPosX(), this->GetPosY());
+	SetPickedFlag(false);
+	Inventory tmp = GetInventory();
+	int index = gameInventory.GetItemIndex(GetPosX(), GetPosY());
 	if (index >= 0)
 	{
 		tmp.AddItem(gameInventory[index]);
@@ -299,16 +327,28 @@ Inventory Player::UpdatePlayerInventory(Inventory gameInventory)
 		SetInventory(tmp);
 		gameInventory.RemoveItem(index);
 		//gameInventory.RemoveSmartItem(index);
-		this->_canEquip = true;
+		_canEquip = true;
 		return gameInventory;
+	}
+}
+
+void Player::UpdatePlayerInventory2(Inventory & gameInventory)
+{
+	SetPickedFlag(false);
+	int index = gameInventory.GetItemIndex(GetPosX(), GetPosY());
+	if (index >= 0)
+	{
+		_inventory.AddItem(gameInventory[index]);
+		gameInventory.RemoveItem(index);
+		_canEquip = true;
 	}
 }
 
 Inventory Player::UpdateSmartPlayerInventory(Inventory smartGameInventory)
 {
-	this->SetPickedFlag(false);
-	Inventory tmp = this->GetInventory();
-	int index = smartGameInventory.GetItemIndex(this->GetPosX(), this->GetPosY());
+	SetPickedFlag(false);
+	Inventory tmp = GetInventory();
+	int index = smartGameInventory.GetItemIndex(GetPosX(), GetPosY());
 	if (index >= 0)
 	{
 		tmp.AddItem(smartGameInventory[index]);
@@ -317,87 +357,85 @@ Inventory Player::UpdateSmartPlayerInventory(Inventory smartGameInventory)
 		//SetSmartInventory(tmp);
 		smartGameInventory.RemoveItem(index);
 		//smartGameInventory.RemoveSmartItem(index);
-		this->_canEquip = true;
+		_canEquip = true;
 		return smartGameInventory;
 	}
 }
 
 void Player::UpdatePlayerWeapon()
 {
-	if (this->_weapon->GetBattleCnt() > 0 && this->_weapon->GetBattleCnt() % 2 == 0)
+	if (_weapon->CheckIfDamaged())
 	{
-		Weapon* tmpWeapon = this->GetWeapon();
 		int tmpValue = 0;
-		if (tmpWeapon->GetDamageValue() > 1)
+		if (GetWeapon2().GetDamageValue() > GetWeapon2().GetMinDamageValue())
 		{
-			tmpValue = tmpWeapon->GetDamageValue() - 2;
+			tmpValue = GetWeapon2().GetDamageValue() - GetWeapon2().GetDecreseValue();
 		}
-		tmpWeapon->SetDamageValue(tmpValue);
-		this->SetWeapon(tmpWeapon);
-		this->SetDamage(this->GetWeapon()->GetDamageValue() + this->GetStartDamage());
+		GetWeapon2().SetDamageValue(tmpValue);
+		SetDamage(GetWeapon2().GetDamageValue() + GetStartDamage());
 	}
 }
 
 void Player::EquipItem(const int index)
 {
-	Weapon* tmp_w = dynamic_cast<Weapon*>(&this->GetInventory().At(index));
-	Armor* tmp_a = dynamic_cast<Armor*>(&this->GetInventory().At(index));
-	HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&this->GetInventory().At(index));
+	Weapon* tmp_w = dynamic_cast<Weapon*>(&GetInventory().At(index));
+	Armor* tmp_a = dynamic_cast<Armor*>(&GetInventory().At(index));
+	HealthPotion* tmp_p = dynamic_cast<HealthPotion*>(&GetInventory().At(index));
 
 	if (tmp_w)
 	{
-		tmp_w = static_cast<Weapon*>(this->GetInventory().Replace(index, this->GetWeapon()));
-		this->AddDamage(tmp_w->GetDamageValue());
-		this->SetWeapon(tmp_w);
+		tmp_w = static_cast<Weapon*>(GetInventory().Replace(index, GetWeapon()));
+		AddDamage(tmp_w->GetDamageValue());
+		SetWeapon(tmp_w);
 
 	}
 	else if (tmp_a)
 	{
-		tmp_a = static_cast<Armor*>(this->GetInventory().Replace(index, this->GetArmor()));
-		this->AddDefence(tmp_a->GetArmorValue());
-		this->SetArmor(tmp_a);
+		tmp_a = static_cast<Armor*>(GetInventory().Replace(index, GetArmor()));
+		AddDefence(tmp_a->GetArmorValue());
+		SetArmor(tmp_a);
 	}
 	else if (tmp_p)
 	{
-		this->AddHealth(tmp_p->GetHealthValue());
-		this->GetInventory().RemoveItem(index);
+		AddHealth(tmp_p->GetHealthValue());
+		GetInventory().RemoveItem(index);
 	}
-	if (this->GetInventory().Size() > 0) {
-		this->SetCanEquip(true);
+	if (GetInventory().Size() > 0) {
+		SetCanEquip(true);
 	}
 }
 /*void Player::EquipSmartItem(const int index)
 {
-	std::shared_ptr<Item> tmp_i = std::make_shared<Item>(&this->GetSmartInventory().AtSmart(index));
+	std::shared_ptr<Item> tmp_i = std::make_shared<Item>(&GetSmartInventory().AtSmart(index));
 	std::shared_ptr<Weapon> tmp_w = std::dynamic_pointer_cast<Weapon>(tmp_i);
 	std::shared_ptr<Armor> tmp_a = std::dynamic_pointer_cast<Armor>(tmp_i);
 	std::shared_ptr<HealthPotion> tmp_p = std::dynamic_pointer_cast<HealthPotion>(tmp_i);
 
 	if (tmp_w)
 	{
-		tmp_w = std::static_pointer_cast<Weapon>(this->GetSmartInventory().SmartReplace(index, this->GetSmartWeapon()));
-		this->AddDamage(tmp_w->GetDamageValue());
-		this->SetSmartWeapon(tmp_w);
+		tmp_w = std::static_pointer_cast<Weapon>(GetSmartInventory().SmartReplace(index, GetSmartWeapon()));
+		AddDamage(tmp_w->GetDamageValue());
+		SetSmartWeapon(tmp_w);
 
 	}
 	else if (tmp_a)
 	{
-		tmp_a = std::static_pointer_cast<Armor>(this->GetSmartInventory().SmartReplace(index, this->GetSmartArmor()));
-		this->AddDefence(tmp_a->GetArmorValue());
-		this->SetSmartArmor(tmp_a);
+		tmp_a = std::static_pointer_cast<Armor>(GetSmartInventory().SmartReplace(index, GetSmartArmor()));
+		AddDefence(tmp_a->GetArmorValue());
+		SetSmartArmor(tmp_a);
 	}
 	else if (tmp_p)
 	{
-		this->AddHealth(tmp_p->GetHealthValue());
-		this->GetSmartInventory().RemoveSmartItem(index);
+		AddHealth(tmp_p->GetHealthValue());
+		GetSmartInventory().RemoveSmartItem(index);
 	}
-	if (this->GetSmartInventory().GetVector().size() > 0) {
-		this->SetCanEquip(true);
+	if (GetSmartInventory().GetVector().size() > 0) {
+		SetCanEquip(true);
 	}
 } */
 const std::string Player::toString() const
 {
 	std::stringstream ss;
-	ss << "Player: " << this->GetName() << " | Health: " << this->GetHealth() << " | Damage: " << this->GetDamage() <<  " | Armor: " << this->_defence;
+	ss << "Player: " << GetName() << " | Health: " << GetHealth() << " | Damage: " << GetDamage() <<  " | Armor: " << _defence;
 	return ss.str();
 }

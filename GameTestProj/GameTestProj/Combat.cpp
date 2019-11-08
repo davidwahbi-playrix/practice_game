@@ -2,14 +2,14 @@
 
 Combat::Combat()
 {
-	this->_continue = true;
+	_continue = true;
 }
 
 Combat::~Combat()
 {
 }
 
-void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
+void Combat::SmartBattle2(Player & player, std::shared_ptr<Enemy>& smartEnemy)
 {
 	if (player.GetEnemyFlag())
 	{
@@ -23,29 +23,15 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 	std::cout << "Battle started!" << '\n';
 	while (!exit)
 	{
-		int tmpPlayerHP = player.GetHealth();
-		int tmpEnemyHP = smartEnemy->GetHealth();
-		int tmpPlayerDamage = player.GetDamage();
-		int tmpEnemyDamage = smartEnemy->GetDamage();
-		int tmpPlayerDefence = player.GetDefence();
-		if (tmpPlayerHP + tmpPlayerDefence - tmpEnemyDamage > 0)
+		if (player.CanBattle(smartEnemy->GetDamage()))
 		{
-			int tmpDamage = tmpPlayerDefence - tmpEnemyDamage;
-			if (tmpDamage < 0)
-			{
-				player.SetDefence(0);
-				player.SetHealth(tmpPlayerHP + tmpDamage);
-			}
-			else
-			{
-				player.SetDefence(tmpDamage);
-			}
 			std::cout << "Enemy Attacks!" << '\n';
+			player.ReceiveHit(smartEnemy->GetDamage());
 			std::cout << player.toString() << '\n';
-			if (tmpEnemyHP - tmpPlayerDamage > 0)
+			if (smartEnemy->CanBattle(player.GetDamage()))
 			{
-				smartEnemy->SetHealth(tmpEnemyHP - tmpPlayerDamage);
 				std::cout << "Player Attacks!" << '\n';
+				smartEnemy->ReceiveHit(player.GetDamage(), player.GetHealth(), player.GetDefence());
 				std::cout << smartEnemy->toString() << '\n';
 				system("pause");
 			}
@@ -80,27 +66,25 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 				}
 				if (player.GetWeapon())
 				{
-					Weapon* tmpWeapon = player.GetWeapon();
-					tmpWeapon->IncreseBattleCnt();
-					player.SetWeapon(tmpWeapon);
+					player.GetWeapon2().IncreseBattleCnt();
 					player.UpdatePlayerWeapon();
 				}
 				if (player.GetArmor())
 				{
-					Armor* tmpArmor = player.GetArmor();
-					tmpArmor->IncreseBattleCnt();
-					player.SetArmor(tmpArmor);
+					player.GetArmor2().IncreseBattleCnt();
 				}
 				system("pause");
 				system("cls");
 				smartEnemy = nullptr;
 			}
+
 		}
-		else {
+		else
+		{
 			system("cls");
 			std::cout << "GAME OVER!" << '\n';
 			std::cout << "You are Dead!" << '\n';
-			this->_continue = false;
+			_continue = false;
 			exit = true;
 			system("pause");
 		}
@@ -111,26 +95,14 @@ void Combat::SmartBattle(Player player, std::shared_ptr<Enemy> smartEnemy)
 		tmpArmor->SetArmorValue(0);
 		player.SetArmor(tmpArmor);
 	}
-	this->_player = player;
-	this->_smartEnemy = smartEnemy;
 }
 
 void Combat::SetContinue(const bool & value)
 {
-	this->_continue = value;
+	_continue = value;
 }
 
 bool Combat::GetContinue() const
 {
-	return this->_continue;
-}
-
-Player Combat::GetPlayer() const
-{
-	return this->_player;
-}
-
-std::shared_ptr<Enemy> Combat::GetSmartEnemy()
-{
-	return this->_smartEnemy;
+	return _continue;
 }

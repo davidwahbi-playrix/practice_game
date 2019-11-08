@@ -2,7 +2,7 @@
 
 Profile::Profile()
 {
-	this->_currentLevel = 1;
+	_currentLevel = 1;
 }
 
 Profile::~Profile()
@@ -11,109 +11,129 @@ Profile::~Profile()
 
 void Profile::NewGame()
 {
-	if (this->_currentLevel < 3)
+	if (_currentLevel < 3)
 	{
-		this->_player = this->LoadPlayer();
+		_player = LoadPlayer();
 	}
-	//this->_player = this->LoadPlayer();
-	this->_levelLoader.LoadLevel(this->_currentLevel);
-	this->_board.InitBoard(this->_levelLoader.GetBoard().GetRowCount2(), this->_levelLoader.GetBoard().GetColCount2());
-	this->SetBoard(this->_levelLoader.GetBoard());
-	if (this->_currentLevel < 3) {
-		this->SetGameItems(this->_levelLoader.GetGameItems());
-		this->SetSmartEnemies(this->_levelLoader.GetSmartEnemies());
+	//_player = LoadPlayer();
+	_levelLoader.LoadLevel(_currentLevel);
+	_board.InitBoard(_levelLoader.GetBoard().GetRowCount2(), _levelLoader.GetBoard().GetColCount2());
+	SetBoard(_levelLoader.GetBoard());
+	if (_currentLevel < 3) {
+		SetGameItems(_levelLoader.GetGameItems());
+		SetSmartEnemies(_levelLoader.GetSmartEnemies());
 	}
-	this->_board.Display2();
+	_board.Display2();
 }
 
 int Profile::GetLevel() const
 {
-	return this->_currentLevel;
+	return _currentLevel;
 }
 
 Player Profile::GetPlayer() const
 {
-	return this->_player;
+	return _player;
+}
+
+Player & Profile::GetPlayer2()
+{
+	return _player;
 }
 
 Inventory Profile::GetGameItems() const
 {
-	return this->_gameItems;
+	return _gameItems;
+}
+
+Inventory & Profile::GetGameItems2()
+{
+	return _gameItems;
 }
 
 /*Inventory Profile::GetSmartGameItems() const
 {
-	return this->_smartGameItems;
+	return _smartGameItems;
 }*/
 
 Board Profile::GetBoard() const
 {
-	return this->_board;
+	return _board;
+}
+
+Board & Profile::GetBoard2()
+{
+	return _board;
 }
 
 std::vector<std::shared_ptr<Enemy>> Profile::GetSmartEnemies() const
 {
-	return this->_smartEnemies;
+	return _smartEnemies;
+}
+
+std::vector<std::shared_ptr<Enemy>>& Profile::GetSmartEnemies2()
+{
+	return _smartEnemies;
 }
 
 LevelLoader Profile::GetLevelLoader() const
 {
-	return this->_levelLoader;
+	return _levelLoader;
 }
 
 void Profile::IncreseLevel()
 {
-	this->_currentLevel++;
+	_currentLevel++;
 }
 
 void Profile::SetPlayer(const Player& player)
 {
-	this->_player = player;
+	_player = player;
 }
 
 void Profile::SetGameItems(const Inventory& inv)
 {
-	this->_gameItems = inv;
+	_gameItems = inv;
 }
 
 /*void Profile::SetSmartGameItems(const Inventory& inv)
 {
-	this->_smartGameItems = inv;
+	_smartGameItems = inv;
 } */
 
 void Profile::SetBoard(const Board& board)
 {
-	this->_board = board;
+	_board = board;
 }
 
 void Profile::SetSmartEnemies(const std::vector<std::shared_ptr<Enemy>> smartEnemies)
 {
-	this->_smartEnemies = smartEnemies;
+	_smartEnemies = smartEnemies;
 }
 
 Player Profile::LoadPlayer()
 {
-	Player newPlayer(1, 1, 100, 10, 0, this->_player.GetName());
-	if (this->_currentLevel > 1)
+	Player newPlayer(1, 1, 100, 10, 0, _player.GetName());
+	if (_currentLevel > 1)
 	{
-		newPlayer.SetHealth(this->_player.GetHealth());
-		newPlayer.SetDamage(this->_player.GetDamage());
-		newPlayer.SetDefence(this->_player.GetDefence());
-		if (this->_player.GetWeapon())
+		newPlayer.SetHealth(_player.GetHealth());
+		newPlayer.SetDamage(_player.GetDamage());
+		newPlayer.SetDefence(_player.GetDefence());
+		if (_player.GetWeapon())
 		{
-			newPlayer.SetWeapon(this->_player.GetWeapon());
+			newPlayer.SetWeapon(_player.GetWeapon());
 		}
-		if (this->_player.GetArmor())
+		if (_player.GetArmor())
 		{
-			newPlayer.SetArmor(this->_player.GetArmor());
+			newPlayer.SetArmor(_player.GetArmor());
 		}
-		newPlayer.SetInventory(this->_player.GetInventory());
-		newPlayer.SetPickedFlag(this->_player.GetPickedFlag());
-		newPlayer.SetEnemyFlag(this->_player.GetEnemyFlag());
-		newPlayer.SetCanEquip(this->_player.GetCanEquip());
-		newPlayer.SetEquipAction(this->_player.GetEquipAction());
-		newPlayer.SetEquipInd(this->_player.GetEquipAction());
-		newPlayer.SetStartDamage(this->_player.GetStartDamage());
+		newPlayer.SetInventory(_player.GetInventory());
+		newPlayer.SetPickedFlag(_player.GetPickedFlag());
+		newPlayer.SetEnemyFlag(_player.GetEnemyFlag());
+		newPlayer.SetCanEquip(_player.GetCanEquip());
+		newPlayer.SetEquipAction(_player.GetEquipAction());
+		newPlayer.SetEquipInd(_player.GetEquipAction());
+		newPlayer.SetStartDamage(_player.GetStartDamage());
 	}
 	return newPlayer;
 }
