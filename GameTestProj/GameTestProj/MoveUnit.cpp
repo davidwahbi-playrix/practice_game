@@ -13,7 +13,6 @@ MoveUnit::~MoveUnit()
 void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Inventory & gameInv, Board & board)
 {
 	size_t enemyBattleIndex = -1;
-	bool status = true;
 
 	player.MoveObject2(player.GetMovePos(_dir)._posX, player.GetMovePos(_dir)._posY, board);
 
@@ -22,7 +21,7 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 		int index = GetSmartEnemyInd(player.GetPosX(), player.GetPosY(), smartEnemies);
 		enemyBattleIndex = index;
 		_bettle.SmartBattle2(player, smartEnemies[index]);
-		status = _bettle.GetContinue();
+		_continue = _bettle.GetContinue();
 		if (smartEnemies[index] == nullptr)
 		{
 			smartEnemies.erase(smartEnemies.begin() + index);
@@ -49,7 +48,7 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 			if (smartEnemies[i]->GetPlayerEncounter() && enemyBattleIndex != i)
 			{
 				_bettle.SmartBattle2(player, smartEnemies[i]);
-				status = _bettle.GetContinue();
+				_continue = _bettle.GetContinue();
 				if (smartEnemies[i] == nullptr)
 				{
 					smartEnemies.erase(smartEnemies.begin() + i);

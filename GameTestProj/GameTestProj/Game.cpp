@@ -52,29 +52,7 @@ void Game::Update()
 
 void Game::Render()
 {
-
-	if (_renderer.GetDraw())
-	{
-		_renderer.SetDraw(false);
-		_renderer.SaveLoadMenu();
-		_profile.GetBoard().Display2();
-		if (_profile.GetPlayer().GetInventory().Size() > 0)
-		{
-			_renderer.RenderPlayerInventory(_profile.GetPlayer());
-		}
-		_renderer.RenderPlayer(_profile.GetPlayer());
-		if (_profile.GetSmartEnemies().size() == 0)
-		{
-			_profile.IncreseLevel();
-			_renderer.NextLevel(_profile.GetLevel());
-			_profile.NewGame();
-		}
-		SetRunning(_profile.GetLevelLoader().GetFinishStatus());
-		if (!Running())
-		{
-			_renderer.SetDraw(false);
-		}
-	}
+	_renderer.Render(_profile, _isRunning);
 }
 
 void Game::Clean()

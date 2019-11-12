@@ -11,6 +11,32 @@ Renderer::~Renderer()
 {
 }
 
+void Renderer::Render(Profile & profile, bool & running)
+{
+	if (GetDraw())
+	{
+		SetDraw(false);
+		SaveLoadMenu();
+		profile.GetBoard().Display2();
+		if (profile.GetPlayer().GetInventory().Size() > 0)
+		{
+			RenderPlayerInventory(profile.GetPlayer());
+		}
+		RenderPlayer(profile.GetPlayer());
+		if (profile.GetSmartEnemies().size() == 0)
+		{
+			profile.IncreseLevel();
+			NextLevel(profile.GetLevel());
+			profile.NewGame();
+		}
+		running = profile.GetLevelLoader().GetFinishStatus();
+		if (!running)
+		{
+			SetDraw(false);
+		}
+	}
+}
+
 void Renderer::RenderPlayerInventory(Player player) const
 {
 
