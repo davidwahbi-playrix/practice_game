@@ -253,19 +253,19 @@ void LoadGame::LoadBoard(int currLevel)
 	board.Load2(level);
 
 	board.ClearBoard();
-	board.SetElem2(_player.GetPosX(), _player.GetPosY(), '@');
+	board.SetElem3(_player.GetPosX(), _player.GetPosY(), '@');
 	if (_gameItems.Size() > 0)
 	{
 		for (size_t i = 0; i < _gameItems.Size(); i++)
 		{
-			board.SetElem2(_gameItems[i].GetPosX(), _gameItems[i].GetPosY(), 'i');
+			board.SetElem3(_gameItems[i].GetPosX(), _gameItems[i].GetPosY(), 'i');
 		}
 	}
 	if (_smartEnemies.size() > 0)
 	{
 		for (size_t i = 0; i < _smartEnemies.size(); i++)
 		{
-			board.SetElem2(_smartEnemies[i]->GetPosX(), _smartEnemies[i]->GetPosY(), 'e');
+			board.SetElem3(_smartEnemies[i]->GetPosX(), _smartEnemies[i]->GetPosY(), 'e');
 		}
 	}
 

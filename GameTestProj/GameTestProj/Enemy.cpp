@@ -24,36 +24,36 @@ void Enemy::MoveObject2(int vertical, int horizontal, Board & board)
 	int y = GetPosY();
 	int y2 = y + vertical;
 
-	char nextElem1 = board.GetElem2(x2, y);
-	char nextElem2 = board.GetElem2(x, y2);
+	char nextElem1 = board.GetElem3(x2, y);
+	char nextElem2 = board.GetElem3(x, y2);
 
 	if (nextElem1 == ' ') {
-		board.SetElem2(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		x += horizontal;
 		SetPosX(x);
-		board.SetElem2(x, y, 'e');
+		board.SetElem3(x, y, 'e');
 	}
 
 	if (nextElem2 == ' ') {
-		board.SetElem2(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		y += vertical;
 		SetPosY(y);
-		board.SetElem2(x, y, 'e');
+		board.SetElem3(x, y, 'e');
 	}
 
 	if (nextElem1 == '@') {
-		board.SetElem2(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		x += horizontal;
 		SetPosX(x);
-		board.SetElem2(x, y, '@');
+		board.SetElem3(x, y, '@');
 		_playerEncounter = true;
 	}
 
 	if (nextElem2 == '@') {
-		board.SetElem2(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		y += vertical;
 		SetPosY(y);
-		board.SetElem2(x, y, '@');
+		board.SetElem3(x, y, '@');
 		_playerEncounter = true;
 	}
 }

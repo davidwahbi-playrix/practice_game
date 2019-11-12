@@ -20,23 +20,23 @@ int Board::GetColCount2() const
 	return _mColCount2;
 }
 
-char Board::GetElem2(const int row, const int col) const
+char Board::GetElem3(const int row, const int col) const
 {
-	CheckRow2(row);
-	CheckCol2(col);
+	CheckRow3(row);
+	CheckCol3(col);
 
-	return _mFields2[row][col];
+	return _mFields3[row][col];
 }
 
-void Board::SetElem2(const int row, const int col, const char & elem)
+void Board::SetElem3(const int row, const int col, const char & elem)
 {
-	CheckRow2(row);
-	CheckCol2(col);
-	_mFields2[row].erase(_mFields2[row].begin() + col);
-	_mFields2[row].insert(_mFields2[row].begin() + col, elem);
+	CheckRow3(row);
+	CheckCol3(col);
+
+	_mFields3[row][col] = elem;
 }
 
-void Board::CheckRow2(const int row) const
+void Board::CheckRow3(const int row) const
 {
 	if (row < 0 || row > _mRowCount2 - 1)
 	{
@@ -44,7 +44,7 @@ void Board::CheckRow2(const int row) const
 	}
 }
 
-void Board::CheckCol2(const int col) const
+void Board::CheckCol3(const int col) const
 {
 	if (col < 0 || col > _mColCount2)
 	{
@@ -58,9 +58,9 @@ void Board::ClearBoard()
 	{
 		for (size_t j = 1; j < _mColCount2 - 2; j++)
 		{
-			if (GetElem2(i, j) != 'R')
+			if (GetElem3(i, j) != 'R')
 			{
-				SetElem2(i, j, ' ');
+				SetElem3(i, j, ' ');
 			}
 		}
 	}
@@ -68,21 +68,13 @@ void Board::ClearBoard()
 
 void Board::InitBoard(const int numRow, const int numCol)
 {
-	std::vector<std::vector<char>> tmpVector(numRow, vector<char>(numCol));
-	_mFields2 = tmpVector;
 	_mRowCount2 = numRow;
 	_mColCount2 = numCol;
 }
 
 void Board::operator=(const Board& other)
 {
-	for (size_t i = 0; i < _mRowCount2 - 1; i++)
-	{
-		for (size_t j = 0; j < _mColCount2 - 1; j++)
-		{
-			_mFields2[i][j] = other._mFields2[i][j];
-		}
-	}
+	_mFields3 = other._mFields3;
 }
 
 void Board::Load2(string filename)
@@ -102,10 +94,7 @@ void Board::Load2(string filename)
 		{
 			cout << "Line larger then column size";
 		}
-		for (size_t i = 0; i < input.size(); i++)
-		{
-			SetElem2(line, i, input[i]);
-		}
+		_mFields3.insert(_mFields3.begin() + line, input);
 		line++;
 	}
 }
@@ -114,10 +103,7 @@ void Board::Display2()
 {
 	for (int row = 0; row < _mRowCount2 - 1; row++)
 	{
-		for (int col = 0; col < _mColCount2 - 1; col++)
-		{
-			cout << _mFields2[row][col];
-		}
+		cout << _mFields3[row];
 		cout << '\n';
 	}
 }
