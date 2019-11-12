@@ -17,6 +17,8 @@ public:
 
 	int GetLevel() const;
 
+	void GameOver(bool& running);
+
 	bool CanPlayerEquip() const;
 
 	Player GetPlayer() const;

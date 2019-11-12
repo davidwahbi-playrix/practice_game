@@ -30,6 +30,12 @@ int Profile::GetLevel() const
 	return _currentLevel;
 }
 
+void Profile::GameOver(bool& running)
+{
+	_currentLevel = 99;
+	NewGame(running);
+}
+
 bool Profile::CanPlayerEquip() const
 {
 	return (GetPlayer().GetEquipInd() < GetPlayer().GetInventory().Size());

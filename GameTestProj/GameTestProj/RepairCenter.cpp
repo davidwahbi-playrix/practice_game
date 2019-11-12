@@ -32,7 +32,6 @@ void RepairCenter::ReapirEquipment2(Player & player)
 				std::cout << "Armor repaired!" << std::endl;
 				std::cout << player.GetArmor()->toString() << std::endl;
 				player.SetDefence(player.GetArmor()->GetArmorValue());
-				_exit = true;
 				system("pause");
 				system("cls");
 			}

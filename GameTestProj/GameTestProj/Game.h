@@ -22,6 +22,7 @@ public:
 	Renderer GetRenderer() const;
 private:
 	bool _isRunning;
+	bool _takeInput;
 	Renderer _renderer;
 	MoveUnit _unitMover;
 	EventHandler _eventHandler;

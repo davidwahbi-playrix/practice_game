@@ -94,7 +94,7 @@ void Board::Load2(string filename)
 		{
 			cout << "Line larger then column size";
 		}
-		_mFields3.insert(_mFields3.begin() + line, input);
+		_mFields3.emplace(_mFields3.begin() + line, input);
 		line++;
 	}
 }

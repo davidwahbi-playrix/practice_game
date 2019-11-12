@@ -1,0 +1,6 @@
+Board
+19;75;
+GameItems
+-1
+Enemy
+-1

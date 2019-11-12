@@ -81,7 +81,6 @@ void Combat::SmartBattle2(Player & player, std::shared_ptr<Enemy>& smartEnemy, b
 		else
 		{
 			system("cls");
-			std::cout << "GAME OVER!" << '\n';
 			std::cout << "You are Dead!" << '\n';
 			canContinue = false;
 			exit = true;

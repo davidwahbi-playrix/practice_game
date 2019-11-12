@@ -18,7 +18,7 @@ void Game::Init()
 
 void Game::HandleEvents()
 {
-	 _eventHandler.HandleEvent2(_unitMover, _renderer, _profile, _saver, _loader);
+	_eventHandler.HandleEvent2(_unitMover, _renderer, _profile, _saver, _loader);
 }
 
 void Game::Update()
@@ -29,6 +29,7 @@ void Game::Update()
 		if (!Running())
 		{
 			_renderer.SetDraw(false);
+			_profile.GameOver(_isRunning);
 		}
 	}
 	if (_profile.GetPlayer2().GetEquipAction())

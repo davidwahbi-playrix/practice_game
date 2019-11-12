@@ -25,9 +25,10 @@ void LevelLoader::LoadLevel(int currLevel, bool& running)
 	std::string tmp_string;
 	std::stringstream tmp_stream;
 
-	if (currLevel == MAXLEVEL)
+	if (currLevel >= MAXLEVEL)
 	{
 		running = false;
+		system("cls");
 	}
 
 	if (!levelInfoFile.fail())
@@ -53,7 +54,10 @@ void LevelLoader::LoadLevel(int currLevel, bool& running)
 		}
 		else
 		{
-			std::cout << "There are no more items left to pick!" << std::endl;
+			if (currLevel < MAXLEVEL)
+			{
+				std::cout << "There are no more items left to pick!" << std::endl;
+			}
 		}
 		getline(levelInfoFile, tmp_string); // Enemy
 		getline(levelInfoFile, tmp_string); // Enemy number or None
@@ -67,7 +71,10 @@ void LevelLoader::LoadLevel(int currLevel, bool& running)
 			LoadSmartEnemy(levelInfoFile, num_of_enemies);
 		}
 		else {
-			std::cout << "No enemies left!" << std::endl;
+			if (currLevel < MAXLEVEL)
+			{
+				std::cout << "No enemies left!" << std::endl;
+			}
 		}
 	}
 }
