@@ -18,41 +18,7 @@ void Game::Init()
 
 void Game::HandleEvents()
 {
-	 _eventHandler.HandleEvent();
-	if (_eventHandler.ArrowKeyClicked())
-	{
-		_renderer.ClearView();
-		_unitMover.SetDir(_eventHandler.GetKey());
-		_eventHandler.ResetKey();
-		_renderer.SetDraw(true);
-	}
-	else if (_eventHandler.EquipKeyClicked())
-	{
-		if (_profile.GetPlayer().GetCanEquip())
-		{
-			_renderer.ClearView();
-			_profile.GetPlayer2().SetCanEquip(false);
-			_profile.GetPlayer2().SetEquipInd(_eventHandler.GetNumKey());
-			_profile.GetPlayer2().SetEquipAction(true);
-			_renderer.SetDraw(true);
-		}
-		_eventHandler.ResetKey();
-
-	}
-	else if (_eventHandler.SaveKeyClicked())
-	{
-		_eventHandler.ResetKey();
-		_saver.SaveSmartGameState(_profile.GetLevel(), _profile.GetPlayer(), _profile.GetSmartEnemies(), _profile.GetGameItems());
-	}
-	else if (_eventHandler.LoadKeyClicked())
-	{
-		_eventHandler.ResetKey();
-		_loader.LoadSmartGameState();
-		_profile.SetPlayer(_loader.GetPlayer());
-		_profile.SetSmartEnemies(_loader.GetSmartEnemies());
-		_profile.SetGameItems(_loader.GetGameInventory());
-		_profile.SetBoard(_loader.GetBoard());
-	}
+	 _eventHandler.HandleEvent2(_unitMover, _renderer, _profile, _saver, _loader);
 }
 
 void Game::Update()

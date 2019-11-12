@@ -3,6 +3,9 @@
 #include <conio.h>
 #include "LoadGame.h"
 #include "SaveGame.h"
+#include "MoveUnit.h"
+#include "Renderer.h"
+#include "Profile.h"
 
 constexpr auto KEY_UP = 72;
 constexpr auto KEY_DOWN = 80;
@@ -16,25 +19,20 @@ constexpr auto NUM_KEY_4 = 52;
 constexpr auto KEY_S = 83;
 constexpr auto KEY_L = 76;
 
-enum eDirection { NOTHING = 0, UP, RIGHT, DOWN, LEFT, NUMKEY0, NUMKEY1, NUMKEY2, NUMKEY3, NUMKEY4, SAVE, LOAD};
+enum eDirection { NOTHING = 0, UP, RIGHT, DOWN, LEFT};
+enum eNumberKey { NUMKEY0 = 0, NUMKEY1, NUMKEY2, NUMKEY3, NUMKEY4 };
 
 class EventHandler
 {
 public:
 	EventHandler();
 	~EventHandler();
-	void HandleEvent();
-	int HandleArrowEvent();
-	int HandleEvent2();
+	void HandleEvent2(MoveUnit& unitMover, Renderer& renderer, Profile& profile, SaveGame& saver, LoadGame& loader);
 
-	int GetKey() const;
-	int GetNumKey() const;
-	void ResetKey();
-	bool ArrowKeyClicked();
-	bool EquipKeyClicked();
-	bool SaveKeyClicked();
-	bool LoadKeyClicked();
+	void ArrowPressed(MoveUnit& unitMover, Renderer& renderer, const int arrow);
+	void NumberPressed(Renderer& renderer, Profile& profile, const int number);
+	void LoadPressed(LoadGame& loader, Profile& profile);
 private:
-	int _key;
+
 };
 
