@@ -15,7 +15,7 @@ void SaveGame::SaveSmartGameState(int level, Player player, std::vector<std::sha
 	if (newFile.is_open()) {
 		newFile << "Level" << std::endl;
 		newFile << level << std::endl;
-		newFile << "Game" << std::endl;
+		newFile << "GameItems" << std::endl;
 		SaveInventory(newFile, gameItems);
 		//SaveSmartInventory(newFile, gameItems);
 		newFile << "Player" << std::endl;

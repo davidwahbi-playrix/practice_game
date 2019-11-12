@@ -11,13 +11,9 @@ public:
 	MoveUnit();
 	~MoveUnit();
 
-	void SmartUnitMove3(Player& player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Inventory& gameInv, Board& board);
+	void SmartUnitMove3(Player& player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Inventory& gameInv, Board& board, bool& running);
 
 	void SetDir(const int value);
-
-	void SetContinue(const bool& value);
-
-	bool GetContinue() const;
 
 	int GetSmartEnemyInd(const int x, const int y, const std::vector<std::shared_ptr<Enemy>>& smartEnemies) const;
 
@@ -26,7 +22,6 @@ public:
 private:
 	Combat _bettle;
 	RepairCenter _repairCenter;
-	bool _continue;
 	int _dir;
 };
 

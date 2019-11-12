@@ -3,14 +3,13 @@
 MoveUnit::MoveUnit()
 {
 	_dir = 0;
-	_continue = true;
 }
 
 MoveUnit::~MoveUnit()
 {
 }
 
-void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Inventory & gameInv, Board & board)
+void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Inventory & gameInv, Board & board, bool& running)
 {
 	size_t enemyBattleIndex = -1;
 
@@ -20,8 +19,7 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 	{
 		int index = GetSmartEnemyInd(player.GetPosX(), player.GetPosY(), smartEnemies);
 		enemyBattleIndex = index;
-		_bettle.SmartBattle2(player, smartEnemies[index]);
-		_continue = _bettle.GetContinue();
+		_bettle.SmartBattle2(player, smartEnemies[index], running);
 		if (smartEnemies[index] == nullptr)
 		{
 			smartEnemies.erase(smartEnemies.begin() + index);
@@ -47,8 +45,7 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 
 			if (smartEnemies[i]->GetPlayerEncounter() && enemyBattleIndex != i)
 			{
-				_bettle.SmartBattle2(player, smartEnemies[i]);
-				_continue = _bettle.GetContinue();
+				_bettle.SmartBattle2(player, smartEnemies[i], running);
 				if (smartEnemies[i] == nullptr)
 				{
 					smartEnemies.erase(smartEnemies.begin() + i);
@@ -63,16 +60,6 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 void MoveUnit::SetDir(const int value)
 {
 	_dir = value;
-}
-
-void MoveUnit::SetContinue(const bool & value)
-{
-	_continue = value;
-}
-
-bool MoveUnit::GetContinue() const
-{
-	return _continue;
 }
 
 int MoveUnit::GetSmartEnemyInd(const int x, const int y, const std::vector<std::shared_ptr<Enemy>>& smartEnemies) const

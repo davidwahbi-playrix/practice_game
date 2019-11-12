@@ -9,16 +9,16 @@ Profile::~Profile()
 {
 }
 
-void Profile::NewGame()
+void Profile::NewGame(bool &running)
 {
-	if (_currentLevel < 3)
+	if (_currentLevel < MAXLEVEL)
 	{
 		_player = LoadPlayer();
 	}
-	_levelLoader.LoadLevel(_currentLevel);
+	_levelLoader.LoadLevel(_currentLevel, running);
 	_board.InitBoard(_levelLoader.GetBoard().GetRowCount2(), _levelLoader.GetBoard().GetColCount2());
 	SetBoard(_levelLoader.GetBoard());
-	if (_currentLevel < 3) {
+	if (_currentLevel < MAXLEVEL) {
 		SetGameItems(_levelLoader.GetGameItems());
 		SetSmartEnemies(_levelLoader.GetSmartEnemies());
 	}

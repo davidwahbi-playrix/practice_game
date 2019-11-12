@@ -4,7 +4,7 @@
 
 LevelLoader::LevelLoader()
 {
-	_gameContinue = true;
+
 }
 
 
@@ -12,7 +12,7 @@ LevelLoader::~LevelLoader()
 {
 }
 
-void LevelLoader::LoadLevel(int currLevel)
+void LevelLoader::LoadLevel(int currLevel, bool& running)
 {
 	std::string level = "Level";
 	level += std::to_string(currLevel);
@@ -25,9 +25,9 @@ void LevelLoader::LoadLevel(int currLevel)
 	std::string tmp_string;
 	std::stringstream tmp_stream;
 
-	if (currLevel == 3)
+	if (currLevel == MAXLEVEL)
 	{
-		_gameContinue = false;
+		running = false;
 	}
 
 	if (!levelInfoFile.fail())
@@ -148,11 +148,6 @@ Inventory LevelLoader::GetGameItems() const
 std::vector<std::shared_ptr<Enemy>> LevelLoader::GetSmartEnemies() const
 {
 	return _smartEnemies;
-}
-
-bool LevelLoader::GetFinishStatus() const
-{
-	return _gameContinue;
 }
 
 int LevelLoader::ReadIntFromFile(std::ifstream& file)

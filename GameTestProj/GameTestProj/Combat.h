@@ -9,12 +9,9 @@ public:
 	Combat();
 	~Combat();
 
-	void SmartBattle2(Player& player, std::shared_ptr<Enemy>& smartEnemy);
+	void SmartBattle2(Player& player, std::shared_ptr<Enemy>& smartEnemy, bool& canContinue);
 
-	void SetContinue(const bool& value);
-
-	bool GetContinue() const;
 private:
-	bool _continue;
+
 };
 

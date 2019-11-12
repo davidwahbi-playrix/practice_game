@@ -12,7 +12,7 @@ Game::~Game()
 void Game::Init()
 {	
 	_renderer.SaveLoadMenu();
-	_profile.NewGame();
+	_profile.NewGame(_isRunning);
 	_isRunning = true;
 }
 
@@ -25,8 +25,7 @@ void Game::Update()
 {
 	if (_unitMover.GetDirection() > 0)
 	{
-		_unitMover.SmartUnitMove3(_profile.GetPlayer2(), _profile.GetSmartEnemies2(), _profile.GetGameItems2(), _profile.GetBoard2());
-		SetRunning(_unitMover.GetContinue());
+		_unitMover.SmartUnitMove3(_profile.GetPlayer2(), _profile.GetSmartEnemies2(), _profile.GetGameItems2(), _profile.GetBoard2(), _isRunning);
 		if (!Running())
 		{
 			_renderer.SetDraw(false);

@@ -27,9 +27,8 @@ void Renderer::Render(Profile & profile, bool & running)
 		{
 			profile.IncreseLevel();
 			NextLevel(profile.GetLevel());
-			profile.NewGame();
+			profile.NewGame(running);
 		}
-		running = profile.GetLevelLoader().GetFinishStatus();
 		if (!running)
 		{
 			SetDraw(false);

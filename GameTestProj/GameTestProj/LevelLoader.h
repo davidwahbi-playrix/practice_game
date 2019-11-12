@@ -7,26 +7,26 @@
 #include <memory>
 #include "Enemy.h"
 #include "Inventory.h"
+
 class LevelLoader
 {
 public:
 	LevelLoader();
 	~LevelLoader();
 
-	void LoadLevel(int currLevel);
+	void LoadLevel(int currLevel, bool& running);
 	void LoadInventory(std::ifstream& file, const unsigned int size, Inventory& inventory);
 	void LoadSmartEnemy(std::ifstream& file, const unsigned int size);
 
 	Board GetBoard() const;
 	Inventory GetGameItems() const;
 	std::vector<std::shared_ptr<Enemy>> GetSmartEnemies() const;
-	bool GetFinishStatus() const;
 
 	int ReadIntFromFile(std::ifstream& file);
 private:
 	std::vector<std::shared_ptr<Enemy>> _smartEnemies;
 	Inventory _gameItems;
 	Board _board;
-	bool _gameContinue;
+	const int MAXLEVEL = 3;
 };
 

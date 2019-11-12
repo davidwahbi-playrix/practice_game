@@ -4,13 +4,16 @@
 #include "LevelLoader.h"
 #include <vector>
 #include <memory>
+
+const int MAXLEVEL = 3;
+
 class Profile
 {
 public:
 	Profile();
 	~Profile();
 
-	void NewGame();
+	void NewGame(bool& running);
 
 	int GetLevel() const;
 

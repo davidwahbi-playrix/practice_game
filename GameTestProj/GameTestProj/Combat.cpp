@@ -2,14 +2,13 @@
 
 Combat::Combat()
 {
-	_continue = true;
 }
 
 Combat::~Combat()
 {
 }
 
-void Combat::SmartBattle2(Player & player, std::shared_ptr<Enemy>& smartEnemy)
+void Combat::SmartBattle2(Player & player, std::shared_ptr<Enemy>& smartEnemy, bool& canContinue)
 {
 	if (player.GetEnemyFlag())
 	{
@@ -84,19 +83,9 @@ void Combat::SmartBattle2(Player & player, std::shared_ptr<Enemy>& smartEnemy)
 			system("cls");
 			std::cout << "GAME OVER!" << '\n';
 			std::cout << "You are Dead!" << '\n';
-			_continue = false;
+			canContinue = false;
 			exit = true;
 			system("pause");
 		}
 	}
-}
-
-void Combat::SetContinue(const bool & value)
-{
-	_continue = value;
-}
-
-bool Combat::GetContinue() const
-{
-	return _continue;
 }
