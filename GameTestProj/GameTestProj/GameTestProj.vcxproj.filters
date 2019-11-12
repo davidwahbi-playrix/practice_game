@@ -241,5 +241,11 @@
     <Text Include="Level2.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="LevelInfo99.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Level99.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
