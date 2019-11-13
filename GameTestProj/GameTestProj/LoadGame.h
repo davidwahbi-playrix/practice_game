@@ -23,11 +23,13 @@ public:
 	std::vector<std::shared_ptr<Enemy>> GetSmartEnemies() const;
 	Inventory GetGameInventory() const;
 	Board GetBoard() const;
+	int GetCurrentLevel() const;
 	int ReadIntFromFile(std::ifstream& file);
 private:
 	Player _player;
 	std::vector<std::shared_ptr<Enemy>> _smartEnemies;
 	Inventory _gameItems;
 	Board _board;
+	int _currentLevel;
 };
 

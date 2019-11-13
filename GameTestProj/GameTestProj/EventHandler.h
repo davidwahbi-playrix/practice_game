@@ -32,7 +32,7 @@ public:
 	void ArrowPressed(MoveUnit& unitMover, Renderer& renderer, const int arrow);
 	void NumberPressed(Renderer& renderer, Profile& profile, const int number);
 	void LoadPressed(LoadGame& loader, Profile& profile);
-private:
 
+private:
 };
 

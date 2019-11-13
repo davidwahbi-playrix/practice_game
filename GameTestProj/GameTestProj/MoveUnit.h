@@ -1,10 +1,10 @@
 #pragma once
+#include <vector>
+#include <memory>
 #include "Player.h"
 #include "Enemy.h"
 #include "Combat.h"
 #include "RepairCenter.h"
-#include <vector>
-#include <memory>
 class MoveUnit
 {
 public:

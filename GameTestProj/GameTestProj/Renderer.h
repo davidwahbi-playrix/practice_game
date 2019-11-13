@@ -16,6 +16,7 @@ public:
 	void SetDraw(const bool& value);
 	void ClearView();
 	void NextLevel(int level);
+	//void Pause();
 
 	bool GetDraw() const;
 	bool GetFlag() const;

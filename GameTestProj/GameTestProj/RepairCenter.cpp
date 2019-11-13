@@ -4,7 +4,6 @@
 
 RepairCenter::RepairCenter()
 {
-	_exit = false;
 }
 
 
@@ -15,10 +14,11 @@ RepairCenter::~RepairCenter()
 void RepairCenter::ReapirEquipment2(Player & player)
 {
 	int state = 0;
+	bool exit = false;
 	std::cout << "Welcome to repair center!" << std::endl;
 	std::cout << "Here you can repair any damaged equipment." << std::endl;
 
-	while (!_exit)
+	while (!exit)
 	{
 		if (player.GetArmor()) {
 			if (player.GetArmor()->GetArmorValue() < player.GetArmor()->GetStartArmorValue())
@@ -77,11 +77,6 @@ void RepairCenter::ReapirEquipment2(Player & player)
 			system("pause");
 			system("cls");
 		}
-		_exit = true;
+		exit = true;
 	}
-}
-
-void RepairCenter::SetExit(const bool & value)
-{
-	_exit = value;
 }

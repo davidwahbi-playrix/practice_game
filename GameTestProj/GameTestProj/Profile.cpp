@@ -30,6 +30,16 @@ int Profile::GetLevel() const
 	return _currentLevel;
 }
 
+int& Profile::GetLevel2()
+{
+	return _currentLevel;
+}
+
+void Profile::SetLevel(const int level)
+{
+	_currentLevel = level;
+}
+
 void Profile::GameOver(bool& running)
 {
 	_currentLevel = 99;

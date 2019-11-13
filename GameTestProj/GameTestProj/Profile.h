@@ -16,6 +16,9 @@ public:
 	void NewGame(bool& running);
 
 	int GetLevel() const;
+	int& GetLevel2();
+
+	void SetLevel(const int level);
 
 	void GameOver(bool& running);
 

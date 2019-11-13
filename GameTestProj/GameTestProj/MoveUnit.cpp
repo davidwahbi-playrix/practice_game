@@ -32,7 +32,6 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 	if (player.GetRepairEntered())
 	{
 		_repairCenter.ReapirEquipment2(player);
-		_repairCenter.SetExit(false);
 		player.SetRepairEntered(false);
 	}
 	for (size_t i = 0; i < smartEnemies.size(); i++)

@@ -73,7 +73,8 @@ void Board::InitBoard(const int numRow, const int numCol)
 }
 
 void Board::operator=(const Board& other)
-{
+{	
+	InitBoard(other.GetRowCount2(), other.GetColCount2());
 	_mFields3 = other._mFields3;
 }
 

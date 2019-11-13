@@ -19,11 +19,10 @@ void LoadGame::LoadSmartGameState()
 		system("cls");
 		getline(loadedFile, tmp_string); // Level
 		getline(loadedFile, tmp_string); // Level No.
-		int level;
 		tmp_stream.str("");
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
-		tmp_stream >> level;
+		tmp_stream >> _currentLevel;
 
 		getline(loadedFile, tmp_string); // Game
 		getline(loadedFile, tmp_string); // Game inventory size or None
@@ -58,6 +57,7 @@ void LoadGame::LoadSmartGameState()
 		{
 			LoadInventory(loadedFile, num_of_playerItems, _player.GetInventory());
 			std::cout << _player.GetInventory().toString() << std::endl;
+			_player.SetCanEquip(true);
 			getline(loadedFile, tmp_string); // empty
 		}
 		else
@@ -105,7 +105,7 @@ void LoadGame::LoadSmartGameState()
 		}
 		system("pause");
 		system("cls");
-		LoadBoard(level);
+		LoadBoard(_currentLevel);
 
 		std::cout << "Game loaded!" << std::endl;
 	}
@@ -164,8 +164,6 @@ void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
 		_player.SetArmor(new Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
 
 	}
-
-
 }
 
 void LoadGame::LoadSmartEnemy(std::ifstream& file, const unsigned int size)
@@ -244,36 +242,33 @@ void LoadGame::LoadBoard(int currLevel)
 	std::ifstream levelInfoFile(levelInfo);
 	std::string tmp_string;
 	std::stringstream tmp_stream;
-	getline(levelInfoFile, tmp_string); // Board
+	getline(levelInfoFile, tmp_string);
 	int numRow = ReadIntFromFile(levelInfoFile);
 	int numCol = ReadIntFromFile(levelInfoFile);
-	Board board;
-	board.InitBoard(numRow, numCol);
-	_board.InitBoard(numRow, numCol);
-	board.Load2(level);
 
-	board.ClearBoard();
-	board.SetElem3(_player.GetPosX(), _player.GetPosY(), '@');
+	_board.InitBoard(numRow, numCol);
+	_board.Load2(level);
+
+	_board.ClearBoard();
+	_board.SetElem3(_player.GetPosX(), _player.GetPosY(), '@');
 	if (_gameItems.Size() > 0)
 	{
 		for (size_t i = 0; i < _gameItems.Size(); i++)
 		{
-			board.SetElem3(_gameItems[i].GetPosX(), _gameItems[i].GetPosY(), 'i');
+			_board.SetElem3(_gameItems[i].GetPosX(), _gameItems[i].GetPosY(), 'i');
 		}
 	}
 	if (_smartEnemies.size() > 0)
 	{
 		for (size_t i = 0; i < _smartEnemies.size(); i++)
 		{
-			board.SetElem3(_smartEnemies[i]->GetPosX(), _smartEnemies[i]->GetPosY(), 'e');
+			_board.SetElem3(_smartEnemies[i]->GetPosX(), _smartEnemies[i]->GetPosY(), 'e');
 		}
 	}
 
-	_board = board;
 	_board.Display2();
 
 }
-
 
 Player LoadGame::GetPlayer() const
 {
@@ -293,6 +288,11 @@ Inventory LoadGame::GetGameInventory() const
 Board LoadGame::GetBoard() const
 {
 	return _board;
+}
+
+int LoadGame::GetCurrentLevel() const
+{
+	return _currentLevel;
 }
 
 int LoadGame::ReadIntFromFile(std::ifstream& file)

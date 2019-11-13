@@ -91,3 +91,15 @@ bool Renderer::GetFlag() const
 {
 	return _canEnter;
 }
+
+/*void Renderer::Pause()
+{
+	bool loop = true;
+	std::cout << "Press Enter to continue..." << std::endl;
+	while (loop)
+	{
+		if (GetAsyncKeyState(VK_RETURN)) {
+			loop = false;
+		}
+	}
+}*/

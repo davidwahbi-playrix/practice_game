@@ -8,9 +8,6 @@ public:
 	~RepairCenter();
 
 	void ReapirEquipment2(Player& player);
-
-	void SetExit(const bool& value);;
 private:
-	bool _exit;
 };
 
