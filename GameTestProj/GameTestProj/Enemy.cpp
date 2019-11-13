@@ -65,14 +65,7 @@ void Enemy::SetDropChance(const int dropChance)
 
 void Enemy::ReceiveHit(const int playerDamage, const int playerHealth, const int playerDefence)
 {
-	if (playerHealth + playerDefence - GetDamage() > 0)
-	{
-		if (GetHealth() - playerDamage > 0)
-		{
-			SetHealth(GetHealth() - playerDamage);
-		}
-	}
-
+	SetHealth(GetHealth() - playerDamage);
 }
 
 bool Enemy::CanBattle(const int polayerDamage) const
