@@ -1,3 +1,5 @@
+PlayerPos
+1;1;
 Board
 19;25;
 GameItems

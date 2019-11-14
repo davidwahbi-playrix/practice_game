@@ -11,17 +11,19 @@ Profile::~Profile()
 
 void Profile::NewGame(bool &running)
 {
-	if (_currentLevel < MAXLEVEL)
+	if (_currentLevel == 1)
 	{
-		_player = LoadPlayer();
+		_levelLoader.LoadPlayer(_player);
 	}
-	_levelLoader.LoadLevel(_currentLevel, running);
-	_board.InitBoard(_levelLoader.GetBoard().GetRowCount2(), _levelLoader.GetBoard().GetColCount2());
-	SetBoard(_levelLoader.GetBoard());
-	if (_currentLevel < MAXLEVEL) {
-		SetGameItems(_levelLoader.GetGameItems());
-		SetSmartEnemies(_levelLoader.GetSmartEnemies());
+	else
+	{
+		if (_currentLevel < MAXLEVEL)
+		{
+			_levelLoader.SetPlayerStartPos(_currentLevel, _player);
+		}
 	}
+	_levelLoader.LoadLevel2(_currentLevel, running, _board, _gameItems, _smartEnemies);
+
 	_board.Display2();
 }
 
@@ -129,31 +131,4 @@ void Profile::SetBoard(const Board& board)
 void Profile::SetSmartEnemies(const std::vector<std::shared_ptr<Enemy>> smartEnemies)
 {
 	_smartEnemies = smartEnemies;
-}
-
-Player Profile::LoadPlayer()
-{
-	Player newPlayer(1, 1, 100, 10, 0, _player.GetName());
-	if (_currentLevel > 1)
-	{
-		newPlayer.SetHealth(_player.GetHealth());
-		newPlayer.SetDamage(_player.GetDamage());
-		newPlayer.SetDefence(_player.GetDefence());
-		if (_player.GetWeapon())
-		{
-			newPlayer.SetWeapon(_player.GetWeapon());
-		}
-		if (_player.GetArmor())
-		{
-			newPlayer.SetArmor(_player.GetArmor());
-		}
-		newPlayer.SetInventory(_player.GetInventory());
-		newPlayer.SetPickedFlag(_player.GetPickedFlag());
-		newPlayer.SetEnemyFlag(_player.GetEnemyFlag());
-		newPlayer.SetCanEquip(_player.GetCanEquip());
-		newPlayer.SetEquipAction(_player.GetEquipAction());
-		newPlayer.SetEquipInd(_player.GetEquipAction());
-		newPlayer.SetStartDamage(_player.GetStartDamage());
-	}
-	return newPlayer;
 }

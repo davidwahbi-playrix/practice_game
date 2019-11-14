@@ -49,7 +49,6 @@ void Game::Update()
 	}
 }
 
-
 void Game::Render()
 {
 	_renderer.Render(_profile, _isRunning);

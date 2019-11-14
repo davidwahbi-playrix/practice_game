@@ -45,7 +45,6 @@ public:
 	//void SetSmartGameItems(const SmartInventory& inv);
 	void SetBoard(const Board& board);
 	void SetSmartEnemies(const std::vector<std::shared_ptr<Enemy>> smartEnemies);
-	Player LoadPlayer();
 private:
 	Player _player;
 	std::vector<std::shared_ptr<Enemy>> _smartEnemies;

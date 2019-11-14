@@ -12,13 +12,33 @@ LevelLoader::~LevelLoader()
 {
 }
 
-void LevelLoader::LoadLevel(int currLevel, bool& running)
+void LevelLoader::LoadPlayer(Player & player)
+{
+	std::ifstream defaultPlayerInfo("DefaultPlayer.txt");
+	LoadPlayerInfo(defaultPlayerInfo, player);
+}
+
+void LevelLoader::SetPlayerStartPos(const int& level, Player & player)
+{
+	std::string levelInfo = "LevelInfo";
+	levelInfo += std::to_string(level);
+	levelInfo = levelInfo + ".txt";
+	std::ifstream levelInfoFile(levelInfo);
+	std::string tmp_string;
+	std::stringstream tmp_stream;
+	getline(levelInfoFile, tmp_string); // Player
+	player.SetPosX(ReadIntFromFile(levelInfoFile));
+	player.SetPosY(ReadIntFromFile(levelInfoFile));
+	getline(levelInfoFile, tmp_string); // empty
+}
+
+void LevelLoader::LoadLevel2(const int & currLevel, bool & running, Board & board, Inventory & gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies)
 {
 	std::string level = "Level";
 	level += std::to_string(currLevel);
 	level = level + ".txt";
 	std::string levelInfo = "LevelInfo";
-    levelInfo += std::to_string(currLevel);
+	levelInfo += std::to_string(currLevel);
 	levelInfo = levelInfo + ".txt";
 	std::ifstream levelFile(level);
 	std::ifstream levelInfoFile(levelInfo);
@@ -33,11 +53,13 @@ void LevelLoader::LoadLevel(int currLevel, bool& running)
 
 	if (!levelInfoFile.fail())
 	{
+		getline(levelInfoFile, tmp_string); // Player
+		getline(levelInfoFile, tmp_string); // Player position
 		getline(levelInfoFile, tmp_string); // Board
 		int numRow = ReadIntFromFile(levelInfoFile);
 		int numCol = ReadIntFromFile(levelInfoFile);
-		_board.InitBoard(numRow, numCol);
-		_board.Load2(level);
+		board.InitBoard(numRow, numCol);
+		board.Load2(level);
 
 		getline(levelInfoFile, tmp_string); // empty
 		getline(levelInfoFile, tmp_string); // Game
@@ -47,9 +69,10 @@ void LevelLoader::LoadLevel(int currLevel, bool& running)
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
 		tmp_stream >> num_of_gameItems;
+		gameItems.ClearInventory();
 		if (num_of_gameItems != -1)
 		{
-			LoadInventory(levelInfoFile, num_of_gameItems, _gameItems);
+			LoadInventory(levelInfoFile, num_of_gameItems, gameItems);
 			getline(levelInfoFile, tmp_string); // empty
 		}
 		else
@@ -66,9 +89,10 @@ void LevelLoader::LoadLevel(int currLevel, bool& running)
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
 		tmp_stream >> num_of_enemies;
+		smartEnemies.clear();
 		if (num_of_enemies != -1)
 		{
-			LoadSmartEnemy(levelInfoFile, num_of_enemies);
+			LoadSmartEnemy2(levelInfoFile, num_of_enemies, smartEnemies);
 		}
 		else {
 			if (currLevel < MAXLEVEL)
@@ -121,40 +145,41 @@ void LevelLoader::LoadInventory(std::ifstream & file, const unsigned int size, I
 	}
 }
 
-void LevelLoader::LoadSmartEnemy(std::ifstream& file, const unsigned int size)
+void LevelLoader::LoadSmartEnemy2(std::ifstream & file, const unsigned int size, std::vector<std::shared_ptr<Enemy>>& smartEnemies)
 {
 	size_t index = 0;
-	_smartEnemies.clear();
+	smartEnemies.clear();
 	while (!file.eof() && index < size)
 	{
-		_smartEnemies.emplace_back(std::make_shared<Enemy>(1, 1, 0, 0, 0));
-		_smartEnemies[index]->SetPosX(ReadIntFromFile(file));
+		smartEnemies.emplace_back(std::make_shared<Enemy>(1, 1, 0, 0, 0));
+		smartEnemies[index]->SetPosX(ReadIntFromFile(file));
 
-		_smartEnemies[index]->SetPosY(ReadIntFromFile(file));
+		smartEnemies[index]->SetPosY(ReadIntFromFile(file));
 
-		_smartEnemies[index]->SetHealth(ReadIntFromFile(file));
+		smartEnemies[index]->SetHealth(ReadIntFromFile(file));
 
-		_smartEnemies[index]->SetDamage(ReadIntFromFile(file));
+		smartEnemies[index]->SetDamage(ReadIntFromFile(file));
 
-		_smartEnemies[index]->SetDropChance(ReadIntFromFile(file));
+		smartEnemies[index]->SetDropChance(ReadIntFromFile(file));
 
 		index++;
 	}
 }
 
-Board LevelLoader::GetBoard() const
+void LevelLoader::LoadPlayerInfo(std::ifstream & file, Player & player)
 {
-	return _board;
-}
+	std::string tmp_string;
+	std::stringstream tmp_stream;
 
-Inventory LevelLoader::GetGameItems() const
-{
-	return _gameItems;
-}
+	player.SetPosX(ReadIntFromFile(file));
+	player.SetPosY(ReadIntFromFile(file));
+	player.SetHealth(ReadIntFromFile(file));
+	player.SetDamage(ReadIntFromFile(file));
+	player.SetDefence(ReadIntFromFile(file));
 
-std::vector<std::shared_ptr<Enemy>> LevelLoader::GetSmartEnemies() const
-{
-	return _smartEnemies;
+	getline(file, tmp_string, ';');
+	player.SetName(tmp_string);
+	player.SetStartDamage(ReadIntFromFile(file));
 }
 
 int LevelLoader::ReadIntFromFile(std::ifstream& file)

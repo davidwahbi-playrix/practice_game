@@ -247,5 +247,8 @@
     <Text Include="Level99.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="DefaultPlayer.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
