@@ -243,7 +243,9 @@ void LoadGame::LoadBoard2(int & currLevel, Board & board, Player& player, Invent
 	std::ifstream levelInfoFile(levelInfo);
 	std::string tmp_string;
 	std::stringstream tmp_stream;
-	getline(levelInfoFile, tmp_string);
+	getline(levelInfoFile, tmp_string); // PlayerPos
+	getline(levelInfoFile, tmp_string); // position x position y
+	getline(levelInfoFile, tmp_string); // Board
 	int numRow = ReadIntFromFile(levelInfoFile);
 	int numCol = ReadIntFromFile(levelInfoFile);
 

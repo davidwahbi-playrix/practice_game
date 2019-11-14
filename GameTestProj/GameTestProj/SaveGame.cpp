@@ -8,7 +8,7 @@ SaveGame::~SaveGame()
 {
 }
 
-void SaveGame::SaveSmartGameState(int level, Player player, std::vector<std::shared_ptr<Enemy>> smartEnemies, Inventory gameItems)
+void SaveGame::SaveSmartGameState(const int& level, Player& player, const std::vector<std::shared_ptr<Enemy>>& smartEnemies, Inventory& gameItems)
 {
 	std::ofstream newFile;
 	newFile.open("SaveGame.txt");
