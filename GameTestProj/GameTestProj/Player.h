@@ -15,7 +15,6 @@ public:
 	void MoveObject2(int vertical, int horizontal, Board& board);
 
 	void SetInventory(const Inventory& inventory);
-	//void SetSmartInventory(const Inventory& inventory);
 
 	void SetPickedFlag(const bool& flag);
 	void SetEnemyFlag(const bool& flag);
@@ -41,37 +40,30 @@ public:
 	int GetStartDamage() const;
 
 	Inventory& GetInventory();
-	Inventory& GetSmartInventory();
 	const std::string& GetName() const;
 	Weapon* GetWeapon() const;
 	Weapon& GetWeapon2();
-	//std::shared_ptr<Weapon> GetSmartWeapon() const;
+
 	Armor* GetArmor() const;
 	Armor& GetArmor2();
-	//std::shared_ptr<Armor> GetSmartArmor() const;
+
 	const int GetDefence() const;
 
 	void AddDamage(int value);
 	void AddDefence(int value);
 	void AddHealth(int value);
 	void SetWeapon(Weapon* weapon);
-	//void SetSmartWeapon(std::shared_ptr<Weapon> smartWeapon);
 	void SetArmor(Armor* armor);
-	//void SetSmartArmor(std::shared_ptr<Armor> smartArmor);
 
-	Inventory UpdatePlayerInventory(Inventory gameInventory);
 	void UpdatePlayerInventory2(Inventory& gameInventory);
-	Inventory UpdateSmartPlayerInventory(Inventory smartGameInventory);
 	void UpdatePlayerWeapon();
 
 	void EquipItem(const int index);
-	//void EquipSmartItem(const int index);
 
 	const std::string toString() const;
 private:
 	std::string _playerName;
 	Inventory _inventory;
-	Inventory _smartInventory;
 	bool _itemPickedFlag;
 	bool _enemyEncounter;
 	bool _canEquip;
@@ -81,8 +73,6 @@ private:
 	int _defence;
 	int _startDamage;
 	Weapon* _weapon;
-	//std::shared_ptr<Weapon> _smartWeapon;
 	Armor* _armor;
-	//std::shared_ptr<Armor> _smartArmor;
 };
 

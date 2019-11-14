@@ -28,6 +28,7 @@ void Renderer::Render(Profile & profile, bool & running)
 			profile.IncreseLevel();
 			NextLevel(profile.GetLevel());
 			profile.NewGame(running);
+			SetDraw(true);
 		}
 		if (!running)
 		{

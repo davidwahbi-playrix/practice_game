@@ -1,4 +1,5 @@
 /*#include "SmartPlayer.h"
+#include "SmartPlayer.h"
 
 SmartPlayer::SmartPlayer()
 {
@@ -33,53 +34,53 @@ Board SmartPlayer::MoveObject(int vertical, int horizontal, Board board)
 	int y = GetPosY();
 	int y2 = y + vertical;
 
-	char nextElem1 = board.GetElem(x2, y);
-	char nextElem2 = board.GetElem(x, y2);
+	char nextElem1 = board.GetElem3(x2, y);
+	char nextElem2 = board.GetElem3(x, y2);
 
 	if (nextElem1 == ' ') {
-		board.SetElem(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		x += horizontal;
 		SetPosX(x);
-		board.SetElem(x, y, '@');
+		board.SetElem3(x, y, '@');
 	}
 
 	if (nextElem2 == ' ') {
-		board.SetElem(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		y += vertical;
 		SetPosY(y);
-		board.SetElem(x, y, '@');
+		board.SetElem3(x, y, '@');
 	}
 
 	if (nextElem1 == 'i') {
-		board.SetElem(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		x += horizontal;
 		SetPosX(x);
-		board.SetElem(x, y, '@');
+		board.SetElem3(x, y, '@');
 		_itemPickedFlag = true;
 
 	}
 
 	if (nextElem2 == 'i') {
-		board.SetElem(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		y += vertical;
 		SetPosY(y);
-		board.SetElem(x, y, '@');
+		board.SetElem3(x, y, '@');
 		_itemPickedFlag = true;
 	}
 	if (nextElem1 == 'e') {
-		board.SetElem(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		x += horizontal;
 		SetPosX(x);
-		board.SetElem(x, y, '@');
+		board.SetElem3(x, y, '@');
 		_enemyEncounter = true;
 
 	}
 
 	if (nextElem2 == 'e') {
-		board.SetElem(x, y, ' ');
+		board.SetElem3(x, y, ' ');
 		y += vertical;
 		SetPosY(y);
-		board.SetElem(x, y, '@');
+		board.SetElem3(x, y, '@');
 		_enemyEncounter = true;
 	}
 
@@ -221,57 +222,42 @@ void SmartPlayer::SetSmartArmor(std::shared_ptr<Armor> smartArmor)
 	_smartArmor = smartArmor;
 }
 
-SmartInventory SmartPlayer::UpdatePlayerInventory(SmartInventory gameInventory)
+void SmartPlayer::UpdateSmartPlayerInventory(SmartInventory& smartGameInventory)
 {
 	SetPickedFlag(false);
-	SmartInventory tmp = GetSmartInventory();
-	int index = gameInventory.GetItemIndex(GetPosX(), GetPosY());
-	if (index >= 0)
-	{
-		tmp.AddSmartItem(gameInventory[index]);
-		SetSmartInventory(tmp);
-		gameInventory.RemoveSmartItem(index);
-		_canEquip = true;
-		return gameInventory;
-	}
-}
-
-SmartInventory SmartPlayer::UpdateSmartPlayerInventory(SmartInventory smartGameInventory)
-{
-	SetPickedFlag(false);
-	SmartInventory tmp = GetSmartInventory();
 	int index = smartGameInventory.GetItemIndex(GetPosX(), GetPosY());
 	if (index >= 0)
 	{
-		tmp.AddSmartItem(smartGameInventory[index]);
-		SetSmartInventory(tmp);
+		_smartInventory.AddSmartItem(smartGameInventory[index]);
 		smartGameInventory.RemoveSmartItem(index);
 		_canEquip = true;
-		return smartGameInventory;
 	}
 }
 void SmartPlayer::EquipSmartItem(const int index)
 {
-	std::shared_ptr<Item> tmp_i = std::make_shared<Item>(&GetSmartInventory().AtSmart(index));
-	std::shared_ptr<Weapon> tmp_w = std::dynamic_pointer_cast<Weapon>(tmp_i);
-	std::shared_ptr<Armor> tmp_a = std::dynamic_pointer_cast<Armor>(tmp_i);
-	std::shared_ptr<HealthPotion> tmp_p = std::dynamic_pointer_cast<HealthPotion>(tmp_i);
+	//std::shared_ptr<Item> tmp_i = std::make_shared<Item>(&GetSmartInventory().AtSmart(index));
+	//std::shared_ptr<Weapon> tmp_w = std::make_shared<Weapon>(&GetSmartInventory().AtSmart(index));
+	//std::shared_ptr<Weapon> tmp_w = std::dynamic_pointer_cast<Weapon>(tmp_i);
+	//std::shared_ptr<Armor> tmp_a = std::dynamic_pointer_cast<Armor>(tmp_i);
+	//std::shared_ptr<HealthPotion> tmp_p = std::dynamic_pointer_cast<HealthPotion>(tmp_i);
+	int type = GetSmartInventory().AtSmart(index)->GetSubType();
 
-	if (tmp_w)
+	if (type == 0)
 	{
-		tmp_w = std::static_pointer_cast<Weapon>(GetSmartInventory().SmartReplace(index, GetSmartWeapon()));
-		AddDamage(tmp_w->GetDamageValue());
-		SetSmartWeapon(tmp_w);
-
-	}
-	else if (tmp_a)
-	{
-		tmp_a = std::static_pointer_cast<Armor>(GetSmartInventory().SmartReplace(index, GetSmartArmor()));
+		std::shared_ptr<Armor> tmp_a = std::static_pointer_cast<Armor>(GetSmartInventory().SmartReplace(index, GetSmartWeapon()));
 		AddDefence(tmp_a->GetArmorValue());
 		SetSmartArmor(tmp_a);
+
 	}
-	else if (tmp_p)
+	else if (type == 1)
 	{
+		std::shared_ptr<Weapon> tmp_w = std::static_pointer_cast<Weapon>(GetSmartInventory().SmartReplace(index, GetSmartArmor()));
+		AddDamage(tmp_w->GetDamageValue());
+		SetSmartWeapon(tmp_w);
+	}
+	else if (type == 2)
+	{
+		std::shared_ptr<HealthPotion> tmp_p = std::static_pointer_cast<HealthPotion>(GetSmartInventory().AtSmart(index));
 		AddHealth(tmp_p->GetHealthValue());
 		GetSmartInventory().RemoveSmartItem(index);
 	}

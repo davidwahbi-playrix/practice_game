@@ -11,7 +11,7 @@ Profile::~Profile()
 
 void Profile::NewGame(bool &running)
 {
-	if (_currentLevel == 1)
+	if (_currentLevel == FIRSTLEVEL)
 	{
 		_levelLoader.LoadPlayer(_player);
 	}
@@ -24,7 +24,10 @@ void Profile::NewGame(bool &running)
 	}
 	_levelLoader.LoadLevel2(_currentLevel, running, _board, _gameItems, _smartEnemies);
 
-	_board.Display2();
+	if (_currentLevel == FIRSTLEVEL || _currentLevel == VICTORY || _currentLevel == GAMEOVER)
+	{
+		_board.Display2();
+	}
 }
 
 int Profile::GetLevel() const
@@ -106,29 +109,4 @@ LevelLoader Profile::GetLevelLoader() const
 void Profile::IncreseLevel()
 {
 	_currentLevel++;
-}
-
-void Profile::SetPlayer(const Player& player)
-{
-	_player = player;
-}
-
-void Profile::SetGameItems(const Inventory& inv)
-{
-	_gameItems = inv;
-}
-
-/*void Profile::SetSmartGameItems(const Inventory& inv)
-{
-	_smartGameItems = inv;
-} */
-
-void Profile::SetBoard(const Board& board)
-{
-	_board = board;
-}
-
-void Profile::SetSmartEnemies(const std::vector<std::shared_ptr<Enemy>> smartEnemies)
-{
-	_smartEnemies = smartEnemies;
 }

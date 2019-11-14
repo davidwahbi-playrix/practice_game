@@ -1,4 +1,4 @@
-/*#pragma once
+#pragma once
 #include <vector>
 #include "Item.h"
 #include "Weapon.h"
@@ -11,7 +11,7 @@ public:
 	SmartInventory(const SmartInventory& other);
 	~SmartInventory();
 
-	void AddSmartItem(std::shared_ptr<Item>& item);
+	void AddSmartItem(std::shared_ptr<Item> item);
 	void RemoveSmartItem(const unsigned index);
 	void ClearSmartInventory();
 
@@ -19,7 +19,8 @@ public:
 
 	std::shared_ptr<Item>& AtSmart(const unsigned int index);
 
-	std::shared_ptr<Item> SmartReplace(const unsigned index, std::shared_ptr<Item> item);
+	template <typename T>
+	T SmartReplace(const unsigned index, const T& item);
 
 	std::vector<std::shared_ptr<Item>> GetVector() const;
 
@@ -29,5 +30,5 @@ public:
 
 private:
 	std::vector<std::shared_ptr<Item>> _smartItems;
-}; */
+};
 

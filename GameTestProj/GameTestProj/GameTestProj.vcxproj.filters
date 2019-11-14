@@ -135,17 +135,17 @@
     <ClCompile Include="Profile.cpp">
       <Filter>Profile</Filter>
     </ClCompile>
-    <ClCompile Include="SmartInventory.cpp">
-      <Filter>Inventory</Filter>
-    </ClCompile>
-    <ClCompile Include="SmartPlayer.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="RepairCenter.cpp">
       <Filter>RepairCenter</Filter>
     </ClCompile>
     <ClCompile Include="LevelLoader.cpp">
       <Filter>LevelLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="SmartInventory.cpp">
+      <Filter>Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="SmartPlayer.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -209,17 +209,17 @@
     <ClInclude Include="Profile.h">
       <Filter>Profile</Filter>
     </ClInclude>
-    <ClInclude Include="SmartInventory.h">
-      <Filter>Inventory</Filter>
-    </ClInclude>
-    <ClInclude Include="SmartPlayer.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="RepairCenter.h">
       <Filter>RepairCenter</Filter>
     </ClInclude>
     <ClInclude Include="LevelLoader.h">
       <Filter>LevelLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartInventory.h">
+      <Filter>Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartPlayer.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

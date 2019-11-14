@@ -5,7 +5,10 @@
 #include <vector>
 #include <memory>
 
-const int MAXLEVEL = 3;
+constexpr int MAXLEVEL = 3;
+constexpr int FIRSTLEVEL = 1;
+constexpr int VICTORY = 3;
+constexpr int GAMEOVER = 99;
 
 class Profile
 {
@@ -38,13 +41,8 @@ public:
 	std::vector<std::shared_ptr<Enemy>>& GetSmartEnemies2();
 
 	LevelLoader GetLevelLoader() const;
-
 	void IncreseLevel();
-	void SetPlayer(const Player& player);
-	void SetGameItems(const Inventory& inv);
-	//void SetSmartGameItems(const SmartInventory& inv);
-	void SetBoard(const Board& board);
-	void SetSmartEnemies(const std::vector<std::shared_ptr<Enemy>> smartEnemies);
+
 private:
 	Player _player;
 	std::vector<std::shared_ptr<Enemy>> _smartEnemies;

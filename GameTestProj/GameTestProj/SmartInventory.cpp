@@ -1,7 +1,5 @@
-/*#include "SmartInventory.h"
+#include "SmartInventory.h"
 #include <iostream>
-
-using namespace std;
 
 SmartInventory::SmartInventory()
 {
@@ -20,17 +18,16 @@ SmartInventory::~SmartInventory()
 {
 }
 
-void SmartInventory::AddSmartItem(std::shared_ptr<Item>& item)
+void SmartInventory::AddSmartItem(std::shared_ptr<Item> item)
 {
-	std::shared_ptr<Item> tmpItem = std::make_shared<Item>(item);
-	_smartItems.emplace_back(tmpItem);
+	_smartItems.emplace_back(item);
 }
 
 void SmartInventory::RemoveSmartItem(const unsigned index)
 {
 	if (index < 0 || index >= _smartItems.size())
 	{
-		cout << "OUT OF BOUNDS!" << endl;
+		std::cout << "OUT OF BOUNDS!" << std::endl;
 	}
 	_smartItems.erase(_smartItems.begin() + index);
 }
@@ -57,7 +54,7 @@ std::shared_ptr<Item>& SmartInventory::AtSmart(const unsigned int index)
 {
 	if (index < 0 || index >= _smartItems.size())
 	{
-		cout << "OUT OF BOUNDS!" << endl;
+		std::cout << "OUT OF BOUNDS!" << std::endl;
 	}
 	else
 	{
@@ -65,11 +62,12 @@ std::shared_ptr<Item>& SmartInventory::AtSmart(const unsigned int index)
 	}
 }
 
-std::shared_ptr<Item> SmartInventory::SmartReplace(const unsigned index, std::shared_ptr<Item> item)
+template <typename T>
+T SmartInventory::SmartReplace(const unsigned index, const T& item)
 {
 	if (index < 0 || index >= _smartItems.size())
 	{
-		cout << "OUT OF BOUNDS!" << endl;
+		std::cout << "OUT OF BOUNDS!" << std::endl;
 	}
 	std::shared_ptr<Item> tmp_item = _smartItems[index];
 	if (item)
@@ -103,7 +101,7 @@ std::shared_ptr<Item>& SmartInventory::operator[](const unsigned int index)
 {
 	if (index < 0 || index >= _smartItems.size())
 	{
-		cout << "OUT OF BOUNDS!" << endl;
+		std::cout << "OUT OF BOUNDS!" << std::endl;
 	}
 	else
 	{
@@ -121,4 +119,4 @@ std::string SmartInventory::toString() const
 	}
 
 	return ss.str();
-} */
+}

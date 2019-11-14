@@ -43,14 +43,11 @@ Inventory::Inventory(const Inventory& other)
 	_numOfItems = other._numOfItems;
 
 	_items = new Item * [_cap];
-	//_smartItems = std::vector<std::shared_ptr<Item>>(_cap);
 	Init();
 
 	for (size_t i = 0; i < _numOfItems; i++)
-	//for (size_t i = 0; i < other.GetVector().size(); i++)
 	{
 		_items[i] = other._items[i]->Clone();
-		//_smartItems.emplace_back(other.GetVector().at(i));
 	}
 }
 

@@ -43,8 +43,7 @@ public:
 	void SetSmartWeapon(std::shared_ptr<Weapon> smartWeapon);
 	void SetSmartArmor(std::shared_ptr<Armor> smartArmor);
 
-	SmartInventory UpdatePlayerInventory(SmartInventory gameInventory);
-	SmartInventory UpdateSmartPlayerInventory(SmartInventory smartGameInventory);
+	void UpdateSmartPlayerInventory(SmartInventory& smartGameInventory);
 
 	void EquipSmartItem(const int index);
 
@@ -58,6 +57,6 @@ private:
 	bool _equipAction;
 	int _equipInd;
 	int _defence;
-	std::shared_ptr<Item> _smartWeapon;
-	std::shared_ptr<Item> _smartArmor;
+	std::shared_ptr<Weapon> _smartWeapon;
+	std::shared_ptr<Armor> _smartArmor;
 };*/
