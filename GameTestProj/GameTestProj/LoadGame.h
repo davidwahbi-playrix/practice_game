@@ -12,24 +12,20 @@ public:
 	LoadGame();
 	~LoadGame();
 
-	void LoadSmartGameState();
-	void LoadPlayer(std::ifstream& file);
-	void LoadPlayerEquipment(std::ifstream& file, const int state);
-	void LoadSmartEnemy(std::ifstream& file, const unsigned int size);
-	void LoadInventory(std::ifstream& file, const unsigned int size, Inventory& inventory);
-	void LoadBoard(int currLevel);
+	void LoadSmartGameState2(int& level, Inventory& gameItems, Player& player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Board& board);
 
-	Player GetPlayer() const;
-	std::vector<std::shared_ptr<Enemy>> GetSmartEnemies() const;
-	Inventory GetGameInventory() const;
-	Board GetBoard() const;
-	int GetCurrentLevel() const;
+	void LoadPlayer2(std::ifstream& file, Player& player);
+
+	void LoadPlayerEquipment2(std::ifstream& file, const int state, Player& player);
+
+	void LoadSmartEnemy2(std::ifstream& file, const unsigned int size, std::vector<std::shared_ptr<Enemy>>& smartEnemies);
+
+	void LoadInventory(std::ifstream& file, const unsigned int size, Inventory& inventory);
+
+	void LoadBoard2(int& currLevel, Board& board, Player& player, Inventory& gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies);
+
 	int ReadIntFromFile(std::ifstream& file);
 private:
-	Player _player;
-	std::vector<std::shared_ptr<Enemy>> _smartEnemies;
-	Inventory _gameItems;
-	Board _board;
-	int _currentLevel;
+
 };
 

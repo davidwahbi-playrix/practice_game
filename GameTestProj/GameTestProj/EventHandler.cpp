@@ -77,10 +77,5 @@ void EventHandler::NumberPressed(Renderer & renderer, Profile & profile, const i
 
 void EventHandler::LoadPressed(LoadGame & loader, Profile & profile)
 {
-	loader.LoadSmartGameState();
-	profile.SetLevel(loader.GetCurrentLevel());
-	profile.SetPlayer(loader.GetPlayer());
-	profile.SetSmartEnemies(loader.GetSmartEnemies());
-	profile.SetGameItems(loader.GetGameInventory());
-	profile.SetBoard(loader.GetBoard());
+	loader.LoadSmartGameState2(profile.GetLevel2(), profile.GetGameItems2(), profile.GetPlayer2(), profile.GetSmartEnemies2(), profile.GetBoard2());
 }

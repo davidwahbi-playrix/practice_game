@@ -8,7 +8,7 @@ LoadGame::~LoadGame()
 {
 }
 
-void LoadGame::LoadSmartGameState()
+void LoadGame::LoadSmartGameState2(int & level, Inventory & gameItems, Player & player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Board & board)
 {
 	std::ifstream loadedFile("SaveGame.txt");
 	std::string tmp_string;
@@ -22,7 +22,7 @@ void LoadGame::LoadSmartGameState()
 		tmp_stream.str("");
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
-		tmp_stream >> _currentLevel;
+		tmp_stream >> level;
 
 		getline(loadedFile, tmp_string); // Game
 		getline(loadedFile, tmp_string); // Game inventory size or None
@@ -31,10 +31,11 @@ void LoadGame::LoadSmartGameState()
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
 		tmp_stream >> num_of_gameItems;
+		gameItems.ClearInventory();
 		if (num_of_gameItems != -1)
 		{
-			LoadInventory(loadedFile, num_of_gameItems, _gameItems);
-			std::cout << _gameItems.toString() << std::endl;
+			LoadInventory(loadedFile, num_of_gameItems, gameItems);
+			std::cout << gameItems.toString() << std::endl;
 			getline(loadedFile, tmp_string); // empty
 		}
 		else
@@ -42,8 +43,8 @@ void LoadGame::LoadSmartGameState()
 			std::cout << "There are no more items left to pick!" << std::endl;
 		}
 		getline(loadedFile, tmp_string); // player
-		LoadPlayer(loadedFile); // Load player
-		std::cout << _player.toString() << std::endl;
+		LoadPlayer2(loadedFile, player); // Load player
+		std::cout << player.toString() << std::endl;
 
 		getline(loadedFile, tmp_string); // empty
 		getline(loadedFile, tmp_string); // Player Invnetory
@@ -53,11 +54,12 @@ void LoadGame::LoadSmartGameState()
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
 		tmp_stream >> num_of_playerItems;
+		player.GetInventory().ClearInventory();
 		if (num_of_playerItems != -1)
 		{
-			LoadInventory(loadedFile, num_of_playerItems, _player.GetInventory());
-			std::cout << _player.GetInventory().toString() << std::endl;
-			_player.SetCanEquip(true);
+			LoadInventory(loadedFile, num_of_playerItems, player.GetInventory());
+			std::cout << player.GetInventory().toString() << std::endl;
+			player.SetCanEquip(true);
 			getline(loadedFile, tmp_string); // empty
 		}
 		else
@@ -69,8 +71,8 @@ void LoadGame::LoadSmartGameState()
 		getline(loadedFile, tmp_string); // Yes or None
 		if (tmp_string != "None")
 		{
-			LoadPlayerEquipment(loadedFile, 1);
-			std::cout << "Player weapon: " << _player.GetWeapon()->toString() << std::endl;
+			LoadPlayerEquipment2(loadedFile, 1, player);
+			std::cout << "Player weapon: " << player.GetWeapon()->toString() << std::endl;
 			getline(loadedFile, tmp_string); // empty
 		}
 		else
@@ -81,8 +83,8 @@ void LoadGame::LoadSmartGameState()
 		getline(loadedFile, tmp_string); // Yes or None
 		if (tmp_string != "None")
 		{
-			LoadPlayerEquipment(loadedFile, 2);
-			std::cout << "Player armor: " << _player.GetArmor()->toString() << std::endl;
+			LoadPlayerEquipment2(loadedFile, 2, player);
+			std::cout << "Player armor: " << player.GetArmor()->toString() << std::endl;
 			getline(loadedFile, tmp_string); // empty
 		}
 		else
@@ -96,16 +98,17 @@ void LoadGame::LoadSmartGameState()
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
 		tmp_stream >> num_of_enemies;
+		smartEnemies.clear();
 		if (num_of_enemies != -1)
 		{
-			LoadSmartEnemy(loadedFile, num_of_enemies);
+			LoadSmartEnemy2(loadedFile, num_of_enemies, smartEnemies);
 		}
 		else {
 			std::cout << "No enemies left!" << std::endl;
 		}
 		system("pause");
 		system("cls");
-		LoadBoard(_currentLevel);
+		LoadBoard2(level, board, player, gameItems, smartEnemies);
 
 		std::cout << "Game loaded!" << std::endl;
 	}
@@ -116,24 +119,23 @@ void LoadGame::LoadSmartGameState()
 	}
 }
 
-void LoadGame::LoadPlayer(std::ifstream& file)
+void LoadGame::LoadPlayer2(std::ifstream & file, Player & player)
 {
 	std::string tmp_string;
 	std::stringstream tmp_stream;
 
-	_player.SetPosX(ReadIntFromFile(file));
-	_player.SetPosY(ReadIntFromFile(file));
-	_player.SetHealth(ReadIntFromFile(file));
-	_player.SetDamage(ReadIntFromFile(file));
-	_player.SetDefence(ReadIntFromFile(file));
+	player.SetPosX(ReadIntFromFile(file));
+	player.SetPosY(ReadIntFromFile(file));
+	player.SetHealth(ReadIntFromFile(file));
+	player.SetDamage(ReadIntFromFile(file));
+	player.SetDefence(ReadIntFromFile(file));
 
 	getline(file, tmp_string, ';');
-	_player.SetName(tmp_string);
-	_player.SetStartDamage(ReadIntFromFile(file));
-
+	player.SetName(tmp_string);
+	player.SetStartDamage(ReadIntFromFile(file));
 }
 
-void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
+void LoadGame::LoadPlayerEquipment2(std::ifstream & file, const int state, Player & player)
 {
 	std::string tmp_string;
 	std::stringstream tmp_stream;
@@ -156,34 +158,33 @@ void LoadGame::LoadPlayerEquipment(std::ifstream& file, const int state)
 
 	if (state == 1)
 	{
-		_player.SetWeapon(new Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+		player.SetWeapon(new Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
 
 	}
 	else if (state == 2)
 	{
-		_player.SetArmor(new Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+		player.SetArmor(new Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
 
 	}
 }
 
-void LoadGame::LoadSmartEnemy(std::ifstream& file, const unsigned int size)
+void LoadGame::LoadSmartEnemy2(std::ifstream & file, const unsigned int size, std::vector<std::shared_ptr<Enemy>>& smartEnemies)
 {
 	size_t index = 0;
-	_smartEnemies.clear();
 	while (!file.eof() && index < size)
 	{
-		_smartEnemies.emplace_back(std::make_shared<Enemy>(1, 1, 0, 0, 0));
-		_smartEnemies[index]->SetPosX(ReadIntFromFile(file));
+		smartEnemies.emplace_back(std::make_shared<Enemy>(1, 1, 0, 0, 0));
+		smartEnemies[index]->SetPosX(ReadIntFromFile(file));
 
-		_smartEnemies[index]->SetPosY(ReadIntFromFile(file));
+		smartEnemies[index]->SetPosY(ReadIntFromFile(file));
 
-		_smartEnemies[index]->SetHealth(ReadIntFromFile(file));
+		smartEnemies[index]->SetHealth(ReadIntFromFile(file));
 
-		_smartEnemies[index]->SetDamage(ReadIntFromFile(file));
+		smartEnemies[index]->SetDamage(ReadIntFromFile(file));
 
-		_smartEnemies[index]->SetDropChance(ReadIntFromFile(file));
+		smartEnemies[index]->SetDropChance(ReadIntFromFile(file));
 
-		std::cout << _smartEnemies[index]->toString() << std::endl;
+		std::cout << smartEnemies[index]->toString() << std::endl;
 		index++;
 	}
 }
@@ -230,7 +231,7 @@ void LoadGame::LoadInventory(std::ifstream & file, const unsigned int size, Inve
 	}
 }
 
-void LoadGame::LoadBoard(int currLevel)
+void LoadGame::LoadBoard2(int & currLevel, Board & board, Player& player, Inventory& gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies)
 {
 	std::string level = "Level";
 	level += std::to_string(currLevel);
@@ -246,53 +247,27 @@ void LoadGame::LoadBoard(int currLevel)
 	int numRow = ReadIntFromFile(levelInfoFile);
 	int numCol = ReadIntFromFile(levelInfoFile);
 
-	_board.InitBoard(numRow, numCol);
-	_board.Load2(level);
+	board.InitBoard(numRow, numCol);
+	board.Load2(level);
 
-	_board.ClearBoard();
-	_board.SetElem3(_player.GetPosX(), _player.GetPosY(), '@');
-	if (_gameItems.Size() > 0)
+	board.ClearBoard();
+	board.SetElem3(player.GetPosX(), player.GetPosY(), '@');
+	if (gameItems.Size() > 0)
 	{
-		for (size_t i = 0; i < _gameItems.Size(); i++)
+		for (size_t i = 0; i < gameItems.Size(); i++)
 		{
-			_board.SetElem3(_gameItems[i].GetPosX(), _gameItems[i].GetPosY(), 'i');
+			board.SetElem3(gameItems[i].GetPosX(), gameItems[i].GetPosY(), 'i');
 		}
 	}
-	if (_smartEnemies.size() > 0)
+	if (smartEnemies.size() > 0)
 	{
-		for (size_t i = 0; i < _smartEnemies.size(); i++)
+		for (size_t i = 0; i < smartEnemies.size(); i++)
 		{
-			_board.SetElem3(_smartEnemies[i]->GetPosX(), _smartEnemies[i]->GetPosY(), 'e');
+			board.SetElem3(smartEnemies[i]->GetPosX(), smartEnemies[i]->GetPosY(), 'e');
 		}
 	}
 
-	_board.Display2();
-
-}
-
-Player LoadGame::GetPlayer() const
-{
-	return _player;
-}
-
-std::vector<std::shared_ptr<Enemy>> LoadGame::GetSmartEnemies() const
-{
-	return _smartEnemies;
-}
-
-Inventory LoadGame::GetGameInventory() const
-{
-	return _gameItems;
-}
-
-Board LoadGame::GetBoard() const
-{
-	return _board;
-}
-
-int LoadGame::GetCurrentLevel() const
-{
-	return _currentLevel;
+	board.Display2();
 }
 
 int LoadGame::ReadIntFromFile(std::ifstream& file)
