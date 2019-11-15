@@ -1,10 +1,5 @@
-#include <iostream>
-#include <string>
-#include "Board.h"
-#include "Player.h"
-#include "Game.h"
-#include <Windows.h>
 #include <memory>
+#include "Game.h"
 
 std::unique_ptr<Game> game(nullptr);
 
