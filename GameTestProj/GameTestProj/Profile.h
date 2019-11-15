@@ -1,9 +1,9 @@
 #pragma once
-#include "Player.h"
-#include "Enemy.h"
-#include "LevelLoader.h"
 #include <vector>
 #include <memory>
+#include "SmartPlayer.h"
+#include "Enemy.h"
+#include "LevelLoader.h"
 
 constexpr int MAXLEVEL = 3;
 constexpr int FIRSTLEVEL = 1;
@@ -27,13 +27,10 @@ public:
 
 	bool CanPlayerEquip() const;
 
-	Player GetPlayer() const;
-	Player& GetPlayer2();
+	SmartPlayer& GetSmartPlayer2();
+	SmartPlayer GetSmartPlayer2() const;
 
-	Inventory GetGameItems() const;
-	Inventory& GetGameItems2();
-
-	//SmartInventory GetSmartGameItems() const;
+	SmartInventory& GetSmartGameItems();
 	Board GetBoard() const;
 	Board& GetBoard2();
 
@@ -44,10 +41,9 @@ public:
 	void IncreseLevel();
 
 private:
-	Player _player;
+	SmartPlayer _smartPlayer;
 	std::vector<std::shared_ptr<Enemy>> _smartEnemies;
-	Inventory _gameItems;
-	//SmartInventory _smartGameItems;
+	SmartInventory _smartGameItems;
 	Board _board;
 	LevelLoader _levelLoader;
 	int _currentLevel;

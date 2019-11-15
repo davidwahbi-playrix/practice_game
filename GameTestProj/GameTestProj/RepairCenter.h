@@ -1,13 +1,13 @@
 #pragma once
 #include <iostream>
-#include "Player.h"
+#include "SmartPlayer.h"
 class RepairCenter
 {
 public:
 	RepairCenter();
 	~RepairCenter();
 
-	void ReapirEquipment2(Player& player);
+	void ReapirEquipment3(SmartPlayer& player);
 private:
 };
 

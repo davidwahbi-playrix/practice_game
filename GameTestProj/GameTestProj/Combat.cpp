@@ -8,7 +8,7 @@ Combat::~Combat()
 {
 }
 
-void Combat::SmartBattle2(Player & player, std::shared_ptr<Enemy>& smartEnemy, bool& canContinue)
+void Combat::SmartBattle3(SmartPlayer & player, std::shared_ptr<Enemy>& smartEnemy, bool & canContinue)
 {
 	if (player.GetEnemyFlag())
 	{
@@ -46,31 +46,31 @@ void Combat::SmartBattle2(Player & player, std::shared_ptr<Enemy>& smartEnemy, b
 					{
 					case 0:
 						std::cout << "Enemy dropped a wepon!" << '\n';
-						player.GetInventory().AddItem(Weapon("Spear", WEAPON, 8));
+						player.GetSmartInventory().AddSmartItem(std::make_shared<Weapon>("Spear", WEAPON, 8));
 						player.SetCanEquip(true);
 						break;
 					case 1:
 						std::cout << "Enemy dropped an aromor!" << '\n';
-						player.GetInventory().AddItem(Armor("Vest", ARMOR, 5));
+						player.GetSmartInventory().AddSmartItem(std::make_shared<Armor>("Vest", ARMOR, 5));
 						player.SetCanEquip(true);
 						break;
 					case 2:
 						std::cout << "Enemy dropped a potion!" << '\n';
-						player.GetInventory().AddItem(HealthPotion("Spirit", HEAL, 15));
+						player.GetSmartInventory().AddSmartItem(std::make_shared<HealthPotion>("Spirit", HEAL, 15));
 						player.SetCanEquip(true);
 						break;
 					default:
 						break;
 					}
 				}
-				if (player.GetWeapon())
+				if (player.GetSmartWeapon())
 				{
-					player.GetWeapon2().IncreseBattleCnt();
-					player.UpdatePlayerWeapon();
+					player.GetSmartWeapon2().IncreseBattleCnt();
+					player.UpdateSmartPlayerWeapon();
 				}
-				if (player.GetArmor())
+				if (player.GetSmartArmor())
 				{
-					player.GetArmor2().IncreseBattleCnt();
+					player.GetSmartArmor2().IncreseBattleCnt();
 				}
 				system("pause");
 				system("cls");

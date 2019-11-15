@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "Player.h"
+#include "SmartPlayer.h"
 #include "Enemy.h"
 #include "Combat.h"
 #include "RepairCenter.h"
@@ -11,7 +11,7 @@ public:
 	MoveUnit();
 	~MoveUnit();
 
-	void SmartUnitMove3(Player& player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Inventory& gameInv, Board& board, bool& running);
+	void SmartUnitMove4(SmartPlayer& player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, SmartInventory& gameInv, Board& board, bool& running);
 
 	void SetDir(const int value);
 

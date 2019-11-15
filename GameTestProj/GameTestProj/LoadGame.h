@@ -2,27 +2,27 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include "Player.h"
-#include "Enemy.h"
 #include <vector>
 #include <memory>
+#include "SmartPlayer.h"
+#include "Enemy.h"
 class LoadGame
 {
 public:
 	LoadGame();
 	~LoadGame();
 
-	void LoadSmartGameState2(int& level, Inventory& gameItems, Player& player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Board& board);
+	void LoadSmartGameState3(int& level, SmartInventory& gameItems, SmartPlayer& player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Board& board);
 
-	void LoadPlayer2(std::ifstream& file, Player& player);
+	void LoadSmartPlayer2(std::ifstream& file, SmartPlayer& player);
 
-	void LoadPlayerEquipment2(std::ifstream& file, const int state, Player& player);
+	void LoadSmartPlayerEquipment2(std::ifstream& file, const int state, SmartPlayer& player);
 
 	void LoadSmartEnemy2(std::ifstream& file, const unsigned int size, std::vector<std::shared_ptr<Enemy>>& smartEnemies);
 
-	void LoadInventory(std::ifstream& file, const unsigned int size, Inventory& inventory);
+	void LoadInventory2(std::ifstream& file, const unsigned int size, SmartInventory& inventory);
 
-	void LoadBoard2(int& currLevel, Board& board, Player& player, Inventory& gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies);
+	void LoadSmartBoard2(int& currLevel, Board& board, SmartPlayer& player, SmartInventory& gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies);
 
 	int ReadIntFromFile(std::ifstream& file);
 private:

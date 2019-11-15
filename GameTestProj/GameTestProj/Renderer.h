@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-#include "Player.h"
+#include "SmartPlayer.h"
 #include "Profile.h"
 class Renderer
 {
@@ -10,13 +10,15 @@ public:
 	~Renderer();
 
 	void Render(Profile& profile, bool& running);
-	void RenderPlayerInventory(Player player) const;
-	void RenderPlayer(Player player) const;
+
+	void RenderPlayerSmartInventory(const SmartPlayer& player) const;
+
+	void RenderSmartPlayer(const SmartPlayer& player) const;
+
 	void SaveLoadMenu();
 	void SetDraw(const bool& value);
 	void ClearView();
 	void NextLevel(int level);
-	//void Pause();
 
 	bool GetDraw() const;
 	bool GetFlag() const;

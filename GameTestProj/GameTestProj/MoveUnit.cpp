@@ -9,7 +9,7 @@ MoveUnit::~MoveUnit()
 {
 }
 
-void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Inventory & gameInv, Board & board, bool& running)
+void MoveUnit::SmartUnitMove4(SmartPlayer & player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, SmartInventory & gameInv, Board & board, bool & running)
 {
 	size_t enemyBattleIndex = -1;
 
@@ -19,7 +19,7 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 	{
 		int index = GetSmartEnemyInd(player.GetPosX(), player.GetPosY(), smartEnemies);
 		enemyBattleIndex = index;
-		_bettle.SmartBattle2(player, smartEnemies[index], running);
+		_bettle.SmartBattle3(player, smartEnemies[index], running);
 		if (smartEnemies[index] == nullptr)
 		{
 			smartEnemies.erase(smartEnemies.begin() + index);
@@ -31,7 +31,7 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 	}
 	if (player.GetRepairEntered())
 	{
-		_repairCenter.ReapirEquipment2(player);
+		_repairCenter.ReapirEquipment3(player);
 		player.SetRepairEntered(false);
 	}
 	for (size_t i = 0; i < smartEnemies.size(); i++)
@@ -44,7 +44,7 @@ void MoveUnit::SmartUnitMove3(Player & player, std::vector<std::shared_ptr<Enemy
 
 			if (smartEnemies[i]->GetPlayerEncounter() && enemyBattleIndex != i)
 			{
-				_bettle.SmartBattle2(player, smartEnemies[i], running);
+				_bettle.SmartBattle3(player, smartEnemies[i], running);
 				if (smartEnemies[i] == nullptr)
 				{
 					smartEnemies.erase(smartEnemies.begin() + i);

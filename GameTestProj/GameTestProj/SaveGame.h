@@ -2,22 +2,21 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "Player.h"
-#include "Enemy.h"
 #include <vector>
 #include <memory>
+#include "SmartPlayer.h"
+#include "Enemy.h"
 class SaveGame
 {
 public:
 	SaveGame();
 	~SaveGame();
 
-	void SaveSmartGameState(const int& level,Player& player, const std::vector<std::shared_ptr<Enemy>>& smartEnemies, Inventory& gameItems);
-	void SaveInventory(std::ofstream& file, Inventory& inaventory);
-	//void SaveSmartInventory(std::ofstream& file, Inventory& inventory);
+	void SaveSmartGameState2(const int& level, SmartPlayer& player, const std::vector<std::shared_ptr<Enemy>>& smartEnemies, SmartInventory& gameItems);
 
-	void SavePlayerEquipment(std::ofstream& file, Player player);
-	//void SaveSmartPlayerEquipment(std::ofstream& file, Player player);
+	void SaveSmartInventory(std::ofstream& file, SmartInventory& inventory);
+
+	void SaveSmartPlayerEquipment(std::ofstream& file, SmartPlayer player);
 private:
 	const int healConst = 1;
 };

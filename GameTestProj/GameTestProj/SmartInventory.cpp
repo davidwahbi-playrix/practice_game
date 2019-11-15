@@ -50,6 +50,11 @@ unsigned int SmartInventory::GetItemIndex(const int x, const int y) const
 	return index;
 }
 
+const unsigned int & SmartInventory::Size() const
+{
+	return _smartItems.size();
+}
+
 std::shared_ptr<Item>& SmartInventory::AtSmart(const unsigned int index)
 {
 	if (index < 0 || index >= _smartItems.size())

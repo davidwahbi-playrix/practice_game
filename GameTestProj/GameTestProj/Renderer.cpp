@@ -18,11 +18,11 @@ void Renderer::Render(Profile & profile, bool & running)
 		SetDraw(false);
 		SaveLoadMenu();
 		profile.GetBoard().Display2();
-		if (profile.GetPlayer().GetInventory().Size() > 0)
+		if (profile.GetSmartPlayer2().GetSmartInventory().Size() > 0)
 		{
-			RenderPlayerInventory(profile.GetPlayer());
+			RenderPlayerSmartInventory(profile.GetSmartPlayer2());
 		}
-		RenderPlayer(profile.GetPlayer());
+		RenderSmartPlayer(profile.GetSmartPlayer2());
 		if (profile.GetSmartEnemies().size() == 0)
 		{
 			profile.IncreseLevel();
@@ -37,15 +37,14 @@ void Renderer::Render(Profile & profile, bool & running)
 	}
 }
 
-void Renderer::RenderPlayerInventory(Player player) const
+void Renderer::RenderPlayerSmartInventory(const SmartPlayer& player) const
 {
-
 	std::cout << "Player inventory:" << std::endl;
-	std::cout << player.GetInventory().toString() << '\n';
+	std::cout << player.GetSmartInventory2().toString() << '\n';
 	std::cout << "Equip/Consume item using keys 0,1,2..." << '\n';
 }
 
-void Renderer::RenderPlayer(Player player) const
+void Renderer::RenderSmartPlayer(const SmartPlayer & player) const
 {
 	std::cout << player.toString();
 }
@@ -92,15 +91,3 @@ bool Renderer::GetFlag() const
 {
 	return _canEnter;
 }
-
-/*void Renderer::Pause()
-{
-	bool loop = true;
-	std::cout << "Press Enter to continue..." << std::endl;
-	while (loop)
-	{
-		if (GetAsyncKeyState(VK_RETURN)) {
-			loop = false;
-		}
-	}
-}*/

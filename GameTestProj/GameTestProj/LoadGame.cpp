@@ -8,7 +8,7 @@ LoadGame::~LoadGame()
 {
 }
 
-void LoadGame::LoadSmartGameState2(int & level, Inventory & gameItems, Player & player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Board & board)
+void LoadGame::LoadSmartGameState3(int & level, SmartInventory & gameItems, SmartPlayer & player, std::vector<std::shared_ptr<Enemy>>& smartEnemies, Board & board)
 {
 	std::ifstream loadedFile("SaveGame.txt");
 	std::string tmp_string;
@@ -31,10 +31,10 @@ void LoadGame::LoadSmartGameState2(int & level, Inventory & gameItems, Player & 
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
 		tmp_stream >> num_of_gameItems;
-		gameItems.ClearInventory();
+		gameItems.ClearSmartInventory();
 		if (num_of_gameItems != -1)
 		{
-			LoadInventory(loadedFile, num_of_gameItems, gameItems);
+			LoadInventory2(loadedFile, num_of_gameItems, gameItems);
 			std::cout << gameItems.toString() << std::endl;
 			getline(loadedFile, tmp_string); // empty
 		}
@@ -43,7 +43,7 @@ void LoadGame::LoadSmartGameState2(int & level, Inventory & gameItems, Player & 
 			std::cout << "There are no more items left to pick!" << std::endl;
 		}
 		getline(loadedFile, tmp_string); // player
-		LoadPlayer2(loadedFile, player); // Load player
+		LoadSmartPlayer2(loadedFile, player); // Load player
 		std::cout << player.toString() << std::endl;
 
 		getline(loadedFile, tmp_string); // empty
@@ -54,11 +54,11 @@ void LoadGame::LoadSmartGameState2(int & level, Inventory & gameItems, Player & 
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
 		tmp_stream >> num_of_playerItems;
-		player.GetInventory().ClearInventory();
+		player.GetSmartInventory().ClearSmartInventory();
 		if (num_of_playerItems != -1)
 		{
-			LoadInventory(loadedFile, num_of_playerItems, player.GetInventory());
-			std::cout << player.GetInventory().toString() << std::endl;
+			LoadInventory2(loadedFile, num_of_playerItems, player.GetSmartInventory());
+			std::cout << player.GetSmartInventory().toString() << std::endl;
 			player.SetCanEquip(true);
 			getline(loadedFile, tmp_string); // empty
 		}
@@ -71,8 +71,8 @@ void LoadGame::LoadSmartGameState2(int & level, Inventory & gameItems, Player & 
 		getline(loadedFile, tmp_string); // Yes or None
 		if (tmp_string != "None")
 		{
-			LoadPlayerEquipment2(loadedFile, 1, player);
-			std::cout << "Player weapon: " << player.GetWeapon()->toString() << std::endl;
+			LoadSmartPlayerEquipment2(loadedFile, 1, player);
+			std::cout << "Player weapon: " << player.GetSmartWeapon()->toString() << std::endl;
 			getline(loadedFile, tmp_string); // empty
 		}
 		else
@@ -83,8 +83,8 @@ void LoadGame::LoadSmartGameState2(int & level, Inventory & gameItems, Player & 
 		getline(loadedFile, tmp_string); // Yes or None
 		if (tmp_string != "None")
 		{
-			LoadPlayerEquipment2(loadedFile, 2, player);
-			std::cout << "Player armor: " << player.GetArmor()->toString() << std::endl;
+			LoadSmartPlayerEquipment2(loadedFile, 2, player);
+			std::cout << "Player armor: " << player.GetSmartArmor()->toString() << std::endl;
 			getline(loadedFile, tmp_string); // empty
 		}
 		else
@@ -108,7 +108,7 @@ void LoadGame::LoadSmartGameState2(int & level, Inventory & gameItems, Player & 
 		}
 		system("pause");
 		system("cls");
-		LoadBoard2(level, board, player, gameItems, smartEnemies);
+		LoadSmartBoard2(level, board, player, gameItems, smartEnemies);
 
 		std::cout << "Game loaded!" << std::endl;
 	}
@@ -119,7 +119,7 @@ void LoadGame::LoadSmartGameState2(int & level, Inventory & gameItems, Player & 
 	}
 }
 
-void LoadGame::LoadPlayer2(std::ifstream & file, Player & player)
+void LoadGame::LoadSmartPlayer2(std::ifstream & file, SmartPlayer & player)
 {
 	std::string tmp_string;
 	std::stringstream tmp_stream;
@@ -135,7 +135,7 @@ void LoadGame::LoadPlayer2(std::ifstream & file, Player & player)
 	player.SetStartDamage(ReadIntFromFile(file));
 }
 
-void LoadGame::LoadPlayerEquipment2(std::ifstream & file, const int state, Player & player)
+void LoadGame::LoadSmartPlayerEquipment2(std::ifstream & file, const int state, SmartPlayer & player)
 {
 	std::string tmp_string;
 	std::stringstream tmp_stream;
@@ -158,12 +158,12 @@ void LoadGame::LoadPlayerEquipment2(std::ifstream & file, const int state, Playe
 
 	if (state == 1)
 	{
-		player.SetWeapon(new Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+		player.SetSmartWeapon(std::make_shared<Weapon>(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
 
 	}
 	else if (state == 2)
 	{
-		player.SetArmor(new Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+		player.SetSmartArmor(std::make_shared<Armor>(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
 
 	}
 }
@@ -189,13 +189,13 @@ void LoadGame::LoadSmartEnemy2(std::ifstream & file, const unsigned int size, st
 	}
 }
 
-void LoadGame::LoadInventory(std::ifstream & file, const unsigned int size, Inventory& inventory)
+void LoadGame::LoadInventory2(std::ifstream & file, const unsigned int size, SmartInventory & inventory)
 {
 	std::string tmp_string;
 	std::stringstream tmp_stream;
 	size_t index_Inv = 0;
 
-	inventory.ClearInventory();
+	inventory.ClearSmartInventory();
 
 	while (!file.eof() && index_Inv < size)
 	{
@@ -217,21 +217,21 @@ void LoadGame::LoadInventory(std::ifstream & file, const unsigned int size, Inve
 
 		if (item_type == "WEAPON")
 		{
-			inventory.AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+			inventory.AddSmartItem(std::make_shared<Weapon>(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
 		}
 		else if (item_type == "ARMOR")
 		{
-			inventory.AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+			inventory.AddSmartItem(std::make_shared<Armor>(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
 		}
 		else if (item_type == "HEAL")
 		{
-			inventory.AddItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
+			inventory.AddSmartItem(std::make_shared<HealthPotion>(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
 		}
 		index_Inv++;
 	}
 }
 
-void LoadGame::LoadBoard2(int & currLevel, Board & board, Player& player, Inventory& gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies)
+void LoadGame::LoadSmartBoard2(int & currLevel, Board & board, SmartPlayer & player, SmartInventory & gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies)
 {
 	std::string level = "Level";
 	level += std::to_string(currLevel);
@@ -258,7 +258,7 @@ void LoadGame::LoadBoard2(int & currLevel, Board & board, Player& player, Invent
 	{
 		for (size_t i = 0; i < gameItems.Size(); i++)
 		{
-			board.SetElem3(gameItems[i].GetPosX(), gameItems[i].GetPosY(), 'i');
+			board.SetElem3(gameItems[i]->GetPosX(), gameItems[i]->GetPosY(), 'i');
 		}
 	}
 	if (smartEnemies.size() > 0)

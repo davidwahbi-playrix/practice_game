@@ -6,8 +6,9 @@
 #include <vector>
 #include <memory>
 #include "Enemy.h"
-#include "Player.h"
+#include "SmartPlayer.h"
 #include "Inventory.h"
+#include "SmartInventory.h"
 
 class LevelLoader
 {
@@ -15,16 +16,17 @@ public:
 	LevelLoader();
 	~LevelLoader();
 
-	void LoadPlayer(Player& player);
-	void SetPlayerStartPos(const int& level, Player& player);
+	void LoadPlayer2(SmartPlayer& player);
 
-	void LoadLevel2(const int& currLevel, bool& running, Board& board, Inventory& gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies);
+	void SetPlayerStartPos2(const int& level, SmartPlayer& player);
 
-	void LoadInventory(std::ifstream& file, const unsigned int size, Inventory& inventory);
+	void LoadLevel3(const int& currLevel, bool& running, Board& board, SmartInventory& gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies);
+
+	void LoadInventory2(std::ifstream& file, const unsigned int size, SmartInventory& inventory);
 
 	void LoadSmartEnemy2(std::ifstream& file, const unsigned int size, std::vector<std::shared_ptr<Enemy>>& smartEnemies);
 
-	void LoadPlayerInfo(std::ifstream& file, Player& player);
+	void LoadPlayerInfo2(std::ifstream& file, SmartPlayer& player);
 
 	int ReadIntFromFile(std::ifstream& file);
 private:

@@ -16,6 +16,7 @@ public:
 	void ClearSmartInventory();
 
 	unsigned int GetItemIndex(const int x, const int y) const;
+	const unsigned int& Size() const;
 
 	std::shared_ptr<Item>& AtSmart(const unsigned int index);
 

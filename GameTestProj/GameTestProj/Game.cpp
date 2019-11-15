@@ -25,25 +25,25 @@ void Game::Update()
 {
 	if (_unitMover.GetDirection() > 0)
 	{
-		_unitMover.SmartUnitMove3(_profile.GetPlayer2(), _profile.GetSmartEnemies2(), _profile.GetGameItems2(), _profile.GetBoard2(), _isRunning);
+		_unitMover.SmartUnitMove4(_profile.GetSmartPlayer2(), _profile.GetSmartEnemies2(), _profile.GetSmartGameItems(), _profile.GetBoard2(), _isRunning);
 		if (!Running())
 		{
 			_renderer.SetDraw(false);
 			_profile.GameOver(_isRunning);
 		}
 	}
-	if (_profile.GetPlayer2().GetEquipAction())
+	if (_profile.GetSmartPlayer2().GetEquipAction())
 	{
-		_profile.GetPlayer2().SetEquipAction(false);
+		_profile.GetSmartPlayer2().SetEquipAction(false);
 		if (_profile.CanPlayerEquip())
 		{
-			_profile.GetPlayer2().EquipItem(_profile.GetPlayer().GetEquipInd());
+			_profile.GetSmartPlayer2().EquipSmartItem(_profile.GetSmartPlayer2().GetEquipInd());
 		}
 		else
 		{
-			if (_profile.GetPlayer().GetInventory().Size() > 0)
+			if (_profile.GetSmartPlayer2().GetSmartInventory().Size() > 0)
 			{
-				_profile.GetPlayer2().SetCanEquip(true);
+				_profile.GetSmartPlayer2().SetCanEquip(true);
 			}
 		}
 	}

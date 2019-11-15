@@ -102,9 +102,6 @@
     <ClCompile Include="MoveUnit.cpp">
       <Filter>MoveUnit</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
@@ -125,9 +122,6 @@
     </ClCompile>
     <ClCompile Include="Board.cpp">
       <Filter>Board</Filter>
-    </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>Inventory</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
@@ -176,9 +170,6 @@
     <ClInclude Include="MovableObject.h">
       <Filter>MovableObject</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Enemy</Filter>
     </ClInclude>
@@ -199,9 +190,6 @@
     </ClInclude>
     <ClInclude Include="Board.h">
       <Filter>Board</Filter>
-    </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>Inventory</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>

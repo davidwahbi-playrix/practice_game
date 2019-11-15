@@ -48,7 +48,7 @@ void EventHandler::HandleEvent2(MoveUnit& unitMover, Renderer& renderer, Profile
 	}
 	if (GetAsyncKeyState(KEY_S))
 	{
-		saver.SaveSmartGameState(profile.GetLevel(), profile.GetPlayer(), profile.GetSmartEnemies(), profile.GetGameItems());
+		saver.SaveSmartGameState2(profile.GetLevel(), profile.GetSmartPlayer2(), profile.GetSmartEnemies(), profile.GetSmartGameItems());
 	}
 	if (GetAsyncKeyState(KEY_L))
 	{
@@ -65,17 +65,17 @@ void EventHandler::ArrowPressed(MoveUnit & unitMover, Renderer & renderer, const
 
 void EventHandler::NumberPressed(Renderer & renderer, Profile & profile, const int number)
 {
-	if (profile.GetPlayer().GetCanEquip())
+	if (profile.GetSmartPlayer2().GetCanEquip())
 	{
 		renderer.ClearView();
-		profile.GetPlayer2().SetCanEquip(false);
-		profile.GetPlayer2().SetEquipInd(number);
-		profile.GetPlayer2().SetEquipAction(true);
+		profile.GetSmartPlayer2().SetCanEquip(false);
+		profile.GetSmartPlayer2().SetEquipInd(number);
+		profile.GetSmartPlayer2().SetEquipAction(true);
 		renderer.SetDraw(true);
 	}
 }
 
 void EventHandler::LoadPressed(LoadGame & loader, Profile & profile)
 {
-	loader.LoadSmartGameState2(profile.GetLevel2(), profile.GetGameItems2(), profile.GetPlayer2(), profile.GetSmartEnemies2(), profile.GetBoard2());
+	loader.LoadSmartGameState3(profile.GetLevel2(), profile.GetSmartGameItems(), profile.GetSmartPlayer2(), profile.GetSmartEnemies2(), profile.GetBoard2());
 }

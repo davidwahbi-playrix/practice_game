@@ -12,13 +12,13 @@ LevelLoader::~LevelLoader()
 {
 }
 
-void LevelLoader::LoadPlayer(Player & player)
+void LevelLoader::LoadPlayer2(SmartPlayer & player)
 {
 	std::ifstream defaultPlayerInfo("DefaultPlayer.txt");
-	LoadPlayerInfo(defaultPlayerInfo, player);
+	LoadPlayerInfo2(defaultPlayerInfo, player);
 }
 
-void LevelLoader::SetPlayerStartPos(const int& level, Player & player)
+void LevelLoader::SetPlayerStartPos2(const int & level, SmartPlayer & player)
 {
 	std::string levelInfo = "LevelInfo";
 	levelInfo += std::to_string(level);
@@ -32,7 +32,7 @@ void LevelLoader::SetPlayerStartPos(const int& level, Player & player)
 	getline(levelInfoFile, tmp_string); // empty
 }
 
-void LevelLoader::LoadLevel2(const int & currLevel, bool & running, Board & board, Inventory & gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies)
+void LevelLoader::LoadLevel3(const int & currLevel, bool & running, Board & board, SmartInventory & gameItems, std::vector<std::shared_ptr<Enemy>>& smartEnemies)
 {
 	std::string level = "Level";
 	level += std::to_string(currLevel);
@@ -69,10 +69,10 @@ void LevelLoader::LoadLevel2(const int & currLevel, bool & running, Board & boar
 		tmp_stream.clear();
 		tmp_stream << tmp_string;
 		tmp_stream >> num_of_gameItems;
-		gameItems.ClearInventory();
+		gameItems.ClearSmartInventory();
 		if (num_of_gameItems != -1)
 		{
-			LoadInventory(levelInfoFile, num_of_gameItems, gameItems);
+			LoadInventory2(levelInfoFile, num_of_gameItems, gameItems);
 			getline(levelInfoFile, tmp_string); // empty
 		}
 		else
@@ -103,13 +103,13 @@ void LevelLoader::LoadLevel2(const int & currLevel, bool & running, Board & boar
 	}
 }
 
-void LevelLoader::LoadInventory(std::ifstream & file, const unsigned int size, Inventory& inventory)
+void LevelLoader::LoadInventory2(std::ifstream & file, const unsigned int size, SmartInventory & inventory)
 {
 	std::string tmp_string;
 	std::stringstream tmp_stream;
 	size_t index_Inv = 0;
 
-	inventory.ClearInventory();
+	inventory.ClearSmartInventory();
 
 	while (!file.eof() && index_Inv < size)
 	{
@@ -131,15 +131,15 @@ void LevelLoader::LoadInventory(std::ifstream & file, const unsigned int size, I
 
 		if (item_type == "WEAPON")
 		{
-			inventory.AddItem(Weapon(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+			inventory.AddSmartItem(std::make_shared<Weapon>(item_name, WEAPON, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
 		}
 		else if (item_type == "ARMOR")
 		{
-			inventory.AddItem(Armor(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
+			inventory.AddSmartItem(std::make_shared <Armor>(item_name, ARMOR, item_pos_x, item_pos_y, item_atribut, item_start_atribut, item_battle_cnt));
 		}
 		else if (item_type == "HEAL")
 		{
-			inventory.AddItem(HealthPotion(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
+			inventory.AddSmartItem(std::make_shared <HealthPotion>(item_name, HEAL, item_pos_x, item_pos_y, item_atribut));
 		}
 		index_Inv++;
 	}
@@ -166,7 +166,7 @@ void LevelLoader::LoadSmartEnemy2(std::ifstream & file, const unsigned int size,
 	}
 }
 
-void LevelLoader::LoadPlayerInfo(std::ifstream & file, Player & player)
+void LevelLoader::LoadPlayerInfo2(std::ifstream & file, SmartPlayer & player)
 {
 	std::string tmp_string;
 	std::stringstream tmp_stream;

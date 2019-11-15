@@ -4,10 +4,10 @@ GameItems
 1
 Sword;WEAPON;3;5;10;10;0;
 Player
-7;47;88;10;0;David;10;
+7;12;70;10;0;David;10;
 PlayerInventory
 2
-Heal;HEAL;4;2;50;1;1;Spirit;HEAL;0;0;15;1;1;
+Heal;HEAL;4;2;50;1;1;Spear;WEAPON;0;0;8;8;0;
 PlayerEquipment
 Weapon
 None
@@ -16,4 +16,4 @@ Yes
 Shield;ARMOR;1;8;0;20;1;
 Enemy
 1
-6;21;50;10;100;
+5;37;100;3;100;

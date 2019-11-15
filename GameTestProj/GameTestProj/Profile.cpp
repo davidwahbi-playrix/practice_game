@@ -13,16 +13,16 @@ void Profile::NewGame(bool &running)
 {
 	if (_currentLevel == FIRSTLEVEL)
 	{
-		_levelLoader.LoadPlayer(_player);
+		_levelLoader.LoadPlayer2(_smartPlayer);
 	}
 	else
 	{
 		if (_currentLevel < MAXLEVEL)
 		{
-			_levelLoader.SetPlayerStartPos(_currentLevel, _player);
+			_levelLoader.SetPlayerStartPos2(_currentLevel, _smartPlayer);
 		}
 	}
-	_levelLoader.LoadLevel2(_currentLevel, running, _board, _gameItems, _smartEnemies);
+	_levelLoader.LoadLevel3(_currentLevel, running, _board, _smartGameItems, _smartEnemies);
 
 	if (_currentLevel == FIRSTLEVEL || _currentLevel == VICTORY || _currentLevel == GAMEOVER)
 	{
@@ -53,33 +53,23 @@ void Profile::GameOver(bool& running)
 
 bool Profile::CanPlayerEquip() const
 {
-	return (GetPlayer().GetEquipInd() < GetPlayer().GetInventory().Size());
+	return (GetSmartPlayer2().GetEquipInd() < GetSmartPlayer2().GetSmartInventory2().Size());
 }
 
-Player Profile::GetPlayer() const
+SmartPlayer & Profile::GetSmartPlayer2()
 {
-	return _player;
+	return _smartPlayer;
 }
 
-Player & Profile::GetPlayer2()
+SmartPlayer Profile::GetSmartPlayer2() const
 {
-	return _player;
+	return _smartPlayer;
 }
 
-Inventory Profile::GetGameItems() const
-{
-	return _gameItems;
-}
-
-Inventory & Profile::GetGameItems2()
-{
-	return _gameItems;
-}
-
-/*Inventory Profile::GetSmartGameItems() const
+SmartInventory& Profile::GetSmartGameItems()
 {
 	return _smartGameItems;
-}*/
+}
 
 Board Profile::GetBoard() const
 {
